@@ -236,13 +236,23 @@
         const btn = document.createElement("button");
         btn.className = "station-btn";
         btn.id = "station-" + i;
-        btn.innerHTML = `
-          <div>
-            <div class="name">${s.name}</div>
-            <div class="freq">${s.freq}</div>
-          </div>
-          <span class="indicator" id="ind-${i}"></span>
-        `;
+
+        const info = document.createElement("div");
+        const nameEl = document.createElement("div");
+        nameEl.className = "name";
+        nameEl.textContent = s.name;
+        const freqEl = document.createElement("div");
+        freqEl.className = "freq";
+        freqEl.textContent = s.freq;
+        info.appendChild(nameEl);
+        info.appendChild(freqEl);
+
+        const ind = document.createElement("span");
+        ind.className = "indicator";
+        ind.id = "ind-" + i;
+
+        btn.appendChild(info);
+        btn.appendChild(ind);
         btn.onclick = () => selectStation(i);
         container.appendChild(btn);
       });
@@ -279,11 +289,25 @@
       }
     }
 
-    audio.addEventListener("playing", () => { updateUI(); setStatus("🎙 On air — " + stations[currentIndex].name); });
-    audio.addEventListener("pause", () => { updateUI(); setStatus("Paused"); });
+    let retryTimer = null;
+    const RETRY_DELAY_MS = 5000;
+
+    function retryPlayback() {
+      clearTimeout(retryTimer);
+      retryTimer = setTimeout(() => {
+        if (currentIndex >= 0) {
+          setStatus("Reconnecting…");
+          audio.load();
+          audio.play().catch(() => setStatus("Stream unavailable — will retry"));
+        }
+      }, RETRY_DELAY_MS);
+    }
+
+    audio.addEventListener("playing", () => { clearTimeout(retryTimer); updateUI(); setStatus("🎙 On air — " + stations[currentIndex].name); });
+    audio.addEventListener("pause", () => { clearTimeout(retryTimer); updateUI(); setStatus("Paused"); });
     audio.addEventListener("waiting", () => setStatus("Buffering…"));
-    audio.addEventListener("error", () => setStatus("Stream error — retrying…"));
-    audio.addEventListener("stalled", () => setStatus("Stream stalled…"));
+    audio.addEventListener("error", () => { setStatus("Stream error — retrying in 5 s…"); retryPlayback(); });
+    audio.addEventListener("stalled", () => { setStatus("Stream stalled — retrying in 5 s…"); retryPlayback(); });
 
     buildStations();
   </script>
