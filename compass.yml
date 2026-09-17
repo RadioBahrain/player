@@ -1,0 +1,16 @@
+name: player
+id: ari:cloud:compass:bd6d77f2-88ce-4b3f-889e-e2b05884fead:component/07dfc87a-f92f-4277-82d8-eecc69e3ec4a/883e0cd7-739c-42ca-9ecf-0d935664d63a
+description: null
+configVersion: 1
+typeId: SERVICE
+fields:
+  tier: 4
+links:
+  - name: null
+    type: REPOSITORY
+    url: https://github.com/RadioBahrain/player
+relationships:
+  DEPENDS_ON: []
+labels:
+  - source:github
+customFields: null
