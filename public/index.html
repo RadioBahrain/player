@@ -199,13 +199,13 @@
     <div class="stations" id="stations"></div>
 
     <div class="controls">
-      <button class="play-btn" id="playBtn" onclick="togglePlay()">
+      <button class="play-btn" id="playBtn" onclick="togglePlay()" aria-pressed="false" aria-label="Play">
         <span id="playIcon">▶</span>
         <span id="playLabel">Play</span>
       </button>
       <div class="volume-wrap">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-        <input type="range" id="volume" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)" />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        <input type="range" id="volume" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)" aria-label="Volume" />
       </div>
     </div>
 
@@ -282,6 +282,8 @@
 
     function updateUI() {
       const playing = !audio.paused;
+      playBtn.setAttribute("aria-pressed", playing ? "true" : "false");
+      playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
       playIcon.textContent = playing ? "⏸" : "▶";
       playLabel.textContent = playing ? "Pause" : "Play";
       if (currentIndex >= 0) {
@@ -297,13 +299,14 @@
       retryTimer = setTimeout(() => {
         if (currentIndex >= 0) {
           setStatus("Reconnecting…");
+          audio.src = stations[currentIndex].url;
           audio.load();
           audio.play().catch(() => setStatus("Stream unavailable — will retry"));
         }
       }, RETRY_DELAY_MS);
     }
 
-    audio.addEventListener("playing", () => { clearTimeout(retryTimer); updateUI(); setStatus("🎙 On air — " + stations[currentIndex].name); });
+    audio.addEventListener("playing", () => { clearTimeout(retryTimer); updateUI(); setStatus("🎙 On air — " + (currentIndex >= 0 ? stations[currentIndex].name : "")); });
     audio.addEventListener("pause", () => { clearTimeout(retryTimer); updateUI(); setStatus("Paused"); });
     audio.addEventListener("waiting", () => setStatus("Buffering…"));
     audio.addEventListener("error", () => { setStatus("Stream error — retrying in 5 s…"); retryPlayback(); });
