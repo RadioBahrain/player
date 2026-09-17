@@ -260,6 +260,10 @@
 
     function selectStation(i) {
       if (currentIndex === i && !audio.paused) return;
+      if (currentIndex === i && audio.paused) {
+        audio.play().catch(() => setStatus("Playback failed"));
+        return;
+      }
       currentIndex = i;
       document.querySelectorAll(".station-btn").forEach((b, j) => {
         b.classList.toggle("active", j === i);
@@ -306,11 +310,16 @@
       }, RETRY_DELAY_MS);
     }
 
-    audio.addEventListener("playing", () => { clearTimeout(retryTimer); updateUI(); setStatus("🎙 On air — " + (currentIndex >= 0 ? stations[currentIndex].name : "")); });
+    audio.addEventListener("playing", () => { clearTimeout(retryTimer); updateUI(); setStatus("🎙 On air — " + stations[currentIndex].name); });
     audio.addEventListener("pause", () => { clearTimeout(retryTimer); updateUI(); setStatus("Paused"); });
     audio.addEventListener("waiting", () => setStatus("Buffering…"));
     audio.addEventListener("error", () => { setStatus("Stream error — retrying in 5 s…"); retryPlayback(); });
-    audio.addEventListener("stalled", () => { setStatus("Stream stalled — retrying in 5 s…"); retryPlayback(); });
+    audio.addEventListener("stalled", () => {
+      if (audio.paused || audio.readyState < audio.HAVE_FUTURE_DATA) {
+        setStatus("Stream stalled — retrying in 5 s…");
+        retryPlayback();
+      }
+    });
 
     buildStations();
   </script>
