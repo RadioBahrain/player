@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch server.ts",
-    "start": "bun server.ts"
+    "start": "bun server.ts",
+    "build": "bun build.ts",
+    "deploy": "bun run build && npx herenowcli update boreal-anchor-mg6e dist"
   },
   "dependencies": {
     "gsap": "^3.15.0",
