@@ -224,6 +224,31 @@
         .station-pill { font-size: 12px; padding: 8px 12px; }
         .controls { gap: 10px; }
       }
+      
+      .hit-counter {
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 9999px;
+        background: rgba(7, 7, 8, 0.42);
+        border: 1px solid var(--panel-border);
+        box-shadow: 0 10px 36px rgba(0, 0, 0, 0.42);
+        backdrop-filter: blur(18px);
+        font-size: 14px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.85);
+        z-index: 250;
+      }
+      .hit-counter .icon { font-size: 12px; opacity: 0.7; }
+      
+      .top-nav, .logo-stack, .status, .station-pill, .controls {
+        opacity: 0;
+        visibility: hidden;
+      }
     </style>
   </head>
   <body>
@@ -239,14 +264,19 @@
       <button id="startButton" type="button">ابدأ الاستماع</button>
     </div>
 
+    <div class="hit-counter" id="hitCounter" aria-label="إجمالي الزيارات">
+      <span class="icon"><i class="ph ph-eye"></i></span>
+      <span class="count" id="hitCountVal">0</span>
+    </div>
+
     <div class="app">
       <div class="top-wrap">
         <div class="top-nav">
-          <button class="mode-btn active" data-mode="bars" type="button" aria-label="Wave bars">◉</button>
-          <button class="mode-btn" data-mode="cline" type="button" aria-label="Wave line">≈</button>
-          <button class="mode-btn" data-mode="particles" type="button" aria-label="Particles">✦</button>
-          <button class="mode-btn" data-mode="pulse" type="button" aria-label="Pulse">◌</button>
-          <button class="mode-btn" data-mode="nebula" type="button" aria-label="Nebula">✧</button>
+          <button class="mode-btn active" data-mode="bars" type="button" aria-label="Wave bars"><i class="ph ph-waveform"></i></button>
+          <button class="mode-btn" data-mode="cline" type="button" aria-label="Wave line"><i class="ph ph-wave-sine"></i></button>
+          <button class="mode-btn" data-mode="particles" type="button" aria-label="Particles"><i class="ph ph-sparkle"></i></button>
+          <button class="mode-btn" data-mode="pulse" type="button" aria-label="Pulse"><i class="ph ph-record"></i></button>
+          <button class="mode-btn" data-mode="nebula" type="button" aria-label="Nebula"><i class="ph ph-aperture"></i></button>
           <button class="about-btn" id="aboutBtn" type="button" aria-label="About">i</button>
         </div>
         <div class="about-tray" id="aboutTray">
@@ -296,6 +326,7 @@
 
     <audio id="audio" crossorigin="anonymous" preload="auto" style="display:none"></audio>
 
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="../node_modules/gsap/dist/gsap.js"></script>
     <script src="../node_modules/hls.js/dist/hls.js"></script>
     <script>
@@ -328,6 +359,26 @@
       let hls;
       let currentMode = 'bars';
       let isPlaying = false;
+      let totalHits = 1000;
+      const hitCountValObj = { val: 0 };
+      
+      let smoothed = new Float32Array(96);
+      let peaks = new Float32Array(96);
+      let vels = new Float32Array(96);
+
+      fetch('https://countapi.mileshilliard.com/api/v1/hit/radiobahrain_hits_2026')
+        .then(res => res.json())
+        .then(data => {
+          totalHits = 1000 + data.value;
+          gsap.to(hitCountValObj, {
+            val: totalHits,
+            duration: 2.5,
+            ease: 'power4.inOut',
+            onUpdate: function() {
+              document.getElementById('hitCountVal').textContent = Math.floor(hitCountValObj.val).toLocaleString('en-US');
+            }
+          });
+        }).catch(err => console.error('Hit counter error:', err));
 
       const stationData = stations.reduce((map, station) => {
         map[station.dataset.channel] = {
@@ -465,6 +516,16 @@
       startButton.addEventListener('click', async () => {
         await startPlayback();
         hideSplash();
+        
+        const tl = gsap.timeline({ defaults: { ease: 'power4.inOut' } });
+        
+        gsap.set(['.top-nav', '.logo-stack', '.status', '.station-pill', '.controls'], { visibility: 'visible' });
+        
+        tl.fromTo('.top-nav', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 0.3)
+          .fromTo('.logo-stack', { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.2 }, "-=0.6")
+          .fromTo('.status', { opacity: 0 }, { opacity: 1, duration: 0.8 }, "-=0.8")
+          .fromTo('.station-pill', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, "-=0.8")
+          .fromTo('.controls', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, "-=0.6");
       });
 
       btnPower.addEventListener('click', togglePlayback);
@@ -524,22 +585,39 @@
         const width = 500; const height = 500; const centerX = width / 2; const centerY = height / 2; const baseRadius = 132; const maxBar = 92;
         ctxOuter.clearRect(0, 0, width, height); ctxInner.clearRect(0, 0, width, height);
 
-        const bars = new Float32Array(96);
+        let frequencyData = null;
         if (analyser) {
-          const frequencyData = new Uint8Array(analyser.frequencyBinCount);
+          frequencyData = new Uint8Array(analyser.frequencyBinCount);
           analyser.getByteFrequencyData(frequencyData);
-          for (let i = 0; i < 96; i++) {
-            const index = Math.min(frequencyData.length - 1, Math.floor((i / 96) * frequencyData.length));
-            bars[i] = frequencyData[index] / 255;
+        }
+
+        const count = 96;
+        for (let i = 0; i < count; i++) {
+          let target = 0;
+          if (analyser && frequencyData) {
+             const step = Math.floor((analyser.frequencyBinCount * 0.72) / count);
+             target = frequencyData[i * step] / 255;
+          } else {
+             target = 0.03 + Math.sin(Date.now() * 0.001 + i * 0.12) * 0.015;
+          }
+          smoothed[i] += (target - smoothed[i]) * 0.26;
+          const val = smoothed[i];
+          if (val >= peaks[i]) {
+            peaks[i] = val;
+            vels[i] = 0;
+          } else {
+            vels[i] += 0.0032;
+            peaks[i] -= vels[i];
+            if (peaks[i] < 0) peaks[i] = 0;
           }
         }
 
         if (currentMode === 'bars' || currentMode === 'nebula') {
           const isNebula = currentMode === 'nebula';
-          for (let i = 0; i < 96; i++) {
-            const angle = (i / 96) * Math.PI * 2 - Math.PI / 2;
-            const value = bars[i] || 0.12;
-            const radius = baseRadius + value * maxBar;
+          for (let i = 0; i < count; i++) {
+            const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
+            const val = smoothed[i];
+            const radius = baseRadius + val * maxBar;
             const x1 = centerX + Math.cos(angle) * baseRadius;
             const y1 = centerY + Math.sin(angle) * baseRadius;
             const x2 = centerX + Math.cos(angle) * radius;
@@ -549,43 +627,80 @@
             ctxOuter.moveTo(x1, y1);
             ctxOuter.lineTo(x2, y2);
             ctxOuter.lineWidth = isNebula ? 1.5 : 2.9;
-            ctxOuter.strokeStyle = isNebula ? 'rgba(255,60,60,0.25)' : 'rgba(255,120,120,0.96)';
             ctxOuter.lineCap = 'round';
-            if (isNebula) { ctxOuter.shadowBlur = 18; ctxOuter.shadowColor = '#ff3b3b'; }
+
+            if (isNebula) {
+              ctxOuter.strokeStyle = 'rgba(255,60,60,0.25)';
+              ctxOuter.shadowBlur = 18; 
+              ctxOuter.shadowColor = '#ff3b3b';
+            } else {
+              const grad = ctxOuter.createLinearGradient(x1, y1, x2, y2);
+              grad.addColorStop(0, 'rgba(255,255,255,0.94)');
+              grad.addColorStop(0.18, '#ff6b6b');
+              grad.addColorStop(1, '#7f0c16');
+              ctxOuter.strokeStyle = grad;
+              ctxOuter.shadowBlur = 0;
+            }
             ctxOuter.stroke();
             ctxOuter.shadowBlur = 0;
+
+            if (!isNebula && peaks[i] > 0.05) {
+              const pr = baseRadius + peaks[i] * maxBar + 7;
+              const px = centerX + Math.cos(angle) * pr;
+              const py = centerY + Math.sin(angle) * pr;
+              ctxInner.beginPath();
+              ctxInner.arc(px, py, 1.9, 0, Math.PI * 2);
+              ctxInner.fillStyle = '#fff';
+              ctxInner.shadowBlur = 10;
+              ctxInner.shadowColor = '#ff3b3b';
+              ctxInner.fill();
+              ctxInner.shadowBlur = 0;
+            }
           }
-        } else if (currentMode === 'pulse') {
-          const average = analyser
-            ? Array.from(new Uint8Array(analyser.frequencyBinCount)).slice(0, 28).reduce((sum, value) => sum + value, 0) / 28 / 255
-            : 0.2;
-          const pulseRadius = baseRadius + average * 110;
+        } else if (currentMode === 'cline') {
           ctxOuter.beginPath();
-          ctxOuter.arc(centerX, centerY, pulseRadius, 0, Math.PI * 2);
-          ctxOuter.lineWidth = 2 + average * 16;
-          ctxOuter.strokeStyle = `rgba(255,59,59,${0.32 + average * 0.7})`;
-          ctxOuter.shadowBlur = 28 * (average + 0.1);
+          for (let i = 0; i <= count; i++) {
+            const index = i % count;
+            const angle = (index / count) * Math.PI * 2 - Math.PI / 2;
+            const val = smoothed[index];
+            const radius = baseRadius + val * maxBar;
+            const x = centerX + Math.cos(angle) * radius;
+            const y = centerY + Math.sin(angle) * radius;
+            if (i === 0) {
+              ctxOuter.moveTo(x, y);
+            } else {
+              ctxOuter.lineTo(x, y);
+            }
+          }
+          ctxOuter.lineWidth = 2.5; 
+          ctxOuter.lineJoin = 'round';
+          ctxOuter.strokeStyle = 'rgba(255,120,120,0.9)'; 
+          ctxOuter.shadowBlur = 12;
           ctxOuter.shadowColor = '#ff3b3b';
           ctxOuter.stroke();
           ctxOuter.shadowBlur = 0;
-        } else if (currentMode === 'cline') {
+        } else if (currentMode === 'pulse') {
+          let sum = 0;
+          for (let i = 0; i < 28; i++) sum += (analyser && frequencyData) ? frequencyData[i] : 0;
+          const avg = (analyser ? (sum / 28) / 255 : 0.2);
+          const pulseRadius = baseRadius + avg * 110;
           ctxOuter.beginPath();
-          ctxOuter.moveTo(0, centerY);
-          for (let i = 0; i < 96; i++) {
-            const value = bars[i] || 0.1;
-            const x = (i / 95) * width;
-            const y = centerY + (value - 0.5) * 150;
-            ctxOuter.lineTo(x, y);
-          }
-          ctxOuter.lineWidth = 2; ctxOuter.strokeStyle = 'rgba(255,120,120,0.9)'; ctxOuter.stroke();
+          ctxOuter.arc(centerX, centerY, pulseRadius, 0, Math.PI * 2);
+          ctxOuter.lineWidth = 2 + avg * 16;
+          ctxOuter.strokeStyle = `rgba(255,59,59,${0.32 + avg * 0.7})`;
+          ctxOuter.shadowBlur = 28 * (avg + 0.1);
+          ctxOuter.shadowColor = '#ff3b3b';
+          ctxOuter.stroke();
+          ctxOuter.shadowBlur = 0;
         } else if (currentMode === 'particles') {
           for (let i = 0; i < 70; i++) {
             const angle = (i / 70) * Math.PI * 2 + Date.now() * 0.0007;
-            const radius = baseRadius + (bars[i % bars.length] || 0.1) * 120;
+            const val = smoothed[i % count];
+            const radius = baseRadius + val * 120;
             const x = centerX + Math.cos(angle) * radius;
             const y = centerY + Math.sin(angle) * radius;
             ctxOuter.beginPath();
-            ctxOuter.arc(x, y, 1.7 + (bars[i % bars.length] || 0.1) * 4, 0, Math.PI * 2);
+            ctxOuter.arc(x, y, 1.7 + val * 4, 0, Math.PI * 2);
             ctxOuter.fillStyle = 'rgba(255,255,255,0.86)';
             ctxOuter.fill();
           }
