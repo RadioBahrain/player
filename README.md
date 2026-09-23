@@ -2,6 +2,8 @@
 
 A local, Bun-powered radio player for Bahrain live channels with a cinematic splash screen, animated audio visualizer, and channel-specific art transitions.
 
+![alt text](<screenshots/Opera Snapshot_2026-09-19_143312_bh.here.jpeg>)
+
 ## Features
 
 - Bun-managed dependencies for a self-contained runtime
@@ -10,6 +12,7 @@ A local, Bun-powered radio player for Bahrain live channels with a cinematic spl
 - Channel switcher using the available local background art in `public/assets/`
 - Smooth artistic transmission background changes when the active channel changes
 - Animated waveform and pulse visualizer for live radio playback
+- Automatic YouTube Live Stream detection & embedding from `@Radio-Bahrain` with seamless audio coordination
 
 ## Run locally
 

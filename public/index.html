@@ -92,12 +92,41 @@
         inset: 0;
         background: radial-gradient(circle at 70% 24%, rgba(255, 98, 98, 0.25), transparent 30%), linear-gradient(to bottom, rgba(8, 1, 3, 0.16), rgba(8, 1, 3, 0.76));
       }
-      .vignette {
+      .bg-pattern {
         position: fixed;
         inset: 0;
         z-index: 2;
         pointer-events: none;
-        background: radial-gradient(circle at center, transparent 56%, rgba(0, 0, 0, 0.72) 100%);
+        background-image: 
+          /* Acoustic micro-perforation dots with specular highlight */
+          radial-gradient(circle at 1.5px 1.5px, rgba(255, 255, 255, 0.055) 1px, transparent 0),
+          radial-gradient(circle at 4.5px 4.5px, rgba(255, 60, 60, 0.035) 1px, transparent 0),
+          /* Tactile acoustic studio weave & micro crosshatch */
+          linear-gradient(45deg, rgba(0, 0, 0, 0.16) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.16) 75%, rgba(0, 0, 0, 0.16)),
+          linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02)),
+          /* Subtle vertical brushed studio texture */
+          repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0px, rgba(255, 255, 255, 0.012) 1px, transparent 1px, transparent 3px);
+        background-size: 6px 6px, 6px 6px, 3px 3px, 3px 3px, 100% 3px;
+        background-position: 0 0, 3px 3px, 0 0, 1.5px 1.5px, 0 0;
+        opacity: 0.88;
+      }
+      .bg-grain {
+        position: fixed;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        opacity: 0.14;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 180px 180px;
+        mix-blend-mode: overlay;
+      }
+      .vignette {
+        position: fixed;
+        inset: 0;
+        z-index: 4;
+        pointer-events: none;
+        background: radial-gradient(circle at center, transparent 48%, rgba(10, 1, 3, 0.45) 75%, rgba(0, 0, 0, 0.82) 100%);
       }
 
       .app {
@@ -152,10 +181,11 @@
       .about-tray .line2 { font-size: 10px; color: rgba(255,255,255,0.74); }
 
       .stage {
-        display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; width: 100%; position: relative; padding-bottom: 6vh;
+        display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; width: 100%; position: relative; padding-bottom: 5vh;
       }
       .logo-stack {
         position: relative; width: min(72vw, 500px); height: min(72vw, 500px); display: flex; align-items: center; justify-content: center;
+        transition: width 0.4s ease, height 0.4s ease, margin 0.4s ease;
       }
       #canvas-outer, #canvas-inner {
         position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
@@ -163,18 +193,280 @@
       .logo-hit {
         position: relative; z-index: 2; width: min(45vw, 220px); height: min(45vw, 220px); border-radius: 50%;
         display: grid; place-items: center; cursor: pointer; background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.12), rgba(0,0,0,0.2) 52%, rgba(0,0,0,0.58) 100%);
-        box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 18px 60px rgba(0,0,0,0.55); border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 18px 60px rgba(0,0,0,0.55); border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease, width 0.4s ease, height 0.4s ease;
       }
       .logo-hit.playing { box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 0 28px rgba(255, 59, 59, 0.48), 0 18px 60px rgba(0,0,0,0.55); }
       .logo-badge {
         width: 100%; height: 100%; display: grid; place-items: center; border-radius: 50%;
         background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.12), rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.65) 100%); color: rgba(255,255,255,0.92);
         font-weight: 900; letter-spacing: 0.25em; font-size: clamp(0.8rem, 2vw, 1.2rem); text-shadow: 0 0 18px rgba(255,255,255,0.35);
+        transition: font-size 0.4s ease, letter-spacing 0.4s ease;
       }
       .guide-ring {
         position: absolute; width: min(70vw, 340px); height: min(70vw, 340px); border-radius: 50%; border: 1px solid rgba(255,255,255,0.08);
         top: 50%; left: 50%; transform: translate(-50%, -50%);
+        transition: width 0.4s ease, height 0.4s ease;
       }
+
+      /* YouTube Live Section Styles */
+      .yt-live-section {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 440px;
+        margin: 4px auto 8px;
+        z-index: 25;
+        padding: 0 14px;
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+      }
+      .yt-live-section.active {
+        display: flex;
+      }
+      .yt-live-card {
+        width: 100%;
+        border-radius: 16px;
+        background: rgba(14, 7, 10, 0.82);
+        border: 1px solid rgba(255, 59, 59, 0.45);
+        box-shadow: 0 16px 42px rgba(0, 0, 0, 0.65), 0 0 28px rgba(255, 59, 59, 0.26);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .yt-live-card:hover {
+        border-color: rgba(255, 80, 80, 0.7);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75), 0 0 36px rgba(255, 59, 59, 0.36);
+      }
+      .yt-live-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 7px 12px;
+        background: rgba(255, 255, 255, 0.04);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .yt-live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 800;
+        color: #ff4d4d;
+        letter-spacing: 0.04em;
+      }
+      .yt-live-badge .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 10px var(--red);
+        animation: blink 1s infinite alternate;
+      }
+      .yt-external-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.82);
+        text-decoration: none;
+        padding: 3px 10px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.09);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        transition: all 0.2s ease;
+      }
+      .yt-external-btn:hover {
+        color: #fff;
+        background: rgba(255, 30, 30, 0.35);
+        border-color: rgba(255, 59, 59, 0.5);
+      }
+      .yt-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .yt-close-btn {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 13px;
+        padding: 0;
+        transition: all 0.2s ease;
+      }
+      .yt-close-btn:hover {
+        background: rgba(255, 59, 59, 0.35);
+        border-color: rgba(255, 59, 59, 0.6);
+        color: #fff;
+      }
+      .yt-live-btn-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 6px;
+        z-index: 20;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .yt-live-btn-wrap.hidden {
+        display: none !important;
+      }
+      .watch-live-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 22px;
+        border-radius: 9999px;
+        background: rgba(18, 6, 10, 0.68);
+        border: 1px solid rgba(255, 59, 59, 0.45);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 20px rgba(255, 59, 59, 0.22);
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .watch-live-btn i {
+        font-size: 20px;
+        color: var(--red);
+        transition: transform 0.25s ease;
+      }
+      .watch-live-btn:hover {
+        background: linear-gradient(135deg, rgba(50, 10, 18, 0.9), rgba(20, 4, 8, 0.9));
+        border-color: rgba(255, 59, 59, 0.85);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 0 28px rgba(255, 59, 59, 0.4);
+        transform: translateY(-2px) scale(1.03);
+      }
+      .watch-live-btn:hover i {
+        transform: scale(1.15);
+      }
+      .watch-live-btn:active {
+        transform: translateY(0) scale(0.98);
+      }
+      .yt-video-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #000;
+      }
+      .yt-video-wrapper iframe, .yt-video-wrapper > div, .yt-video-wrapper #ytPlayerTarget {
+        position: absolute;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        border: none;
+      }
+      .yt-live-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.35);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .yt-stream-info {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+        flex: 1;
+      }
+      .yt-stream-info i {
+        font-size: 14px;
+        color: var(--red);
+        flex-shrink: 0;
+      }
+      .yt-stream-title {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.92);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .yt-switch-audio-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        padding: 4px 10px;
+        border-radius: 9999px;
+        cursor: pointer;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+      }
+      .yt-switch-audio-btn:hover {
+        background: linear-gradient(135deg, var(--red), var(--red-strong));
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+      }
+
+      /* Layout adaptations when YouTube live is active */
+      .app.has-yt-live .stage {
+        padding-bottom: 2vh;
+        justify-content: center;
+      }
+      .app.has-yt-live .logo-stack {
+        width: min(30vw, 140px);
+        height: min(30vw, 140px);
+        margin-top: 0.4vh;
+        margin-bottom: 0;
+      }
+      .app.has-yt-live .guide-ring {
+        width: min(28vw, 130px);
+        height: min(28vw, 130px);
+      }
+      .app.has-yt-live .logo-hit {
+        width: min(20vw, 84px);
+        height: min(20vw, 84px);
+      }
+      .app.has-yt-live .logo-badge {
+        font-size: clamp(0.55rem, 1.1vw, 0.75rem);
+        letter-spacing: 0.16em;
+      }
+      .app.has-yt-live .status {
+        margin-top: 4px;
+        gap: 4px;
+      }
+
+      @media (max-height: 750px) {
+        .app.has-yt-live .logo-stack {
+          width: 95px;
+          height: 95px;
+        }
+        .app.has-yt-live .logo-hit {
+          width: 65px;
+          height: 65px;
+        }
+        .yt-live-section {
+          max-width: 360px;
+          margin-top: 2px;
+          margin-bottom: 4px;
+          padding: 0 8px;
+        }
+        .yt-live-header, .yt-live-footer {
+          padding: 4px 8px;
+        }
+      }
+
       .status { margin-top: 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 5; }
       .live-dot {
         display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 9999px; background: rgba(0,0,0,0.38); border: 1px solid rgba(255,255,255,0.12);
@@ -226,22 +518,65 @@
       }
       
       .hit-counter {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 6px 12px;
+        gap: 7px;
+        padding: 6px 14px;
         border-radius: 9999px;
-        background: rgba(7, 7, 8, 0.42);
+        background: rgba(7, 7, 8, 0.48);
         border: 1px solid var(--panel-border);
-        box-shadow: 0 10px 36px rgba(0, 0, 0, 0.42);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42);
         backdrop-filter: blur(18px);
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 700;
-        color: rgba(255, 255, 255, 0.85);
+        color: rgba(255, 255, 255, 0.92);
+        pointer-events: auto;
+        user-select: none;
+        transform: scale(1.1);
+        transform-origin: center center;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
       }
-      .hit-counter .icon { font-size: 12px; opacity: 0.7; }
+      .hit-counter:hover {
+        border-color: rgba(255, 59, 59, 0.4);
+        box-shadow: 0 0 16px rgba(255, 59, 59, 0.25), 0 8px 24px rgba(0,0,0,0.5);
+      }
+      .hit-counter .icon {
+        font-size: 15px;
+        color: var(--red);
+        display: grid;
+        place-items: center;
+      }
+      .hit-counter .count {
+        font-variant-numeric: tabular-nums;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        color: #fff;
+      }
       
-      .top-nav, .logo-stack, .status, .station-pill, .controls {
+      .splash-counter-wrap {
+        margin-top: 26px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(8px);
+        pointer-events: none;
+      }
+      .splash-counter-wrap.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .bottom-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .top-nav, .logo-stack, #ytLiveSection, #ytLiveBtnWrap, .status, .station-pill, .controls {
         opacity: 0;
         visibility: hidden;
       }
@@ -250,6 +585,8 @@
   <body>
     <div class="bg-layer" aria-hidden="true"></div>
     <div class="bg-layer--back" aria-hidden="true"></div>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="bg-grain" aria-hidden="true"></div>
     <div class="vignette" aria-hidden="true"></div>
 
     <div id="splash">
@@ -258,6 +595,12 @@
       <div class="splash-sub">Radio Bahrain • Live</div>
       <div class="splash-bar-wrap"><div class="splash-bar" id="splashBar"></div></div>
       <button id="startButton" type="button">ابدأ الاستماع</button>
+      <div class="splash-counter-wrap" id="splashCounterWrap">
+        <div class="hit-counter" id="hitCounter" aria-label="إجمالي الزيارات">
+          <span class="icon"><i class="ph ph-eye"></i></span>
+          <span class="count" id="hitCountVal">0</span>
+        </div>
+      </div>
     </div>
 
     <div class="app">
@@ -286,14 +629,50 @@
           </div>
         </div>
 
+        <div id="ytLiveSection" class="yt-live-section" aria-label="بث يوتيوب المباشر">
+          <div class="yt-live-card">
+            <div class="yt-live-header">
+              <div class="yt-live-badge">
+                <span class="dot" id="ytLiveDot"></span>
+                <span id="ytBadgeText" class="yt-live-badge-text ar">بث مباشر على يوتيوب • LIVE</span>
+              </div>
+              <div class="yt-header-actions">
+                <a id="ytWatchLink" class="yt-external-btn ar" href="https://youtube.com/@Radio-Bahrain/live" target="_blank" rel="noopener noreferrer" title="فتح على YouTube">
+                  <i class="ph ph-youtube-logo"></i>
+                  <span>YouTube</span>
+                </a>
+                <button id="ytCloseBtn" class="yt-close-btn" type="button" aria-label="إغلاق البث المرئي" title="إغلاق">
+                  <i class="ph ph-x"></i>
+                </button>
+              </div>
+            </div>
+            <div class="yt-video-wrapper">
+              <div id="ytPlayerSlot"></div>
+            </div>
+            <div class="yt-live-footer">
+              <div class="yt-stream-info">
+                <i class="ph ph-broadcast"></i>
+                <span id="ytStreamTitle" class="yt-stream-title ar">جاري التحميل…</span>
+              </div>
+              <button id="ytSwitchToAudioBtn" class="yt-switch-audio-btn ar" type="button" title="الاستماع للبث الصوتي">
+                <i class="ph ph-radio"></i>
+                <span>بث صوتي FM</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="ytLiveBtnWrap" class="yt-live-btn-wrap">
+          <button id="btnWatchLive" class="watch-live-btn ar" type="button" aria-label="شاهد البث المباشر">
+            <i class="ph ph-youtube-logo"></i>
+            <span>شاهد البث المباشر</span>
+          </button>
+        </div>
+
         <div class="status">
           <div class="live-dot" id="liveDot">
             <span class="dot"></span>
             <span id="statusText" class="ar">جارٍ التحضير…</span>
-          </div>
-          <div class="hit-counter" id="hitCounter" aria-label="إجمالي الزيارات">
-            <span class="icon"><i class="ph ph-eye"></i></span>
-            <span class="count" id="hitCountVal">0</span>
           </div>
         </div>
       </div>
@@ -316,12 +695,15 @@
           </div>
           <button id="btnMute" class="control-btn secondary" type="button" aria-label="Mute sound">🔇</button>
         </div>
+
+        <div class="bottom-footer" id="bottomFooter"></div>
       </div>
     </div>
 
     <audio id="audio" crossorigin="anonymous" preload="auto" style="display:none"></audio>
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="../node_modules/gsap/dist/gsap.js"></script>
     <script src="../node_modules/hls.js/dist/hls.js"></script>
     <script>
@@ -347,6 +729,12 @@
       const bgFront = document.querySelector('.bg-layer');
       const bgBack = document.querySelector('.bg-layer--back');
       const hitCountVal = document.getElementById('hitCountVal');
+      const ytLiveSection = document.getElementById('ytLiveSection');
+      const ytStreamTitle = document.getElementById('ytStreamTitle');
+      const ytWatchLink = document.getElementById('ytWatchLink');
+      const ytSwitchToAudioBtn = document.getElementById('ytSwitchToAudioBtn');
+      const ytPlayerSlot = document.getElementById('ytPlayerSlot');
+      const appContainer = document.querySelector('.app');
 
       let audioCtx;
       let analyser;
@@ -357,6 +745,13 @@
       let isPlaying = false;
       let totalHits = 1000;
       const hitCountObj = { val: 0 };
+
+      let ytPlayer = null;
+      let currentYtVideoId = null;
+      let isYtLive = false;
+      let isYtExpandedManually = false;
+      let cachedStreamData = null;
+      let ytApiLoaded = false;
       
       let smoothed = new Float32Array(96);
       let peaks = new Float32Array(96);
@@ -453,7 +848,49 @@
         }
       }
 
+      function stopAudioPlayback() {
+        if (audioEl) {
+          audioEl.pause();
+        }
+        isPlaying = false;
+        btnPower.classList.remove('playing');
+        playIcon.textContent = '▶';
+        if (isYtLive) {
+          setStatus('live', 'بث يوتيوب مباشر • YOUTUBE LIVE');
+        } else {
+          setStatus('paused', 'متوقف');
+        }
+      }
+
+      function pauseYouTubeLive() {
+        if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+          try { ytPlayer.pauseVideo(); } catch (e) {}
+        }
+        const iframe = document.querySelector('.yt-video-wrapper iframe');
+        if (iframe && iframe.contentWindow) {
+          try {
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+          } catch (e) {}
+        }
+      }
+
+      function playYouTubeLive() {
+        stopAudioPlayback();
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+          try { ytPlayer.playVideo(); } catch (e) {}
+        }
+        const iframe = document.querySelector('.yt-video-wrapper iframe');
+        if (iframe && iframe.contentWindow) {
+          try {
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+          } catch (e) {}
+        }
+      }
+
       async function startPlayback() {
+        // Ensure YouTube live stream is paused so audio does not overlap
+        pauseYouTubeLive();
+
         initAudioEngine();
         if (audioCtx.state === 'suspended') await audioCtx.resume();
 
@@ -474,14 +911,11 @@
 
       function togglePlayback() {
         if (!isPlaying) {
+          pauseYouTubeLive();
           startPlayback();
           return;
         }
-        audioEl.pause();
-        isPlaying = false;
-        btnPower.classList.remove('playing');
-        playIcon.textContent = '▶';
-        setStatus('paused', 'متوقف');
+        stopAudioPlayback();
       }
 
       function setActiveStation(button) {
@@ -489,6 +923,8 @@
         const channel = button.dataset.channel;
         updateBackgroundStation(channel);
         replayEntrance();
+
+        pauseYouTubeLive();
 
         if (stationData[channel]?.url) {
           loadStream(stationData[channel].url);
@@ -498,6 +934,179 @@
         }
       }
 
+      /* YouTube Live Stream Handling */
+      window.onYouTubeIframeAPIReady = function() {
+        ytApiLoaded = true;
+        if (isYtLive && currentYtVideoId) {
+          mountYtPlayer(currentYtVideoId);
+        }
+      };
+
+      function mountYtPlayer(videoId) {
+        if (currentYtVideoId === videoId && (ytPlayer || document.querySelector('.yt-video-wrapper iframe'))) {
+          return;
+        }
+        currentYtVideoId = videoId;
+        if (!ytPlayerSlot) return;
+
+        if (window.YT && window.YT.Player) {
+          if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+            try { ytPlayer.destroy(); } catch (e) {}
+          }
+          ytPlayerSlot.innerHTML = '<div id="ytPlayerTarget"></div>';
+          ytPlayer = new window.YT.Player('ytPlayerTarget', {
+            videoId: videoId,
+            playerVars: {
+              autoplay: 1,
+              playsinline: 1,
+              rel: 0,
+              modestbranding: 1,
+              enablejsapi: 1,
+              origin: window.location.origin
+            },
+            events: {
+              onReady: (event) => {
+                if (isYtLive && isPlaying) {
+                  stopAudioPlayback();
+                }
+              },
+              onStateChange: (event) => {
+                // When YouTube plays (YT.PlayerState.PLAYING = 1)
+                if (event.data === 1) {
+                  stopAudioPlayback();
+                }
+              }
+            }
+          });
+        } else {
+          ytPlayerSlot.innerHTML = `
+            <iframe
+              id="ytEmbedIframe"
+              src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=${autoplay ? 1 : 0}&enablejsapi=1&playsinline=1&rel=0"
+              title="Radio Bahrain Stream"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          `;
+          if (isYtLive && isPlaying) {
+            stopAudioPlayback();
+          }
+        }
+      }
+
+      function handleYouTubeLiveDetected(data) {
+        cachedStreamData = data;
+        isYtLive = Boolean(data && data.isLive);
+
+        const ytBtnWrap = document.getElementById('ytLiveBtnWrap');
+        const ytBadgeText = document.getElementById('ytBadgeText');
+        const ytLiveDot = document.getElementById('ytLiveDot');
+        const ytCloseBtn = document.getElementById('ytCloseBtn');
+
+        if (data.title) ytStreamTitle.textContent = data.title;
+        if (data.watchUrl) ytWatchLink.href = data.watchUrl;
+
+        if (isYtLive) {
+          // Channel IS Live -> Auto-expand full live embed
+          if (ytBadgeText) ytBadgeText.textContent = 'بث مباشر على يوتيوب • LIVE';
+          if (ytLiveDot) ytLiveDot.style.display = 'inline-block';
+          if (ytCloseBtn) ytCloseBtn.style.display = 'none';
+          if (ytBtnWrap) ytBtnWrap.classList.add('hidden');
+
+          appContainer.classList.add('has-yt-live');
+          ytLiveSection.classList.add('active');
+
+          mountYtPlayer(data.videoId, true);
+
+          // Stop streaming audio when live
+          if (isPlaying) {
+            stopAudioPlayback();
+          } else {
+            setStatus('live', 'بث يوتيوب مباشر • YOUTUBE LIVE');
+          }
+
+          gsap.to(ytLiveSection, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power3.out' });
+        } else {
+          // Channel is NOT Live -> Show button: 'شاهد البث المباشر'
+          if (ytBadgeText) ytBadgeText.textContent = 'البث المرئي • Video Stream';
+          if (ytLiveDot) ytLiveDot.style.display = 'none';
+          if (ytCloseBtn) ytCloseBtn.style.display = 'grid';
+
+          if (isYtExpandedManually) {
+            if (ytBtnWrap) ytBtnWrap.classList.add('hidden');
+            appContainer.classList.add('has-yt-live');
+            ytLiveSection.classList.add('active');
+            mountYtPlayer(data.videoId, false);
+            gsap.to(ytLiveSection, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'power2.out' });
+          } else {
+            if (ytBtnWrap) ytBtnWrap.classList.remove('hidden');
+            appContainer.classList.remove('has-yt-live');
+            ytLiveSection.classList.remove('active');
+            ytLiveSection.style.opacity = '0';
+            pauseYouTubeLive();
+          }
+        }
+      }
+
+      async function checkYouTubeLive() {
+        try {
+          let data = null;
+          try {
+            const res = await fetch('/api/youtube-live');
+            if (res.ok) {
+              data = await res.json();
+            }
+          } catch (e) {
+            // Local API endpoint unavailable
+          }
+
+          if (!data || !data.videoId) {
+            try {
+              const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=UCylIWXb8bRI0KcDeJG6H8rw');
+              const res = await fetch(proxyUrl);
+              if (res.ok) {
+                const text = await res.text();
+                const videoIdMatch = text.match(/<yt:videoId>([^<]+)<\/yt:videoId>/);
+                const titleMatch = text.match(/<entry>[\s\S]*?<title>([^<]+)<\/title>/);
+                data = {
+                  isLive: false,
+                  videoId: videoIdMatch ? videoIdMatch[1] : '8zVmt23lYGs',
+                  title: titleMatch ? titleMatch[1] : 'إذاعة البحرين • البث المرئي',
+                  watchUrl: `https://www.youtube.com/watch?v=${videoIdMatch ? videoIdMatch[1] : '8zVmt23lYGs'}`
+                };
+              }
+            } catch (fallbackErr) {
+              // ignore
+            }
+          }
+
+          if (data && data.videoId) {
+            handleYouTubeLiveDetected(data);
+          }
+        } catch (err) {
+          console.warn('Live stream check error:', err);
+        }
+      }
+
+      function moveHitCounterToBottom() {
+        const hitCounter = document.getElementById('hitCounter');
+        const bottomFooter = document.getElementById('bottomFooter');
+        if (!hitCounter || !bottomFooter) return;
+
+        const first = hitCounter.getBoundingClientRect();
+        bottomFooter.appendChild(hitCounter);
+        gsap.set(['.bottom', '#bottomFooter', hitCounter], { visibility: 'visible', opacity: 1 });
+        const last = hitCounter.getBoundingClientRect();
+
+        const dx = first.left - last.left;
+        const dy = first.top - last.top;
+
+        gsap.fromTo(hitCounter,
+          { x: dx, y: dy, scale: 1.1, opacity: 1 },
+          { x: 0, y: 0, scale: 1.1, opacity: 1, duration: 1.15, ease: 'power3.inOut' }
+        );
+      }
+
       function revealStartButton() {
         gsap.to(splashBar, {
           xPercent: 0,
@@ -505,7 +1114,12 @@
           ease: 'power4.inOut',
           onComplete: () => {
             startButton.classList.add('visible');
+            const splashCounterWrap = document.getElementById('splashCounterWrap');
+            if (splashCounterWrap) splashCounterWrap.classList.add('visible');
             gsap.to(startButton, { opacity: 1, duration: 0.35, ease: 'power2.out' });
+            if (splashCounterWrap) {
+              gsap.to(splashCounterWrap, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' });
+            }
           }
         });
       }
@@ -519,6 +1133,8 @@
         startButton.style.transition = 'none';
         gsap.killTweensOf([startButton, splashBar]);
 
+        moveHitCounterToBottom();
+
         gsap.timeline({
           defaults: { ease: 'power3.in' },
           onComplete: () => splash.classList.add('hidden')
@@ -531,7 +1147,7 @@
           .call(playEntrance, [], 0.95);
       }
 
-      const stageTargets = ['.top-nav', '.logo-stack', '.status', '.station-pill', '.controls'];
+      const stageTargets = ['.top-nav', '.logo-stack', '#ytLiveSection', '#ytLiveBtnWrap', '.status', '.station-pill', '.controls'];
       gsap.set(stageTargets, { visibility: 'hidden' });
 
       const entranceTl = gsap.timeline({ paused: true, defaults: { ease: 'power4.inOut' } });
@@ -539,16 +1155,10 @@
       entranceTl
         .fromTo('.top-nav', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 0.3)
         .fromTo('.logo-stack', { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.2 }, '-=0.6')
+        .fromTo(['#ytLiveSection', '#ytLiveBtnWrap'], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.8')
         .fromTo('.status', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.8')
         .fromTo('.station-pill', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, '-=0.8')
-        .fromTo('.controls', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.6')
-        .fromTo(hitCountObj, { val: 0 }, {
-          val: () => totalHits,
-          duration: 1.2,
-          ease: 'power2.out',
-          immediateRender: false,
-          onUpdate: () => renderHitCount(hitCountObj.val)
-        }, 1.3);
+        .fromTo('.controls', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.6');
 
       entranceTl.eventCallback('onReverseComplete', () => {
         entranceTl.invalidate().timeScale(2).play(0);
@@ -568,9 +1178,51 @@
       }
 
       startButton.addEventListener('click', async () => {
-        await startPlayback();
+        if (isYtLive) {
+          // If YouTube is live, stop audio and play live video
+          stopAudioPlayback();
+          playYouTubeLive();
+        } else {
+          await startPlayback();
+        }
         hideSplash();
       });
+
+      const btnWatchLive = document.getElementById('btnWatchLive');
+      if (btnWatchLive) {
+        btnWatchLive.addEventListener('click', () => {
+          isYtExpandedManually = true;
+          stopAudioPlayback();
+          if (cachedStreamData) {
+            handleYouTubeLiveDetected(cachedStreamData);
+            playYouTubeLive();
+          } else {
+            checkYouTubeLive();
+          }
+        });
+      }
+
+      const ytCloseBtn = document.getElementById('ytCloseBtn');
+      if (ytCloseBtn) {
+        ytCloseBtn.addEventListener('click', () => {
+          isYtExpandedManually = false;
+          pauseYouTubeLive();
+          if (cachedStreamData) {
+            handleYouTubeLiveDetected(cachedStreamData);
+          }
+        });
+      }
+
+      if (ytSwitchToAudioBtn) {
+        ytSwitchToAudioBtn.addEventListener('click', async () => {
+          isYtExpandedManually = false;
+          pauseYouTubeLive();
+          if (cachedStreamData) {
+            handleYouTubeLiveDetected(cachedStreamData);
+          }
+          await startPlayback();
+        });
+      }
 
       btnPower.addEventListener('click', togglePlayback);
       btnPlay.addEventListener('click', togglePlayback);
@@ -613,15 +1265,20 @@
       });
 
       audioEl.addEventListener('playing', () => {
-        isPlaying = true; btnPower.classList.add('playing'); playIcon.textContent = '❚❚'; setStatus('live', 'مباشر • LIVE');
+        isPlaying = true;
+        btnPower.classList.add('playing');
+        playIcon.textContent = '❚❚';
+        setStatus('live', 'مباشر • LIVE');
       });
       audioEl.addEventListener('pause', () => {
-        isPlaying = false; btnPower.classList.remove('playing'); playIcon.textContent = '▶';
+        isPlaying = false;
+        btnPower.classList.remove('playing');
+        playIcon.textContent = '▶';
       });
       audioEl.addEventListener('waiting', () => setStatus('loading', 'جاري التحميل…'));
       audioEl.addEventListener('canplay', () => {
         if (isPlaying) setStatus('live', 'مباشر • LIVE');
-        else setStatus('ready', 'جاهز للتشغيل');
+        else if (!isYtLive) setStatus('ready', 'جاهز للتشغيل');
       });
 
       function draw() {
@@ -756,6 +1413,10 @@
       updateBackgroundStation('shabab');
       revealStartButton();
       draw();
+
+      // Check YouTube live stream initially and poll every 45s
+      checkYouTubeLive();
+      setInterval(checkYouTubeLive, 45000);
     </script>
   </body>
 </html>
