@@ -47,4 +47,4 @@ The project installs the required libraries with Bun so it does not need to fetc
 
 ## Screenshot
 
-![Radio Bahrain player](screenshots/screenshot-20260918-player.png)
+![Radio Bahrain player](screenshots/Opera%20Snapshot_2026-09-19_143144_bh.here_01.jpeg)
