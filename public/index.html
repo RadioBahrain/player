@@ -761,10 +761,11 @@
         hitCountVal.textContent = Math.floor(value).toLocaleString('en-US');
       }
 
-      fetch('https://countapi.mileshilliard.com/api/v1/hit/radiobahrain_hits_2026')
-        .then(res => res.json())
-        .then(data => {
-          totalHits = 1000 + (Number.isFinite(data?.value) ? data.value : 0);
+      let hitCounterVisible = false;
+      let hitCounterFetched = false;
+      
+      function animateHitCounter() {
+        if (hitCounterVisible && hitCounterFetched) {
           gsap.to(hitCountObj, {
             val: totalHits,
             duration: 1.4,
@@ -772,8 +773,21 @@
             overwrite: 'auto',
             onUpdate: () => renderHitCount(hitCountObj.val)
           });
+        }
+      }
+
+      fetch('https://countapi.mileshilliard.com/api/v1/hit/radiobahrain_hits_2026')
+        .then(res => res.json())
+        .then(data => {
+          totalHits = 1000 + (Number.isFinite(data?.value) ? data.value : 0);
+          hitCounterFetched = true;
+          animateHitCounter();
         })
-        .catch(err => console.error('Hit counter error:', err));
+        .catch(err => {
+          console.error('Hit counter error:', err);
+          hitCounterFetched = true;
+          animateHitCounter();
+        });
 
       const stationData = stations.reduce((map, station) => {
         map[station.dataset.channel] = {
@@ -1119,6 +1133,8 @@
             gsap.to(startButton, { opacity: 1, duration: 0.35, ease: 'power2.out' });
             if (splashCounterWrap) {
               gsap.to(splashCounterWrap, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' });
+              hitCounterVisible = true;
+              animateHitCounter();
             }
           }
         });
