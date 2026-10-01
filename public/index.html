@@ -552,6 +552,19 @@
         letter-spacing: 0.04em;
         color: #fff;
       }
+      .hit-counter .counter-note {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.72);
+        padding: 2px 6px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .hit-counter .counter-note[hidden] {
+        display: none;
+      }
 
       .splash-counter-wrap {
         display: flex;
@@ -602,9 +615,10 @@
       <div class="splash-bar-wrap"><div class="splash-bar" id="splashBar"></div></div>
       <button id="startButton" type="button">ابدأ الاستماع</button>
       <div class="splash-counter-wrap" id="splashCounterWrap">
-        <div class="hit-counter" id="listenersCounter" aria-label="إجمالي المستمعين الآن">
+        <div class="hit-counter" id="listenersCounter" aria-label="المستمعون الآن">
           <span class="icon"><i class="ph ph-users-three"></i></span>
           <span class="count" id="listenersCountVal">0</span>
+          <span class="counter-note" id="listenersModeTag" hidden>تقديري</span>
         </div>
         <div class="hit-counter" id="hitCounter" aria-label="إجمالي الزيارات">
           <span class="icon"><i class="ph ph-eye"></i></span>
@@ -738,7 +752,10 @@
       const modeButtons = document.querySelectorAll('.mode-btn');
       const bgFront = document.querySelector('.bg-layer');
       const bgBack = document.querySelector('.bg-layer--back');
+      const splashLogo = document.querySelector('.splash-logo');
+      const listenersCounter = document.getElementById('listenersCounter');
       const listenersCountVal = document.getElementById('listenersCountVal');
+      const listenersModeTag = document.getElementById('listenersModeTag');
       const hitCountVal = document.getElementById('hitCountVal');
       const ytLiveSection = document.getElementById('ytLiveSection');
       const ytStreamTitle = document.getElementById('ytStreamTitle');
@@ -782,6 +799,15 @@
       function renderListenersCount(value) {
         if (!listenersCountVal) return;
         listenersCountVal.textContent = Math.max(0, Math.floor(value)).toLocaleString('en-US');
+      }
+
+      function setListenersEstimateTag(isEstimated) {
+        if (!listenersModeTag || !listenersCounter) return;
+        listenersModeTag.hidden = !isEstimated;
+        listenersCounter.setAttribute(
+          'aria-label',
+          isEstimated ? 'المستمعون الآن (تقديري)' : 'المستمعون الآن'
+        );
       }
 
       function randomIntInRange(min, max) {
@@ -855,15 +881,27 @@
 
       function resolveDisplayListeners(actualListeners, state, now = Date.now()) {
         if (!Number.isFinite(actualListeners)) {
-          return state.floorValue;
+          return {
+            value: state.floorValue,
+            isEstimated: true
+          };
         }
         if (actualListeners >= state.floorValue) {
-          return actualListeners;
+          return {
+            value: actualListeners,
+            isEstimated: false
+          };
         }
         if (now - state.windowStart < LISTENERS_HOLD_MS) {
-          return state.floorValue;
+          return {
+            value: state.floorValue,
+            isEstimated: true
+          };
         }
-        return actualListeners;
+        return {
+          value: actualListeners,
+          isEstimated: false
+        };
       }
 
       let hitCounterVisible = false;
@@ -896,20 +934,21 @@
       async function refreshListenersCounter() {
         const state = getListenerState();
         const actualListeners = await fetchActualListeners();
-        const displayValue = resolveDisplayListeners(actualListeners, state);
+        const resolved = resolveDisplayListeners(actualListeners, state);
         listenersCounterFetched = true;
+        setListenersEstimateTag(resolved.isEstimated);
 
         if (!hitCounterVisible) {
-          listenerCountObj.val = displayValue;
-          renderListenersCount(displayValue);
+          listenerCountObj.val = resolved.value;
+          renderListenersCount(resolved.value);
           return;
         }
 
-        animateListenersCounter(displayValue);
+        animateListenersCounter(resolved.value);
       }
 
       refreshListenersCounter();
-      setInterval(refreshListenersCounter, 45 * 1000);
+      setInterval(refreshListenersCounter, 30 * 1000);
 
       fetch('https://countapi.mileshilliard.com/api/v1/hit/radiobahrain_hits_2026')
         .then(res => res.json())
@@ -937,9 +976,31 @@
         liveDot.classList.toggle('live', state === 'live');
       }
 
+      function getBackgroundFocusAnchor() {
+        const splashVisible = splash && !splash.classList.contains('hidden') && splash.style.opacity !== '0';
+        if (splashVisible && splashLogo) return splashLogo;
+        return btnPower || splashLogo;
+      }
+
+      function syncBackgroundFocusToPlaybackButton() {
+        const anchor = getBackgroundFocusAnchor();
+        if (!anchor) return '50% 50%';
+        const rect = anchor.getBoundingClientRect();
+        if (!rect.width || !rect.height || !window.innerWidth || !window.innerHeight) {
+          return '50% 50%';
+        }
+        const x = Math.min(98, Math.max(2, ((rect.left + rect.width / 2) / window.innerWidth) * 100));
+        const y = Math.min(98, Math.max(2, ((rect.top + rect.height / 2) / window.innerHeight) * 100));
+        const xPct = `${x.toFixed(2)}%`;
+        const yPct = `${y.toFixed(2)}%`;
+        document.documentElement.style.setProperty('--bg-focus-x', xPct);
+        document.documentElement.style.setProperty('--bg-focus-y', yPct);
+        return `${xPct} ${yPct}`;
+      }
+
       function updateBackgroundStation(channelName) {
         const nextImage = (stationData[channelName] || stationData.shabab)?.bg || './assets/default.jpg';
-        const focusPosition = '50% 100%';
+        const focusPosition = syncBackgroundFocusToPlaybackButton();
 
         bgFront.style.backgroundPosition = focusPosition;
         bgBack.style.backgroundPosition = focusPosition;
@@ -1291,7 +1352,12 @@
 
         gsap.timeline({
           defaults: { ease: 'power3.in' },
-          onComplete: () => splash.classList.add('hidden')
+          onComplete: () => {
+            splash.classList.add('hidden');
+            const focusPosition = syncBackgroundFocusToPlaybackButton();
+            bgFront.style.backgroundPosition = focusPosition;
+            bgBack.style.backgroundPosition = focusPosition;
+          }
         })
           .to(startButton, { scale: 0.85, opacity: 0, duration: 0.3, ease: 'power2.in' }, 0)
           .to('.splash-bar-wrap', { y: -10, opacity: 0, duration: 0.35, ease: 'power2.in' }, 0)
@@ -1490,14 +1556,26 @@
               ctxOuter.shadowColor = '#ff3b3b';
             } else {
               const grad = ctxOuter.createLinearGradient(x1, y1, x2, y2);
-              grad.addColorStop(0, 'rgba(255,255,255,0.94)');
-              grad.addColorStop(0.18, '#ff6b6b');
-              grad.addColorStop(1, '#7f0c16');
+              grad.addColorStop(0, 'rgba(255,255,255,1)');
+              grad.addColorStop(0.14, '#ffd0d0');
+              grad.addColorStop(0.34, '#ff6b6b');
+              grad.addColorStop(1, '#4a030a');
               ctxOuter.strokeStyle = grad;
-              ctxOuter.shadowBlur = 0;
+              ctxOuter.shadowBlur = 12;
+              ctxOuter.shadowColor = 'rgba(0,0,0,0.5)';
             }
             ctxOuter.stroke();
             ctxOuter.shadowBlur = 0;
+
+            if (!isNebula) {
+              const highlightAlpha = Math.min(0.9, 0.55 + val * 0.45);
+              ctxOuter.beginPath();
+              ctxOuter.moveTo(x1, y1);
+              ctxOuter.lineTo(x2, y2);
+              ctxOuter.lineWidth = 1.1;
+              ctxOuter.strokeStyle = `rgba(255,255,255,${highlightAlpha})`;
+              ctxOuter.stroke();
+            }
 
             if (!isNebula && peaks[i] > 0.05) {
               const pr = baseRadius + peaks[i] * maxBar + 7;
@@ -1564,9 +1642,21 @@
 
       gsap.set(splashBar, { xPercent: -100 });
       gsap.set(aboutTray, { yPercent: -15, scale: 0.9, opacity: 0, xPercent: -50 });
+      syncBackgroundFocusToPlaybackButton();
       updateBackgroundStation('shabab');
       revealStartButton();
       draw();
+
+      let bgFocusRaf = null;
+      window.addEventListener('resize', () => {
+        if (bgFocusRaf) cancelAnimationFrame(bgFocusRaf);
+        bgFocusRaf = requestAnimationFrame(() => {
+          const focusPosition = syncBackgroundFocusToPlaybackButton();
+          bgFront.style.backgroundPosition = focusPosition;
+          bgBack.style.backgroundPosition = focusPosition;
+          bgFocusRaf = null;
+        });
+      });
 
       // Check YouTube live stream initially and poll every 45s
       checkYouTubeLive();

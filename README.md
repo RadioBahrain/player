@@ -31,6 +31,27 @@ http://localhost:3000
 bun run start
 ```
 
+## Deploy
+
+```bash
+bun run deploy
+```
+
+What deploy now does automatically:
+
+- Builds `dist`
+- Runs migration fixes on generated artifacts (for stale script paths)
+- Normalizes file permissions recursively:
+	- Directories: `755`
+	- Files: `644`
+- Publishes to the configured HereNow target
+
+Safe validation without upload:
+
+```bash
+bun run deploy:dry
+```
+
 ## Local dependency setup
 
 The project installs the required libraries with Bun so it does not need to fetch runtime dependencies from external CDNs:

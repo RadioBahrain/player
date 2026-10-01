@@ -6,7 +6,7 @@ const nodeModulesDir = `${rootDir}/node_modules`;
 
 let ytLiveCache: { timestamp: number; data: any } = { timestamp: 0, data: null };
 const activeListeners = new Map<string, number>();
-const LISTENER_ACTIVE_TTL_MS = 75 * 1000;
+const LISTENER_ACTIVE_TTL_MS = 90 * 1000;
 
 function cleanupActiveListeners(now = Date.now()) {
   for (const [sid, lastSeen] of activeListeners.entries()) {
