@@ -5,6 +5,16 @@ const publicDir = `${rootDir}/public`;
 const nodeModulesDir = `${rootDir}/node_modules`;
 
 let ytLiveCache: { timestamp: number; data: any } = { timestamp: 0, data: null };
+const activeListeners = new Map<string, number>();
+const LISTENER_ACTIVE_TTL_MS = 75 * 1000;
+
+function cleanupActiveListeners(now = Date.now()) {
+  for (const [sid, lastSeen] of activeListeners.entries()) {
+    if (now - lastSeen > LISTENER_ACTIVE_TTL_MS) {
+      activeListeners.delete(sid);
+    }
+  }
+}
 
 async function getYouTubeLiveStatus() {
   const now = Date.now();
@@ -131,6 +141,26 @@ const server = Bun.serve({
   port,
   async fetch(request) {
     const url = new URL(request.url);
+
+    if (url.pathname === '/api/listeners-now') {
+      const now = Date.now();
+      const sid = (url.searchParams.get('sid') || '').trim();
+      if (sid) {
+        activeListeners.set(sid, now);
+      }
+      cleanupActiveListeners(now);
+
+      return new Response(JSON.stringify({
+        listeners: activeListeners.size,
+        checkedAt: new Date(now).toISOString()
+      }), {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Cache-Control': 'no-cache',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
 
     if (url.pathname === '/api/youtube-live') {
       const data = await getYouTubeLiveStatus();
