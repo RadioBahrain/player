@@ -593,6 +593,47 @@
         width: 100%;
         margin-top: 10px;
         margin-bottom: 2px;
+        padding: 0 12px;
+      }
+
+      .bottom-footer .hit-counter,
+      .bottom-footer .listeners-counter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        width: 100%;
+        max-width: 180px;
+        padding: 10px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .bottom-footer .hit-counter .count,
+      .bottom-footer .listeners-counter .count {
+        font-size: 24px;
+        font-weight: 800;
+        color: #fff;
+      }
+
+      .bottom-footer .hit-counter .icon,
+      .bottom-footer .listeners-counter .icon {
+        font-size: 18px;
+        color: var(--red);
+      }
+
+      .bottom-footer .counter-note {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.72);
+        padding: 2px 6px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.06);
+        width: fit-content;
+        margin-top: 4px;
       }
 
       .top-nav, .logo-stack, #ytLiveSection, #ytLiveBtnWrap, .status, .station-pill, .controls {
@@ -618,7 +659,7 @@
         <div class="hit-counter" id="listenersCounter" aria-label="المستمعون الآن">
           <span class="icon"><i class="ph ph-users-three"></i></span>
           <span class="count" id="listenersCountVal">0</span>
-          <span class="counter-note" id="listenersModeTag" hidden>تقديري</span>
+          
         </div>
         <div class="hit-counter" id="hitCounter" aria-label="إجمالي الزيارات">
           <span class="icon"><i class="ph ph-eye"></i></span>
@@ -806,7 +847,7 @@
         listenersModeTag.hidden = !isEstimated;
         listenersCounter.setAttribute(
           'aria-label',
-          isEstimated ? 'المستمعون الآن (تقديري)' : 'المستمعون الآن'
+          isEstimated ? 'المستمعون الآن' : 'المستمعون الآن'
         );
       }
 

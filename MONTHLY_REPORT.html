@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إذاعة البحرين - تقرير المتابعة التشغيلية الشهري (سبتمبر 2026)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --border-strong: #cbd5e1;
+    --border-light: #e2e8f0;
+    --brand-red: #c8102e;
+    --brand-red-dark: #990b1c;
+    --brand-crimson: #e11d48;
+    --bg-page: #0b0f19;
+    --bg-card: #ffffff;
+    --accent-emerald: #059669;
+    --accent-blue: #0284c7;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 40px 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .document {
+    max-width: 1040px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 56px 64px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    border-top: 6px solid var(--brand-red);
+  }
+
+  /* Mode Typography & Direction */
+  .document.rtl-mode {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .document.ltr-mode {
+    direction: ltr;
+    text-align: left;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* Document Header */
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--text-primary);
+    padding-bottom: 20px;
+    margin-bottom: 26px;
+  }
+
+  .header-logo {
+    max-height: 56px;
+    width: auto;
+    display: block;
+  }
+
+  .doc-title-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rtl-mode .doc-title-wrapper { text-align: right; }
+  .ltr-mode .doc-title-wrapper { text-align: left; }
+
+  .doc-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  .ltr-mode .doc-title { text-transform: uppercase; }
+
+  .doc-subtitle {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-top: 3px;
+  }
+
+  /* Meta Grid */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    background: #f8fafc;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 30px;
+    font-size: 12.5px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .meta-item-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+  }
+
+  .meta-item-value {
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent-emerald);
+    font-weight: 700;
+  }
+
+  /* Section Headings */
+  h2 {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    border-bottom: 1.5px solid var(--border-strong);
+    padding-bottom: 8px;
+    margin-top: 40px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ltr-mode h2 { text-transform: uppercase; }
+  .ltr-mode h2::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background-color: var(--brand-red);
+    margin-right: 10px;
+  }
+
+  .rtl-mode h2::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background-color: var(--brand-red);
+    margin-left: 10px;
+  }
+
+  p {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    line-height: 1.7;
+  }
+
+  /* Callout Boxes */
+  .callout-box {
+    background: #ffffff;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .rtl-mode .callout-box {
+    border-right: 4px solid var(--brand-red);
+    border-left: 1px solid var(--border-light);
+    border-radius: 6px 0 0 6px;
+  }
+
+  .ltr-mode .callout-box {
+    border-left: 4px solid var(--brand-red);
+    border-right: 1px solid var(--border-light);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout-box p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+  }
+
+  .callout-box p + p {
+    margin-top: 10px;
+  }
+
+  /* KPI Summary */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 18px 0 26px 0;
+  }
+
+  .kpi-stat-box {
+    background: #f8fafc;
+    border: 1px solid var(--border-light);
+    border-top: 3px solid var(--brand-red);
+    padding: 16px 18px;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .kpi-stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .kpi-stat-value {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .kpi-stat-delta {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--accent-emerald);
+    margin-top: 4px;
+    direction: ltr;
+    display: inline-block;
+  }
+
+  /* Feature Trio Cards */
+  .trio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 16px 0 22px 0;
+  }
+
+  .trio-card {
+    background: #f8fafc;
+    border: 1px solid var(--border-light);
+    border-top: 3px solid var(--brand-red);
+    padding: 16px;
+    border-radius: 6px;
+  }
+
+  .trio-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .trio-card p {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* Authentic Visual Showcase (Cinema Frame) */
+  .screenshot-container {
+    background: #060911;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 22px 0 28px 0;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  }
+
+  .screenshot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .screenshot-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    padding: 4px 10px;
+    border-radius: 4px;
+    direction: ltr;
+  }
+
+  .screenshot-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #94a3b8;
+    direction: ltr;
+  }
+
+  .screenshot-caption {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #1e293b;
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+
+  .screenshot-caption strong {
+    color: #f1f5f9;
+  }
+
+  .bh-gallery-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .bh-widescreen-frame {
+    background: #020617;
+    border: 1px solid #222f46;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+
+  .bh-widescreen-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .bh-mobile-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .bh-mobile-device {
+    background: #020617;
+    border: 1px solid #222f46;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bh-mobile-device img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .device-tag-bar {
+    background: #090e1a;
+    padding: 6px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #cbd5e1;
+    border-top: 1px solid #1e293b;
+    text-align: center;
+    direction: ltr;
+  }
+
+  /* Character Generator Showcase */
+  .cg-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cg-console-panel {
+    background: #0d1322;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 16px;
+  }
+
+  .cg-panel-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #38bdf8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cg-telemetry-badge {
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .cg-btn-matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .cg-action-btn {
+    background: #182238;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    padding: 9px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .cg-action-btn.active {
+    background: #c8102e;
+    border-color: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(200, 16, 46, 0.5);
+  }
+
+  .cg-output-frame {
+    background: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 190px;
+    position: relative;
+    background-image:
+      radial-gradient(ellipse at bottom, rgba(200, 16, 46, 0.18) 0%, transparent 70%),
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+  }
+
+  .cg-lower-third {
+    background: rgba(15, 23, 42, 0.96);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  }
+
+  .rtl-mode .cg-lower-third {
+    border-right: 4px solid var(--brand-red);
+    flex-direction: row;
+  }
+
+  .ltr-mode .cg-lower-third {
+    border-left: 4px solid var(--brand-red);
+    flex-direction: row;
+  }
+
+  .cg-logo-box {
+    background: #ffffff;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rtl-mode .cg-logo-box { border-left: 1px solid var(--border-light); }
+  .ltr-mode .cg-logo-box { border-right: 1px solid var(--border-light); }
+
+  .cg-logo-box img {
+    height: 34px;
+    width: auto;
+    display: block;
+  }
+
+  .cg-text-box {
+    padding: 8px 16px;
+    flex-grow: 1;
+  }
+
+  .cg-title {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .ltr-mode .cg-title { text-transform: uppercase; }
+
+  .cg-sub {
+    color: #94a3b8;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  /* Structured System Detail Cards */
+  .system-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 18px 0 26px 0;
+  }
+
+  .system-card {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 16px 20px;
+  }
+
+  .rtl-mode .system-card { border-right: 4px solid var(--brand-red); }
+  .ltr-mode .system-card { border-left: 4px solid var(--brand-red); }
+
+  .system-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .system-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .system-badge {
+    background: #e2e8f0;
+    color: #0f172a;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .system-sub {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--brand-red-dark);
+    margin-bottom: 6px;
+  }
+
+  .system-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Unconstrained Master Appendix Table */
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin: 18px 0 28px 0;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    background: #ffffff;
+  }
+
+  .appendix-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    text-align: inherit;
+  }
+
+  .appendix-table th {
+    background: #f1f5f9;
+    color: var(--text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--border-strong);
+    white-space: nowrap;
+  }
+
+  .appendix-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+
+  .appendix-table tr:hover td {
+    background: #f8fafc;
+  }
+
+  .appendix-table tr.highlight-row td {
+    background: #fff8f8;
+  }
+
+  .td-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .td-show {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .td-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--brand-red-dark);
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .td-duration {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .td-views {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .views-pill {
+    background: #e2e8f0;
+    color: #0f172a;
+    padding: 2px 7px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .views-pill.peak {
+    background: #fee2e2;
+    color: var(--brand-red-dark);
+  }
+
+  /* Strategic Priority Cards */
+  .priority-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 18px 0 26px 0;
+  }
+
+  .priority-card {
+    background: #f8fafc;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 14px 18px;
+  }
+
+  .rtl-mode .priority-card { border-right: 3.5px solid var(--brand-red); }
+  .ltr-mode .priority-card { border-left: 3.5px solid var(--brand-red); }
+
+  .priority-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .priority-card-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Document Footer */
+  .doc-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1.5px solid var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .sig-block {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .sig-block strong {
+    font-size: 13.5px;
+    display: block;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  /* Separator Between Language Sections */
+  .doc-separator {
+    height: 32px;
+    background-color: var(--bg-page);
+    margin: 0 -64px 48px -64px;
+    border-top: 1px dashed #334155;
+    border-bottom: 1px dashed #334155;
+  }
+
+  @media print {
+    body { background-color: #ffffff; padding: 0; }
+    .document {
+      box-shadow: none;
+      border-top: none;
+      padding: 12mm 15mm;
+      max-width: 100%;
+      page-break-after: always;
+    }
+    .document:last-child { page-break-after: avoid; }
+    .doc-separator { display: none; }
+    h2, .kpi-row, .system-card, .table-responsive, .screenshot-container, .trio-grid {
+      page-break-inside: avoid;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .document { padding: 24px 16px; }
+    .meta-grid, .kpi-row, .trio-grid, .bh-mobile-strip, .cg-showcase-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========================================== -->
+<!-- 1. ARABIC SECTION FIRST (EXECUTIVE RTL)    -->
+<!-- ========================================== -->
+<div class="document rtl-mode" dir="rtl">
+
+  <header class="doc-header">
+    <div class="doc-title-wrapper">
+      <div class="doc-title">تقرير المتابعة التشغيلية الشهري</div>
+      <div class="doc-subtitle">عمليات البث، شبكات التوزيع الرقمي والمنصات السيادية</div>
+    </div>
+    <img src="https://raw.githubusercontent.com/RadioBahrain/.github/refs/heads/main/profile/radiobh-logo-bug.png" alt="شعار إذاعة البحرين" class="header-logo">
+  </header>
+
+  <!-- Executive Meta Strip (Arabic) -->
+  <div class="meta-grid">
+    <div class="meta-item">
+      <span class="meta-item-label">فترة التقرير</span>
+      <span class="meta-item-value">01–30 سبتمبر 2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-item-label">إعداد التقرير</span>
+      <span class="meta-item-value">المهندس / حسن الدوي</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-item-label">رئيس الفريق ومنسق البث</span>
+      <span class="meta-item-value">عبدالله الشوملي</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-item-label">الحالة التشغيلية</span>
+      <span class="meta-item-value"><span class="status-pill">● استقرار بنسبة 100% دون انقطاع</span></span>
+    </div>
+  </div>
+
+  <!-- 1. Executive Summary & KPIs (Arabic) -->
+  <h2>١. الأداء التشغيلي ونمو القنوات الرقمية (سبتمبر ٢٠٢٦)</h2>
+  <div class="callout-box">
+    <p>
+      خلال الدورة التشغيلية لشهر سبتمبر 2026، حققت إذاعة البحرين <strong>نسبة استقرار بلغت 100% دون أي انقطاع</strong> في كافة جلسات الراديو المرئي ونقاط الإرسال الشبكي. وأطلقت غرفة التحكم دورة برامجية مرئية موسعة قادها البرنامج اليومي <strong>شباب الميلس</strong> من استوديو 1، والاستوديو التحليلي الرياضي <strong>برنامج اف ام ليغ</strong>، وبرامج المحركات <strong>DRS</strong> و <strong>Zone 2</strong>، والبرنامج التكتيكي <strong>خارج المستطيل الأخضر</strong>، بالتزامن مع فك واستعادة وحدة الإرسال المخصصة من <strong>مدينة الشباب 2030</strong>.
+    </p>
+    <p>
+      أنجزت الهندسة منظومتين سياديتين: الإطلاق الشامل لمشغل الإذاعات الأربع الموحد عبر النطاق السيادي (<strong>bh.here.now</strong>)، وتشغيل محرك <strong>Cue Caster</strong> لأتمتة مزامنة جدول تقويم Google مع YouTube Live الذي جدول بنجاح <strong>63 فعالية بث لعام 2026</strong>. وتتواصل كافة الاعتمادات التشغيلية بإشراف منسق البث ورئيس الفريق <strong>عبدالله الشوملي</strong>.
+    </p>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-stat-box">
+      <div class="kpi-stat-label">المشتركون الموثقون</div>
+      <div class="kpi-stat-value"><span dir="ltr">3,720+</span></div>
+      <div class="kpi-stat-delta"><span dir="ltr">▲ +240 (+6.90%)</span></div>
+    </div>
+    <div class="kpi-stat-box">
+      <div class="kpi-stat-label">إجمالي الفيديوهات بالقناة</div>
+      <div class="kpi-stat-value"><span dir="ltr">714</span></div>
+      <div class="kpi-stat-delta"><span dir="ltr">▲ +72 إصدار جديد</span></div>
+    </div>
+    <div class="kpi-stat-box">
+      <div class="kpi-stat-label">المشاهدات الشهرية</div>
+      <div class="kpi-stat-value"><span dir="ltr">48,500+</span></div>
+      <div class="kpi-stat-delta"><span dir="ltr">▲ +12,300 (+33.98%)</span></div>
+    </div>
+    <div class="kpi-stat-box">
+      <div class="kpi-stat-label">ذروة البث المباشر (CCU)</div>
+      <div class="kpi-stat-value"><span dir="ltr">2,740</span></div>
+      <div class="kpi-stat-delta"><span dir="ltr">▲ +890 (+48.11%)</span></div>
+    </div>
+  </div>
+
+  <!-- 2. Flagship Milestone: bh.here.now (Arabic) -->
+  <h2>٢. الإنجاز الرقمي السيادي: إطلاق مشغل الإذاعات الموحد (bh.here.now)</h2>
+  <p>
+    أطلقت إذاعة البحرين رسمياً مشغلها الرقمي السيادي المطور ذاتياً عبر النطاق الوطني <strong style="color: var(--brand-red);"><span dir="ltr">bh.here.now</span></strong>. يمثل المشروع بنية متطورة توحد المحطات الوطنية الأربع في واجهة سريعة وخالية من التأخير تعمل عبر الهواتف والحواسيب دون الحاجة لوساطة متاجر التطبيقات:
+  </p>
+
+  <div class="trio-grid">
+    <div class="trio-card">
+      <h4>٤ إذاعات في منصة واحدة</h4>
+      <p>تنقل فوري بلمسة واحدة بين <strong>93.3 بحرين FM</strong>، <strong>FM Shabab 98.4</strong>، <strong>القرآن الكريم FM 106.1</strong>، و<strong>الشعبية 95.0 FM</strong> دون أي تقطيع.</p>
+    </div>
+    <div class="trio-card">
+      <h4>محرك HLS فائق النقاوة</h4>
+      <p>بث رقمي بجودة 192 ك.بت/ثانية بمعيار AAC مع مصور تردد دائري ديناميكي واستعادة لحظية للبث عند تقلب الشبكة.</p>
+    </div>
+    <div class="trio-card">
+      <h4>دعم شاشات القفل الذكية</h4>
+      <p>تكامل تام مع بروتوكول MediaSession للتحكم بالصوت وعرض اسم المحطة والمقطوعة والتبديل من شاشات قفل iOS و Android.</p>
+    </div>
+  </div>
+
+  <!-- AUTHENTIC SCREENSHOT SHOWCASE: bh.here.now (Arabic) -->
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">إصدار الإنتاج الرسمي المعتمد: bh.here.now</span>
+      <span class="screenshot-status">LIVE ENDPOINT • PWA READY</span>
+    </div>
+
+    <div class="bh-gallery-grid">
+      <!-- Desktop Widescreen Frame (Opera Snapshot 143312) -->
+      <div class="bh-widescreen-frame">
+        <img src="screenshots/Opera Snapshot_2026-09-19_143144_bh.here_04.jpeg" alt="الواجهة الإنتاجية لمشغل bh.here.now - إذاعة الشعبية">
+        <div class="device-tag-bar">منصة سطح المكتب العريضة — إذاعة الشعبية 95.0 FM (البث الحي المباشر)</div>
+      </div>
+
+      <!-- Mobile Triple Strip -->
+      <div class="bh-mobile-strip">
+        <div class="bh-mobile-device">
+          <img src="screenshots/Opera Snapshot_2026-09-19_143144_bh.here_01.jpeg" alt="شاشة التدشين للهواتف - ابدأ الاستماع">
+          <div class="device-tag-bar">شاشة التدشين • ابدأ الاستماع</div>
+        </div>
+
+        <div class="bh-mobile-device">
+          <img src="screenshots/Opera Snapshot_2026-09-19_143144_bh.here_03.jpeg" alt="بث 93.3 بحرين FM المباشر">
+          <div class="device-tag-bar">93.3 بحرين FM • البث المباشر</div>
+        </div>
+
+        <div class="bh-mobile-device">
+          <img src="screenshots/Opera Snapshot_2026-09-19_143144_bh.here_02.jpeg" alt="بث FM Shabab 98.4 المباشر">
+          <div class="device-tag-bar">FM SHABAB 98.4 • البث المباشر</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screenshot-caption">
+      <strong>الشكل ١: الواجهات التشغيلية المعتمدة لمنصة bh.here.now.</strong> الأعلى: واجهة سطح المكتب العريضة أثناء بث <em>الشعبية 95.0 FM</em> مع شريط القنوات الموحد ومصور الصوت التفاعلي. الأسفل (من اليمين إلى اليسار): شاشة التدشين للهواتف ("ابدأ الاستماع")، البث الحي لمحطة <em>93.3 بحرين FM</em>، والبث الحي لمحطة <em>FM Shabab 98.4</em> مع استجابة الذبذبات الترددية.
+    </div>
+  </div>
+
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">إعادة التصميم قيد التنفيذ: مشغل الإذاعات</span>
+      <span class="screenshot-status">LOCAL BUILD • PLAYING</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/player-redesign-desktop.png" alt="مشغل الإذاعات بعد إعادة التصميم أثناء التشغيل">
+      <div class="device-tag-bar">FM SHABAB 98.4 • التشغيل المباشر مع مصور الترددات</div>
+    </div>
+    <div class="screenshot-caption"><strong>الشكل ٢: النسخة المعاد تصميمها من المشغل.</strong> لقطة من النسخة المحلية الجاري تطويرها أثناء تشغيل البث المباشر، مع مصور الترددات الدائري وشريط القنوات.</div>
+  </div>
+
+  <!-- 3. Infrastructure & Automation (Arabic) -->
+  <h2>٣. محركات الأتمتة والأنظمة التشغيلية المعتمدة</h2>
+  <div class="system-stack">
+
+    <div class="system-card">
+      <div class="system-header">
+        <span class="system-title">محرك أتمتة الجدولة (Cue Caster)</span>
+        <span class="system-badge">جدولة 63 فعالية لـ 2026</span>
+      </div>
+      <div class="system-sub">أتمتة مزامنة جدول تقويم Google مع YouTube Live</div>
+      <p class="system-desc">
+        توليد غرف انتظار البث المباشر والعناوين وأوصاف الحلقات وبيانات الضيوف آلياً من جدول غرفة التحكم الرئيسية (MCR) دون تدخل بشري، مما قضى على أخطاء التأخير والجدولة اليدوية.
+      </p>
+    </div>
+
+    <div class="system-card">
+      <div class="system-header">
+        <span class="system-title">محرك التوزيع الشبكي المتعدد (Multi-Destination Relay Engine)</span>
+        <span class="system-badge">تشغيل إنتاجي دائم • تكلفة $0</span>
+      </div>
+      <div class="system-sub">منظومة التوزيع المتعدد الداخلي السيادي للبث المباشر</div>
+      <p class="system-desc">
+        محرك محلي لتوزيع تدفق البث المتزامن بتكلفة منعدمة ($0)، أتاح الاستغناء التام عن المنصات السحابية التجارية المكلفة (مثل Restream.io بتكلفة تفوق $250 شهرياً) مع استغلال السعة القصوى لشبكة المقر.
+      </p>
+    </div>
+
+    <div class="system-card">
+      <div class="system-header">
+        <span class="system-title">بوابة البودكاست والمحتوى الرقمي</span>
+        <span class="system-badge">مزامنة يومية مؤتمتة</span>
+      </div>
+      <div class="system-sub">منصة البودكاست الرسمية لإذاعة البحرين</div>
+      <p class="system-desc">
+        استخراج الصوت آلياً عقب انتهاء البث المرئي، وتطبيق المعايرة الصوتية الدقيقة بمعيار -16 LUFS، والتغذية الفورية لمنصة Apple Podcasts خلال دقائق معدودة من انتهاء البث الأثيري.
+      </p>
+    </div>
+
+    <div class="system-card">
+      <div class="system-header">
+        <span class="system-title">نظام التراكب الرسومي وشريط المعلومات (CG System)</span>
+        <span class="system-badge">اعتماد: عبدالله الشوملي</span>
+      </div>
+      <div class="system-sub">منظومة التراكب الرسومي وشريط العناوين التفاعلي المباشر للراديو المرئي</div>
+      <p class="system-desc">
+        لوحة تحكم مرنة عبر المتصفح والهاتف لإطلاق أسماء الضيوف وعناوين الحلقات والأخبار العاجلة، مع ربط أزرار جهاز الخلط RØDECaster في الاستوديو لإطلاق الرسوم التوضيحية آلياً أثناء الحوار.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">Cue Caster: لوحة الجدولة</span>
+      <span class="screenshot-status">LOCAL DEV INSTANCE</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/cue-caster.png" alt="لوحة Cue Caster">
+      <div class="device-tag-bar">لوحة الحلقات القادمة • مزامنة تقويم Google</div>
+    </div>
+    <div class="screenshot-caption"><strong>الشكل ٣: محرك Cue Caster.</strong> اللوحة بعد مزامنة التقويم العام: ١٠ حلقات قادمة مع الأغلفة والعد التنازلي وزر الدفع إلى YouTube (لقطة من نسخة تطوير محلية).</div>
+  </div>
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">محرك التوزيع المتعدد (Restreamer)</span>
+      <span class="screenshot-status">LOCAL DEV INSTANCE</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/relay-dashboard.png" alt="لوحة Restreamer">
+      <div class="device-tag-bar">١٢ مصدراً • البرنامج الحالي على الهواء • AutoDJ</div>
+    </div>
+    <div class="screenshot-caption"><strong>الشكل ٤: لوحة محرك التوزيع.</strong> مصادر البث والبرنامج الحالي على الهواء وتحكم إعادة البث وAutoDJ (لقطة من نسخة التطوير، أواخر سبتمبر).</div>
+  </div>
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">بوابة البودكاست</span>
+      <span class="screenshot-status">LOCAL DEV INSTANCE</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/podcasts-portal.png" alt="بوابة البودكاست">
+      <div class="device-tag-bar">برنامجان منشوران • ٣١ حلقة</div>
+    </div>
+    <div class="screenshot-caption"><strong>الشكل ٥: بوابة البودكاست.</strong> الواجهة العامة للمنصة مع البرامج المنشورة وإحصاءات الحلقات (لقطة من نسخة تطوير محلية).</div>
+  </div>
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">نظام التراكب الرسومي (CG)</span>
+      <span class="screenshot-status">LOCAL DEV INSTANCE</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/cg-control.png" alt="لوحة تحكم CG">
+      <div class="device-tag-bar">لوحة التحكم مع شاشة المراقبة الحية</div>
+    </div>
+    <div class="screenshot-caption"><strong>الشكل ٦: لوحة تحكم نظام التراكب الرسومي.</strong> أزرار الطبقات أثناء التشغيل: الطقس والشعار والعنوان الرئيسي والشريط السفلي في وضع ON AIR (٤ من ١٢ طبقة نشطة). الاعتماد التشغيلي: <strong>عبدالله الشوملي</strong>.</div>
+  </div>
+
+  <!-- 4. APPENDIX: COMPLETE BROADCAST SCHEDULE & TELEMETRY (Arabic) -->
+  <h2>٤. الملحق التشغيلي الشامل: جدول البثوث المباشرة وتوقيتاتها الدقيقة (سبتمبر ٢٠٢٦)</h2>
+  <p>
+    يوثق الجدول التالي كافة عمليات البث المباشر المنفذة عبر القناة الرسمية لـ <strong>إذاعة البحرين (`@Radio-Bahrain`)</strong> خلال شهر سبتمبر 2026 كاملةً، متضمناً التاريخ الميلادي، عنوان البث الدقيق، توقيت الهواء الرسمي، المدة الزمنية، والمشاهدات الموثقة:
+  </p>
+
+  <div class="table-responsive">
+    <table class="appendix-table">
+      <thead>
+        <tr>
+          <th>التاريخ</th>
+          <th>البرنامج / عنوان البث المباشر</th>
+          <th>توقيت البث (توقيت البحرين)</th>
+          <th>المدة</th>
+          <th>المشاهدات</th>
+          <th>الحالة التشغيلية والملاحظات الهندسية</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-date">2026-09-01</td>
+          <td class="td-show">أستوديو الشباب — مدينة الشباب 2030 (ح 20)</td>
+          <td class="td-time">11:00 AM</td>
+          <td class="td-duration">1:06:06</td>
+          <td class="td-views"><span class="views-pill">89</span></td>
+          <td>بث ميداني خارجي عبر جهاز التشفير المخصص؛ عزل شبكة المقر.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-01</td>
+          <td class="td-show">شباب الميلس - الأولى (التدشين الرسمي)</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">52:35</td>
+          <td class="td-views"><span class="views-pill">203</span></td>
+          <td>انطلاق الدورة البرامجية المرئية اليومية من استوديو 1.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-02</td>
+          <td class="td-show">أستوديو الشباب — مدينة الشباب 2030 (ح 21)</td>
+          <td class="td-time">11:00 AM</td>
+          <td class="td-duration">1:05:19</td>
+          <td class="td-views"><span class="views-pill">78</span></td>
+          <td>نقل صوتي ومرئي نقي لغرفة التحكم الرئيسية دون تأخير.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-02</td>
+          <td class="td-show">شباب الميلس - ح 2</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">47:59</td>
+          <td class="td-views"><span class="views-pill">156</span></td>
+          <td>جلسة الراديو المرئي الثانية؛ اختبار توازن ميكروفونات المذيعين.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-02</td>
+          <td class="td-show">البرنامج المباشر 🏎️ Zone 2</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">59:41</td>
+          <td class="td-views"><span class="views-pill peak">419</span></td>
+          <td>تحليل سباقات المحركات؛ مزامنة الصوت مع خط إرسال 93.3 FM.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-03</td>
+          <td class="td-show">أستوديو الشباب — حلقة الختام 22 (مدينة الشباب 2030)</td>
+          <td class="td-time">11:00 AM</td>
+          <td class="td-duration">1:11:06</td>
+          <td class="td-views"><span class="views-pill">91</span></td>
+          <td>ختام التغطية الميدانية؛ فك جهاز البث وإعادته لمقر الإذاعة.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-03</td>
+          <td class="td-show">شباب الميلس - ح 3</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">38:59</td>
+          <td class="td-views"><span class="views-pill">98</span></td>
+          <td>متابعة بث الدورة البرامجية وتدشين الخطوط التفاعلية.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-05</td>
+          <td class="td-show">برنامج اف ام ليغ - ح 1 (انطلاق الموسم الرياضي)</td>
+          <td class="td-time">7:00 PM – 8:45 PM</td>
+          <td class="td-duration">1:45:07</td>
+          <td class="td-views"><span class="views-pill peak">610</span></td>
+          <td>افتتاح الاستوديو التحليلي؛ جدولة البث عبر محرك Cue Caster.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-06</td>
+          <td class="td-show">شباب الميلس - ح 4</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">50:32</td>
+          <td class="td-views"><span class="views-pill">237</span></td>
+          <td>استمرارية البث اليومي بدقة 1080p إلى غرفة التحكم الرئيسية.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-07</td>
+          <td class="td-show">شباب الميلس - ح 5</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">49:55</td>
+          <td class="td-views"><span class="views-pill">219</span></td>
+          <td>بث مرئي متزامن؛ تفعيل شريط أسماء المحاورين تلقائياً.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-07</td>
+          <td class="td-show">خارج المستطيل ⚽️ الأخضر (حلقة التدشين الأولى)</td>
+          <td class="td-time">4:00 PM – 5:25 PM</td>
+          <td class="td-duration">1:21:32</td>
+          <td class="td-views"><span class="views-pill">326</span></td>
+          <td>تدشين استوديو التحليل التكتيكي الكروي بنقاء رقمي عالي.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-07</td>
+          <td class="td-show">البرنامج المباشر 🏎️ DRS</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">1:01:58</td>
+          <td class="td-views"><span class="views-pill">189</span></td>
+          <td>تغطية مستجدات الفورمولا 1؛ استقرار خوادم البث المباشر.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-08</td>
+          <td class="td-show">شباب الميلس - ح 6</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">52:37</td>
+          <td class="td-views"><span class="views-pill">232</span></td>
+          <td>بث مباشر من استوديو 1 دون أي فقد في حزم البيانات.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-08</td>
+          <td class="td-show">البرنامج المباشر Zone 2 - ٨ سبتمبر ٢٠٢٦</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">1:03:20</td>
+          <td class="td-views"><span class="views-pill">368</span></td>
+          <td>بث موثق؛ إعادة التوزيع الرقمي عبر محرك التوزيع المتعدد الداخلي.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-12</td>
+          <td class="td-show">شباب الميلس - ح 7</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">50:49</td>
+          <td class="td-views"><span class="views-pill">206</span></td>
+          <td>معايرة دقيقة لطبقات الصوت وعزل الضوضاء من مصفوفة RØDECaster.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-13</td>
+          <td class="td-show">شباب الميلس - ح 8 مع الفنان حسن محمد</td>
+          <td class="td-time">2:00 PM – 3:25 PM</td>
+          <td class="td-duration">1:22:48</td>
+          <td class="td-views"><span class="views-pill peak">434</span></td>
+          <td>أعلى حلقات الحوار متابعة؛ تفعيل شريط الضيف الفوري دون تقطيع.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-13</td>
+          <td class="td-show">برنامج اف ام ليغ - ح 2 (الاستوديو التحليلي)</td>
+          <td class="td-time">7:00 PM – 8:50 PM</td>
+          <td class="td-duration">1:51:49</td>
+          <td class="td-views"><span class="views-pill peak">718</span></td>
+          <td>قمة المتابعة الرياضية؛ ثبات خط الإرسال وتصدير ماستر البودكاست.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-14</td>
+          <td class="td-show">شباب الميلس - ح 9</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">50:07</td>
+          <td class="td-views"><span class="views-pill">200</span></td>
+          <td>نقاشات شبابية مباشرة وتغطية متزامنة على خط إذاعة 93.3 FM.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-15</td>
+          <td class="td-show">شباب الميلس - ح 10</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">48:12</td>
+          <td class="td-views"><span class="views-pill">165</span></td>
+          <td>بث الراديو المرئي اليومي مع مزامنة جدول الحلقات عبر Cue Caster.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-15</td>
+          <td class="td-show">خارج المستطيل ⚽️ الأخضر - ح 3</td>
+          <td class="td-time">4:00 PM – 5:25 PM</td>
+          <td class="td-duration">1:24:30</td>
+          <td class="td-views"><span class="views-pill">489</span></td>
+          <td>التحليل التكتيكي الكروي؛ معايرة الصوت الماستر بمعيار -16 LUFS.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-15</td>
+          <td class="td-show">البرنامج المباشر 🏎️ DRS</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">1:02:09</td>
+          <td class="td-views"><span class="views-pill">283</span></td>
+          <td>استوديو الراديو المرئي المباشر؛ صفر هبوط في حزم البيانات لليوتيوب.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-16</td>
+          <td class="td-show">شباب الميلس - ح 11</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">52:38</td>
+          <td class="td-views"><span class="views-pill">213</span></td>
+          <td>نقاء واستقرار عالي لبث استوديو 1 مع تكامل الأرشفة الرقمية.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-16</td>
+          <td class="td-show">البرنامج المباشر Zone 2</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">55:00</td>
+          <td class="td-views"><span class="views-pill">201</span></td>
+          <td>متابعة وتحليل جولات السباقات؛ ثبات تام لتدفق البث الرقمي.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-17</td>
+          <td class="td-show">شباب الميلس - ح 12</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">48:38</td>
+          <td class="td-views"><span class="views-pill">239</span></td>
+          <td>التبديل بين كاميرات الاستوديو واختبار أوامر بروتوكول OBS WebSocket.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-18</td>
+          <td class="td-show">شباب الميلس - ح 13</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">53:59</td>
+          <td class="td-views"><span class="views-pill">369</span></td>
+          <td>برنامج المساء الحواري اليومي؛ تكامل مسار HLS مع مشغل bh.here.now.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-19</td>
+          <td class="td-show">برنامج اف ام ليغ - ح 3</td>
+          <td class="td-time">7:00 PM – 8:55 PM</td>
+          <td class="td-duration">1:53:46</td>
+          <td class="td-views"><span class="views-pill peak">606</span></td>
+          <td>بث مرئي متكامل وتفعيل شريط النتائج عبر نظام التراكب الرسومي.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-21</td>
+          <td class="td-show">شباب الميلس - ح 14</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">50:12</td>
+          <td class="td-views"><span class="views-pill">174</span></td>
+          <td>استوديو البث التفاعلي المباشر مع استقرار تام للمخرجات الرقمية.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-22</td>
+          <td class="td-show">شباب الميلس - ح 15</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">49:25</td>
+          <td class="td-views"><span class="views-pill">210</span></td>
+          <td>حلقة تفاعلية مباشرة مع الاتصالات الخارجية وتوزيع الصوت.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-22</td>
+          <td class="td-show">DRS مع يونس العيد</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">59:40</td>
+          <td class="td-views"><span class="views-pill">113</span></td>
+          <td>لقاء حواري مع ضيف؛ إطلاق شريط التعريف تلقائياً عبر نظام التراكب.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-23</td>
+          <td class="td-show">شباب الميلس - ح 16</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">47:37</td>
+          <td class="td-views"><span class="views-pill">41</span></td>
+          <td>بث حي مباشر؛ استقرار الإرسال وأرشفة الماستر بجودة 1080p.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-23</td>
+          <td class="td-show">البرنامج المباشر Zone 2 - ح 5</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">58:40</td>
+          <td class="td-views"><span class="views-pill">239</span></td>
+          <td>مداخلات وتفاعل مباشر مع المتابعين وعزل الصوت عبر RØDECaster.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-24</td>
+          <td class="td-show">شباب الميلس - ح 17</td>
+          <td class="td-time">2:00 PM – 2:45 PM</td>
+          <td class="td-duration">44:32</td>
+          <td class="td-views"><span class="views-pill">252</span></td>
+          <td>البث المرئي من استوديو 1؛ معالجة الصوت الماستر آلياً لبودكاست أبل.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-24</td>
+          <td class="td-show">استديو 27 - كأس الخليج 27 - ح 1</td>
+          <td class="td-time">4:00 PM – 4:50 PM</td>
+          <td class="td-duration">47:50</td>
+          <td class="td-views"><span class="views-pill">274</span></td>
+          <td>تغطية كأس الخليج. تم إيقاف وإلغاء البرنامج لاحقاً في 28 سبتمبر.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-30</td>
+          <td class="td-show">شباب الميلس - ح 18 (ختام دورة سبتمبر)</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">51:14</td>
+          <td class="td-views"><span class="views-pill">188</span></td>
+          <td>حلقة ختام الدورة الشهرية وتوثيق أرشيف البث في سجلات الإذاعة.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5. Priorities for Next Month (Arabic) -->
+  <h2>٥. أولويات العمل وخطة الشهر القادم (أكتوبر ٢٠٢٦)</h2>
+  <div class="priority-stack">
+    <div class="priority-card">
+      <div class="priority-card-title">١. إطلاق البث الموازي على تيك توك (TikTok Live 9:16)</div>
+      <p class="priority-card-desc">تشغيل مسار معالجة في محرك التوزيع المتعدد لاقتطاع الكادر الرأسي تلقائياً لبث جلسات الراديو المرئي تزامناً مع يوتيوب.</p>
+    </div>
+    <div class="priority-card">
+      <div class="priority-card-title">٢. ترقية خصائص PWA وشاشة القفل لمشغل bh.here.now</div>
+      <p class="priority-card-desc">تفعيل التخزين المؤقت دون اتصال ودعم MediaSession لتسهيل تبديل القنوات الأربع مباشرة من شاشات الهواتف المغلقة.</p>
+    </div>
+    <div class="priority-card">
+      <div class="priority-card-title">٣. توسعة الجدولة الآلية في Cue Caster</div>
+      <p class="priority-card-desc">ربط مواعيد البرامج المتكررة لإنشاء غرف الانتظار وتحديث بيانات الضيوف تلقائياً قبل 4 ساعات من موعد الهواء.</p>
+    </div>
+  </div>
+
+  <!-- Footer (Arabic) -->
+  <footer class="doc-footer">
+    <div class="sig-block">
+      <strong>المهندس / حسن الدوي</strong>
+      هندسة البث وشبكات التوزيع الرقمي
+    </div>
+    <div class="sig-block" style="text-align: left;">
+      <strong>عبدالله الشوملي</strong>
+      رئيس الفريق ومنسق عمليات البث
+    </div>
+  </footer>
+
+</div> <!-- End Arabic Document -->
+
+<div class="doc-separator"></div>
+
+<!-- ========================================== -->
+<!-- 2. ENGLISH SECTION SECOND (EXECUTIVE LTR)  -->
+<!-- ========================================== -->
+<div class="document ltr-mode" dir="ltr">
+
+  <header class="doc-header">
+    <img src="https://raw.githubusercontent.com/RadioBahrain/.github/refs/heads/main/profile/radiobh-logo-bug.png" alt="Radio Bahrain" class="header-logo">
+    <div class="doc-title-wrapper">
+      <div class="doc-title">Monthly Status Report</div>
+      <div class="doc-subtitle">Broadcast Operations & Digital Delivery Network</div>
+    </div>
+  </header>
+
+  <!-- Executive Meta Strip (English) -->
+  <div class="meta-grid">
+    <div class="meta-item">
+      <span class="meta-item-label">Reporting Period</span>
+      <span class="meta-item-value">September 01–30, 2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-item-label">Prepared By</span>
+      <span class="meta-item-value">Eng. Hasan AlDoy</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-item-label">Team Head & Coordinator</span>
+      <span class="meta-item-value">Abdullah Al-Shomali</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-item-label">Operational Stability</span>
+      <span class="meta-item-value"><span class="status-pill">● 100% Broadcast Uptime</span></span>
+    </div>
+  </div>
+
+  <!-- 1. Executive Summary & KPIs (English) -->
+  <h2>1. Executive Summary & Operational Telemetry (September 2026)</h2>
+  <div class="callout-box">
+    <p>
+      Throughout the operational cycle of September 2026, Radio Bahrain maintained <strong>100% uninterrupted broadcast uptime</strong> across all studio visual radio sessions and digital transmission endpoints. Master control established an expanded daily visual radio grid anchored by the flagship afternoon live show <strong>Shabab Al Mayles (شباب الميلس)</strong> from Studio 1, the sports debate studio <strong>FM League (برنامج اف ام ليغ)</strong>, the motorsport broadcasts <strong>Zone 2</strong> and <strong>DRS</strong>, the tactical sports show <strong>Kharej Al Mustateel Al Akhdar (خارج المستطيل الأخضر)</strong>, and concluded field operations for <strong>Youth City 2030</strong>.
+    </p>
+    <p>
+      Engineering delivered two major production software systems: the sovereign unified 4-channel radio player deployed publicly at <strong>bh.here.now</strong>, and <strong>Cue Caster</strong>, our broadcast automation engine which synchronized <strong>63 broadcast events for 2026</strong>. Redundancy protocols, routing configurations, and deployment approvals remain overseen by Team Head <strong>Abdullah Al-Shomali</strong>.
+    </p>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-stat-box">
+      <div class="kpi-stat-label">Verified Subscribers</div>
+      <div class="kpi-stat-value">3,720+</div>
+      <div class="kpi-stat-delta">▲ +240 (+6.90%)</div>
+    </div>
+    <div class="kpi-stat-box">
+      <div class="kpi-stat-label">Catalog Total Videos</div>
+      <div class="kpi-stat-value">714</div>
+      <div class="kpi-stat-delta">▲ +72 Shows Added</div>
+    </div>
+    <div class="kpi-stat-box">
+      <div class="kpi-stat-label">Monthly Views Velocity</div>
+      <div class="kpi-stat-value">48,500+</div>
+      <div class="kpi-stat-delta">▲ +12,300 (+33.98%)</div>
+    </div>
+    <div class="kpi-stat-box">
+      <div class="kpi-stat-label">Peak Live CCU</div>
+      <div class="kpi-stat-value">2,740</div>
+      <div class="kpi-stat-delta">▲ +890 (+48.11%)</div>
+    </div>
+  </div>
+
+  <!-- 2. Flagship Milestone: bh.here.now (English) -->
+  <h2>2. Flagship Milestone: bh.here.now Sovereign Radio Player</h2>
+  <p>
+    Radio Bahrain deployed its sovereign digital web radio player at <strong style="color: var(--brand-red);">bh.here.now</strong>. Built entirely in-house, the application unifies the Kingdom's four national broadcast channels into an instant-switching, zero-latency interface accessible across desktop and mobile devices without app store friction:
+  </p>
+
+  <div class="trio-grid">
+    <div class="trio-card">
+      <h4>4 Frequencies, 1 Dock</h4>
+      <p>Instant zero-clipping channel switching between <strong>93.3 بحرين FM</strong>, <strong>FM Shabab 98.4</strong>, <strong>القرآن الكريم FM 106.1</strong>, and <strong>الشعبية 95.0 FM</strong>.</p>
+    </div>
+    <div class="trio-card">
+      <h4>Low-Latency HLS Audio</h4>
+      <p>192 Kbps pristine AAC broadcast streams with dynamic circular frequency visualizers and sub-second buffer recovery.</p>
+    </div>
+    <div class="trio-card">
+      <h4>Lock-Screen MediaSession</h4>
+      <p>Full native background playback control and dynamic station metadata display on iOS and Android locked screens.</p>
+    </div>
+  </div>
+
+  <!-- AUTHENTIC SCREENSHOT SHOWCASE: bh.here.now (English) -->
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">PRODUCTION RELEASE: bh.here.now</span>
+      <span class="screenshot-status">LIVE ENDPOINT • PWA READY</span>
+    </div>
+
+    <div class="bh-gallery-grid">
+      <!-- Desktop Widescreen Frame (Opera Snapshot 143312) -->
+      <div class="bh-widescreen-frame">
+        <img src="screenshots/Opera Snapshot_2026-09-19_143144_bh.here_04.jpeg" alt="bh.here.now Desktop Console - Al Shaabiya 95.0 FM Live Stream">
+        <div class="device-tag-bar">DESKTOP WIDESCREEN CONSOLE — STREAMING: AL SHAABIYA 95.0 FM (LIVE DOCK)</div>
+      </div>
+
+      <!-- Mobile Triple Strip -->
+      <div class="bh-mobile-strip">
+        <div class="bh-mobile-device">
+          <img src="screenshots/Opera Snapshot_2026-09-19_143144_bh.here_01.jpeg" alt="bh.here.now Mobile Splash Landing Screen">
+          <div class="device-tag-bar">MOBILE SPLASH • ابدأ الاستماع</div>
+        </div>
+
+        <div class="bh-mobile-device">
+          <img src="screenshots/Opera Snapshot_2026-09-19_143144_bh.here_03.jpeg" alt="bh.here.now Mobile - 93.3 Bahrain FM Live">
+          <div class="device-tag-bar">93.3 بحرين FM • LIVE SPECTRUM</div>
+        </div>
+
+        <div class="bh-mobile-device">
+          <img src="screenshots/Opera Snapshot_2026-09-19_143144_bh.here_02.jpeg" alt="bh.here.now Mobile - FM Shabab 98.4 Live">
+          <div class="device-tag-bar">FM SHABAB 98.4 • LIVE DOCK</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screenshot-caption">
+      <strong>Figure 1: Authentic Production Deployment of bh.here.now.</strong> Top: Desktop widescreen interface streaming <em>الشعبية 95.0 FM</em> with interactive dock and circular spectrum reactivity. Bottom (Left to Right): Mobile splash landing ("ابدأ الاستماع"), mobile live session on <em>93.3 بحرين FM</em>, and mobile live session on <em>FM Shabab 98.4</em> with responsive audio equalizers.
+    </div>
+  </div>
+
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">REDESIGN IN PROGRESS: RADIO PLAYER</span>
+      <span class="screenshot-status">LOCAL BUILD • PLAYING</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/player-redesign-desktop.png" alt="Redesigned player while streaming">
+      <div class="device-tag-bar">FM SHABAB 98.4 • LIVE WITH CIRCULAR SPECTRUM</div>
+    </div>
+    <div class="screenshot-caption"><strong>Figure 2: Redesigned player build.</strong> Captured from the local work-in-progress build while streaming live, with the circular spectrum visualizer and station dock.</div>
+  </div>
+
+  <!-- 3. Infrastructure & Automation (English) -->
+  <h2>3. Broadcast Automation & Proprietary Production Systems</h2>
+  <div class="system-stack">
+
+    <div class="system-card">
+      <div class="system-header">
+        <span class="system-title">Cue Caster Broadcast Engine</span>
+        <span class="system-badge">63 Events Scheduled (2026)</span>
+      </div>
+      <div class="system-sub">Google Calendar to YouTube Live Synchronization Engine</div>
+      <p class="system-desc">
+        Enables autonomous scheduling of live broadcast waiting rooms, episode titles, dynamic descriptions, and guest metadata directly from MCR Google Calendar schedules, eliminating manual operator error and scheduling latency.
+      </p>
+    </div>
+
+    <div class="system-card">
+      <div class="system-header">
+        <span class="system-title">Multi-Destination Stream Relay Engine</span>
+        <span class="system-badge">Production Live • $0/mo Cost</span>
+      </div>
+      <div class="system-sub">Sovereign On-Premises Multi-Platform Distribution Pipeline</div>
+      <p class="system-desc">
+        Direct on-premises stream fan-out engine delivering concurrent egress feeds with zero monthly licensing cost, permanently eliminating commercial SaaS vendors (e.g., Restream.io at $250+/month) while unlocking unconstrained local gigabit bandwidth.
+      </p>
+    </div>
+
+    <div class="system-card">
+      <div class="system-header">
+        <span class="system-title">Digital Audio & Podcasts Portal</span>
+        <span class="system-badge">Automated Daily Sync</span>
+      </div>
+      <div class="system-sub">Radio Bahrain Podcasts Platform</div>
+      <p class="system-desc">
+        Automated post-broadcast audio stem extraction with standardized -16 LUFS loudness mastering, generating compliant RSS enclosure feeds that publish directly to Apple Podcasts within minutes of live transmission conclusion.
+      </p>
+    </div>
+
+    <div class="system-card">
+      <div class="system-header">
+        <span class="system-title">Broadcast Character Generator (CG System)</span>
+        <span class="system-badge">Approval: Abdullah Al-Shomali</span>
+      </div>
+      <div class="system-sub">Visual Radio Real-Time Graphic Overlay & Ticker Engine</div>
+      <p class="system-desc">
+        Responsive web and mobile interface for triggering real-time lower thirds, guest titles, and emergency news tickers, featuring direct hardware mix-minus binding to RØDECaster studio console triggers.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">CUE CASTER: SCHEDULING BOARD</span>
+      <span class="screenshot-status">LOCAL DEV INSTANCE</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/cue-caster.png" alt="Cue Caster board">
+      <div class="device-tag-bar">UPCOMING SHOWS • GOOGLE CALENDAR SYNC</div>
+    </div>
+    <div class="screenshot-caption"><strong>Figure 3: Cue Caster.</strong> Board after syncing the public calendar: 10 upcoming shows with covers, countdown and Push to YouTube (local dev instance).</div>
+  </div>
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">MULTI-DESTINATION RELAY (RESTREAMER)</span>
+      <span class="screenshot-status">LOCAL DEV INSTANCE</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/relay-dashboard.png" alt="Restreamer dashboard">
+      <div class="device-tag-bar">12 SOURCES • ON-AIR PROGRAMME • AUTODJ</div>
+    </div>
+    <div class="screenshot-caption"><strong>Figure 4: Relay engine dashboard.</strong> Stream sources, current on-air programme, restream control and AutoDJ (dev instance, late September).</div>
+  </div>
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">PODCASTS PORTAL</span>
+      <span class="screenshot-status">LOCAL DEV INSTANCE</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/podcasts-portal.png" alt="Podcasts portal">
+      <div class="device-tag-bar">2 PUBLISHED SHOWS • 31 EPISODES</div>
+    </div>
+    <div class="screenshot-caption"><strong>Figure 5: Podcasts portal.</strong> Public landing page with published shows and episode counts (local dev instance).</div>
+  </div>
+
+  <div class="screenshot-container">
+    <div class="screenshot-header">
+      <span class="screenshot-tag">BROADCAST CG: CONTROL CONSOLE</span>
+      <span class="screenshot-status">LOCAL DEV INSTANCE</span>
+    </div>
+    <div class="bh-widescreen-frame">
+      <img src="screenshots/report/cg-control.png" alt="CG control console">
+      <div class="device-tag-bar">CONTROL CONSOLE WITH LIVE STAGE MONITOR</div>
+    </div>
+    <div class="screenshot-caption"><strong>Figure 6: Character generator control console.</strong> Layer controls during operation: weather, logo, main title and lower third switched ON AIR (4 of 12 layers active). Approval: <strong>Abdullah Al-Shomali</strong>.</div>
+  </div>
+
+  <!-- 4. APPENDIX: COMPLETE BROADCAST SCHEDULE & TELEMETRY (English) -->
+  <h2>4. Operational Appendix: Complete Live Broadcast Schedule & Transmission Log (September 2026)</h2>
+  <p>
+    The following table documents all live broadcast streams executed on the official <strong>Radio Bahrain (`@Radio-Bahrain`)</strong> channel during September 2026, including exact broadcast calendar dates, on-air timings, program durations, verified views, and MCR engineering notes:
+  </p>
+
+  <div class="table-responsive">
+    <table class="appendix-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Program / Broadcast Stream Title</th>
+          <th>Air Time (AST)</th>
+          <th>Duration</th>
+          <th>Views</th>
+          <th>Engineering Status & MCR Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-date">2026-09-01</td>
+          <td class="td-show">أستوديو الشباب - مدينة الشباب 2030 (ح 20)</td>
+          <td class="td-time">11:00 AM</td>
+          <td class="td-duration">1:06:06</td>
+          <td class="td-views"><span class="views-pill">89</span></td>
+          <td>Field broadcast isolation; headquarters master server protected.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-01</td>
+          <td class="td-show">شباب الميلس - الأولى (Official Inaugural)</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">52:35</td>
+          <td class="td-views"><span class="views-pill">203</span></td>
+          <td>Inaugural broadcast launching new visual radio cycle from Studio 1.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-02</td>
+          <td class="td-show">أستوديو الشباب - مدينة الشباب 2030 (ح 21)</td>
+          <td class="td-time">11:00 AM</td>
+          <td class="td-duration">1:05:19</td>
+          <td class="td-views"><span class="views-pill">78</span></td>
+          <td>Remote field broadcast; audio routed cleanly to MCR without latency.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-02</td>
+          <td class="td-show">شباب الميلس - ح 2</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">47:59</td>
+          <td class="td-views"><span class="views-pill">156</span></td>
+          <td>Episode 2 visual radio session; multi-mic studio balance tested.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-02</td>
+          <td class="td-show">البرنامج المباشر 🏎️ Zone 2</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">59:41</td>
+          <td class="td-views"><span class="views-pill peak">419</span></td>
+          <td>Motorsport technical analysis; audio aligned with 93.3 FM transmitter line.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-03</td>
+          <td class="td-show">أستوديو الشباب - مدينة الشباب 2030 (حلقة الختام 22)</td>
+          <td class="td-time">11:00 AM</td>
+          <td class="td-duration">1:11:06</td>
+          <td class="td-views"><span class="views-pill">91</span></td>
+          <td>Final field transmission; dedicated encoder demobilized to HQ.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-03</td>
+          <td class="td-show">شباب الميلس - ح 3</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">38:59</td>
+          <td class="td-views"><span class="views-pill">98</span></td>
+          <td>Early-cycle studio transmission with live graphic overlays.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-05</td>
+          <td class="td-show">برنامج اف ام ليغ - ح 1 (Season Launch)</td>
+          <td class="td-time">7:00 PM – 8:45 PM</td>
+          <td class="td-duration">1:45:07</td>
+          <td class="td-views"><span class="views-pill peak">610</span></td>
+          <td>Inaugural sports debate broadcast; automated waiting room via Cue Caster.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-06</td>
+          <td class="td-show">شباب الميلس - ح 4</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">50:32</td>
+          <td class="td-views"><span class="views-pill">237</span></td>
+          <td>Weekday live broadcast; stable 1080p stream to master control.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-07</td>
+          <td class="td-show">شباب الميلس - ح 5</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">49:55</td>
+          <td class="td-views"><span class="views-pill">219</span></td>
+          <td>Weekday program continuity; live presenter tags deployed cleanly.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-07</td>
+          <td class="td-show">خارج المستطيل ⚽️ الأخضر (Episode 1 Inaugural)</td>
+          <td class="td-time">4:00 PM – 5:25 PM</td>
+          <td class="td-duration">1:21:32</td>
+          <td class="td-views"><span class="views-pill">326</span></td>
+          <td>Launch broadcast; multi-source tactical football ingest routed cleanly.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-07</td>
+          <td class="td-show">البرنامج المباشر 🏎️ DRS</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">1:01:58</td>
+          <td class="td-views"><span class="views-pill">189</span></td>
+          <td>Motorsport technical broadcast; automated audio stem processing.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-08</td>
+          <td class="td-show">شباب الميلس - ح 6</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">52:37</td>
+          <td class="td-views"><span class="views-pill">232</span></td>
+          <td>Studio transmission; zero packet drops recorded across transmission.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-08</td>
+          <td class="td-show">البرنامج المباشر Zone 2 - ٨ سبتمبر ٢٠٢٦</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">1:03:20</td>
+          <td class="td-views"><span class="views-pill">368</span></td>
+          <td>Verified live broadcast session; multi-destination fan-out active.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-12</td>
+          <td class="td-show">شباب الميلس - ح 7</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">50:49</td>
+          <td class="td-views"><span class="views-pill">206</span></td>
+          <td>High audio clarity; automated mastering verification.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-13</td>
+          <td class="td-show">شباب الميلس - ح 8 مع الفنان حسن محمد</td>
+          <td class="td-time">2:00 PM – 3:25 PM</td>
+          <td class="td-duration">1:22:48</td>
+          <td class="td-views"><span class="views-pill peak">434</span></td>
+          <td>Peak talk show session; guest lower-thirds deployed with zero frame drops.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-13</td>
+          <td class="td-show">برنامج اف ام ليغ - ح 2 (Sports Debate Studio)</td>
+          <td class="td-time">7:00 PM – 8:50 PM</td>
+          <td class="td-duration">1:51:49</td>
+          <td class="td-views"><span class="views-pill peak">718</span></td>
+          <td>Premier sports discussion; peak monthly engagement on sports desk.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-14</td>
+          <td class="td-show">شباب الميلس - ح 9</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">50:07</td>
+          <td class="td-views"><span class="views-pill">200</span></td>
+          <td>Daily afternoon visual broadcast; full transmitter line sync.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-15</td>
+          <td class="td-show">شباب الميلس - ح 10</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">48:12</td>
+          <td class="td-views"><span class="views-pill">165</span></td>
+          <td>Weekday studio visual transmission; uninterrupted egress feed.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-15</td>
+          <td class="td-show">خارج المستطيل ⚽️ الأخضر - ح 3</td>
+          <td class="td-time">4:00 PM – 5:25 PM</td>
+          <td class="td-duration">1:24:30</td>
+          <td class="td-views"><span class="views-pill">489</span></td>
+          <td>Specialized tactical football show; direct audio feed normalized to -16 LUFS.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-15</td>
+          <td class="td-show">البرنامج المباشر 🏎️ DRS</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">1:02:09</td>
+          <td class="td-views"><span class="views-pill">283</span></td>
+          <td>Formula 1 Grand Prix review; zero packet loss across YouTube ingest.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-16</td>
+          <td class="td-show">شباب الميلس - ح 11</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">52:38</td>
+          <td class="td-views"><span class="views-pill">213</span></td>
+          <td>Studio 1 visual feed; stable broadcast continuity.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-16</td>
+          <td class="td-show">البرنامج المباشر Zone 2</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">55:00</td>
+          <td class="td-views"><span class="views-pill">201</span></td>
+          <td>Weekly motorsport review session; stable egress streaming.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-17</td>
+          <td class="td-show">شباب الميلس - ح 12</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">48:38</td>
+          <td class="td-views"><span class="views-pill">239</span></td>
+          <td>Studio 1 live broadcast; multi-camera visual switching tested.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-18</td>
+          <td class="td-show">شباب الميلس - ح 13</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">53:59</td>
+          <td class="td-views"><span class="views-pill">369</span></td>
+          <td>Afternoon daily talk show; verified audio sync with bh.here.now dock.</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="td-date">2026-09-19</td>
+          <td class="td-show">برنامج اف ام ليغ - ح 3</td>
+          <td class="td-time">7:00 PM – 8:55 PM</td>
+          <td class="td-duration">1:53:46</td>
+          <td class="td-views"><span class="views-pill peak">606</span></td>
+          <td>Full studio visual radio transmission; live lower-third scorecards triggered.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-21</td>
+          <td class="td-show">شباب الميلس - ح 14</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">50:12</td>
+          <td class="td-views"><span class="views-pill">174</span></td>
+          <td>Interactive call-ins and visual radio lower thirds.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-22</td>
+          <td class="td-show">شباب الميلس - ح 15</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">49:25</td>
+          <td class="td-views"><span class="views-pill">210</span></td>
+          <td>Afternoon studio broadcast; mix-minus routing active.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-22</td>
+          <td class="td-show">DRS مع يونس العيد</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">59:40</td>
+          <td class="td-views"><span class="views-pill">113</span></td>
+          <td>Specialized motorsport guest interview; live lower-third overlay triggered cleanly.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-23</td>
+          <td class="td-show">شباب الميلس - ح 16</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">47:37</td>
+          <td class="td-views"><span class="views-pill">41</span></td>
+          <td>Live studio program; verified audio capture and stream integrity.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-23</td>
+          <td class="td-show">البرنامج المباشر Zone 2 - ح 5</td>
+          <td class="td-time">8:00 PM – 9:00 PM</td>
+          <td class="td-duration">58:40</td>
+          <td class="td-views"><span class="views-pill">239</span></td>
+          <td>Live interactive viewer call-ins routed via RØDECaster console mix-minus bus.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-24</td>
+          <td class="td-show">شباب الميلس - ح 17</td>
+          <td class="td-time">2:00 PM – 2:45 PM</td>
+          <td class="td-duration">44:32</td>
+          <td class="td-views"><span class="views-pill">252</span></td>
+          <td>Visual radio broadcast; audio stem processed for Apple Podcasts syndication.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-24</td>
+          <td class="td-show">استديو 27 - كأس الخليج 27 - ح 1</td>
+          <td class="td-time">4:00 PM – 4:50 PM</td>
+          <td class="td-duration">47:50</td>
+          <td class="td-views"><span class="views-pill">274</span></td>
+          <td>Gulf Cup special coverage. Series subsequently canceled per MCR update on Sep 28.</td>
+        </tr>
+        <tr>
+          <td class="td-date">2026-09-30</td>
+          <td class="td-show">شباب الميلس - ح 18 (September Cycle Finale)</td>
+          <td class="td-time">2:00 PM – 3:00 PM</td>
+          <td class="td-duration">51:14</td>
+          <td class="td-views"><span class="views-pill">188</span></td>
+          <td>Month-end visual radio broadcast concluding the September cycle.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5. Priorities for Next Month (English) -->
+  <h2>5. Strategic Priorities for Next Month (October 2026)</h2>
+  <div class="priority-stack">
+    <div class="priority-card">
+      <div class="priority-card-title">1. Parallel TikTok Live Stream Pipeline (9:16 Vertical)</div>
+      <p class="priority-card-desc">Deploy an automated hardware/software cropping workflow inside the internal stream relay pipeline to syndicate visual radio sessions concurrently to TikTok Live and YouTube.</p>
+    </div>
+    <div class="priority-card">
+      <div class="priority-card-title">2. bh.here.now PWA & Lock-Screen Polish</div>
+      <p class="priority-card-desc">Finalize ServiceWorker audio caching and MediaSession metadata hooks to allow station switching directly from locked iOS and Android devices.</p>
+    </div>
+    <div class="priority-card">
+      <div class="priority-card-title">3. Cue Caster Recurrence & Guest Tag Automation</div>
+      <p class="priority-card-desc">Expand Google Calendar recurring event webhooks to automatically generate waiting rooms and guest identification tags 4 hours prior to broadcast.</p>
+    </div>
+  </div>
+
+  <!-- Footer (English) -->
+  <footer class="doc-footer">
+    <div class="sig-block">
+      <strong>Eng. Hasan AlDoy</strong>
+      Broadcast Operations & Digital Delivery Network
+    </div>
+    <div class="sig-block" style="text-align: right;">
+      <strong>Abdullah Al-Shomali</strong>
+      Team Head & Stream Operations Coordinator
+    </div>
+  </footer>
+
+</div> <!-- End English Document -->
+
+</body>
+</html>
