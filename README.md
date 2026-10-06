@@ -17,7 +17,7 @@ A local, Bun-powered radio player for Bahrain live channels with a cinematic spl
 ## Run locally
 
 ```bash
-bun install
+bun **install**
 bun run dev
 ```
 
