@@ -39,6 +39,9 @@ bun run deploy
 
 What deploy now does automatically:
 
+- Automatically increments the patch version in `package.json` (supports `--bump=minor|major`, `--version=<custom>`, and `--skip-bump`)
+- Excludes and strips unnecessary files (such as `.DS_Store`, `Thumbs.db`, `._*`) so they are never shipped
+- Embeds the release version in `dist/index.html` and creates `dist/version.json`
 - Builds `dist`
 - Runs migration fixes on generated artifacts (for stale script paths)
 - Normalizes file permissions recursively:

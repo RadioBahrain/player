@@ -30,7 +30,13 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # IntelliJ based IDEs
 .idea
 
-# Finder (MacOS) folder config
+# OS generated & metadata files
 .DS_Store
+**/.DS_Store
+._*
+**/._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
 
 .playwright-mcp/
