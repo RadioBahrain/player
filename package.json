@@ -7,14 +7,15 @@
     "dev": "bun --watch server.ts",
     "start": "bun server.ts",
     "build": "bun build.ts",
+    "favicons": "python3 scripts/generate-favicons.py",
     "deploy": "bun run scripts/deploy.ts",
     "deploy:dry": "bun run scripts/deploy.ts --dry-run"
   },
   "dependencies": {
     "gsap": "^3.15.0",
-    "hls.js": "^1.7.3"
+    "hls.js": "^1.7.4"
   },
   "devDependencies": {
-    "puppeteer-core": "^25.12.0"
+    "puppeteer-core": "^25.16.0"
   }
 }
