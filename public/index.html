@@ -169,7 +169,7 @@
         box-shadow: 0 10px 36px rgba(0, 0, 0, 0.42);
         backdrop-filter: blur(18px);
       }
-      .mode-btn, .about-btn, .station-pill, .control-btn, #startButton { cursor: pointer; user-select: none; }
+      .mode-btn, .about-btn, .podcast-btn, .station-pill, .control-btn, #startButton { cursor: pointer; user-select: none; }
       .mode-btn {
         width: 40px; height: 40px; border: none; border-radius: 50%;
         display: grid; place-items: center; color: rgba(255,255,255,0.72); background: transparent; font-size: 20px;
@@ -177,6 +177,14 @@
       .mode-btn.active {
         background: linear-gradient(135deg, var(--red), var(--red-strong));
         color: white; box-shadow: 0 0 16px rgba(255, 59, 59, 0.5);
+      }
+      .podcast-btn {
+        width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%;
+        background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); color: white;
+        font-size: 15px; text-decoration: none; transition: all 0.2s ease;
+      }
+      .podcast-btn:hover {
+        background: rgba(200, 169, 106, 0.3); border-color: #c8a96a; color: #f7e7c4; transform: translateY(-1px);
       }
       .about-btn {
         width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%;
@@ -688,6 +696,7 @@
           <button class="mode-btn" data-mode="particles" type="button" aria-label="Particles"><i class="ph ph-sparkle"></i></button>
           <button class="mode-btn" data-mode="pulse" type="button" aria-label="Pulse"><i class="ph ph-record"></i></button>
           <button class="mode-btn" data-mode="nebula" type="button" aria-label="Nebula"><i class="ph ph-aperture"></i></button>
+          <a href="/podcasts" class="podcast-btn" title="أرشيف البودكاست • Podcasts" aria-label="أرشيف البودكاست"><i class="ph ph-disc"></i></a>
           <button class="about-btn" id="aboutBtn" type="button" aria-label="About">i</button>
         </div>
         <div class="about-tray" id="aboutTray">
@@ -781,8 +790,16 @@
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="../node_modules/gsap/dist/gsap.js"></script>
-    <script src="../node_modules/hls.js/dist/hls.js"></script>
+    <script src="./lib/gsap.js"></script>
+    <script src="./lib/hls.js"></script>
+    <script>
+      if (typeof gsap === 'undefined') {
+        document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>');
+      }
+      if (typeof Hls === 'undefined') {
+        document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.15/hls.min.js"><\/script>');
+      }
+    </script>
     <script>
       const stations = Array.from(document.querySelectorAll('.station-pill'));
       const audioEl = document.getElementById('audio');
@@ -1450,7 +1467,12 @@
       const stageTargets = ['.top-nav', '.logo-stack', '#ytLiveSection', '#ytLiveBtnWrap', '.status', '.station-pill', '.controls'];
       gsap.set(stageTargets, { visibility: 'hidden' });
 
-      const entranceTl = gsap.timeline({ paused: true, defaults: { ease: 'power4.inOut' } });
+      const entranceTl = gsap.timeline({
+        paused: true,
+        defaults: { ease: 'power4.inOut' },
+        onUpdate: scheduleBackgroundSync,
+        onComplete: syncBackgroundFocusToPlaybackButton
+      });
 
       entranceTl
         .fromTo('.top-nav', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 0.3)
@@ -1478,6 +1500,7 @@
       }
 
       startButton.addEventListener('click', async () => {
+        hideSplash();
         if (isYtLive) {
           // If YouTube is live, stop audio and play live video
           stopAudioPlayback();
@@ -1485,7 +1508,6 @@
         } else {
           await startPlayback();
         }
-        hideSplash();
       });
 
       const btnWatchLive = document.getElementById('btnWatchLive');

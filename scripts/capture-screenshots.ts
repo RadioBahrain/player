@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer-core';
 import { mkdir, unlink } from 'node:fs/promises';
 
 const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const TARGET_URL = 'https://bh.here.now';
+const TARGET_URL = (process.env.TARGET_URL || 'http://localhost:3000').replace(/\/$/, '');
 
 async function main() {
   await mkdir('screenshots', { recursive: true });
@@ -129,6 +129,31 @@ async function main() {
     await new Promise((r) => setTimeout(r, 500));
     await mobilePage.screenshot({ path: 'screenshots/player-hero-mobile.png' });
     await mobilePage.close();
+
+    // 6. 3D Podcasts Archive (/podcasts) Views
+    console.log('📸 6/6 Capturing 3D Podcasts Archive (/podcasts) Views...');
+    const podcastPage = await browser.newPage();
+    await podcastPage.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 });
+    await podcastPage.goto(`${TARGET_URL}/podcasts`, { waitUntil: 'networkidle2', timeout: 30000 });
+    await podcastPage.waitForSelector('.slide .sleeve.active', { timeout: 10000 });
+    await new Promise((r) => setTimeout(r, 1500));
+    await podcastPage.click('#nextBtn');
+    await new Promise((r) => setTimeout(r, 400));
+    await podcastPage.click('#nextBtn');
+    await new Promise((r) => setTimeout(r, 1400));
+    await podcastPage.screenshot({ path: 'screenshots/podcasts-coverflow-desktop.png' });
+
+    await podcastPage.click('.slide .sleeve.active .viewBtn');
+    await podcastPage.waitForSelector('#episodesOverlay.open', { timeout: 5000 });
+    await new Promise((r) => setTimeout(r, 1000));
+    await podcastPage.screenshot({ path: 'screenshots/podcasts-episodes-drawer.png' });
+
+    await podcastPage.click('#epClose');
+    await new Promise((r) => setTimeout(r, 700));
+    await podcastPage.setViewport({ width: 393, height: 852, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+    await new Promise((r) => setTimeout(r, 800));
+    await podcastPage.screenshot({ path: 'screenshots/podcasts-coverflow-mobile.png' });
+    await podcastPage.close();
 
     try {
       await unlink('screenshots/test-splash.png');

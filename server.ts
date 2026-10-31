@@ -187,8 +187,21 @@ const server = Bun.serve({
         });
       }
     } catch {
-      // Fall through to the app shell.
+      // Fall through to clean routes or app shell.
     }
+
+    // Support clean extensionless routes (e.g. /podcasts -> public/podcasts.html)
+    try {
+      const htmlPath = `${filePath}.html`;
+      if (statSync(htmlPath).isFile()) {
+        return new Response(Bun.file(htmlPath), {
+          headers: {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'no-cache'
+          }
+        });
+      }
+    } catch {}
 
     const fallback = `${publicDir}/index.html`;
     try {

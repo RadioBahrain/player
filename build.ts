@@ -58,7 +58,14 @@ export async function build() {
     filter: (source) => !isUnnecessaryFile(source),
   });
 
-  console.log("📦 Copying node_modules libraries...");
+  console.log("📦 Syncing vendor libraries to public/lib and dist/lib...");
+  await mkdir("public/lib", { recursive: true });
+  await copyFile("node_modules/gsap/dist/gsap.js", "public/lib/gsap.js");
+  await copyFile("node_modules/hls.js/dist/hls.js", "public/lib/hls.js");
+
+  await mkdir("public/podcasts", { recursive: true });
+  await copyFile("public/podcasts.html", "public/podcasts/index.html");
+
   await mkdir("dist/lib", { recursive: true });
   await copyFile("node_modules/gsap/dist/gsap.js", "dist/lib/gsap.js");
   await copyFile("node_modules/hls.js/dist/hls.js", "dist/lib/hls.js");
@@ -77,6 +84,16 @@ export async function build() {
     html = html.replace("</head>", `${versionMetaTag}\n  </head>`);
   }
   await writeFile(indexPath, html, "utf-8");
+
+  // Update podcasts.html and podcasts/index.html paths if present
+  const podcastsPath = join("dist", "podcasts.html");
+  try {
+    let podHtml = await readFile(podcastsPath, "utf-8");
+    podHtml = podHtml.replaceAll("../node_modules/gsap/dist/gsap.js", "/lib/gsap.js");
+    await writeFile(podcastsPath, podHtml, "utf-8");
+    await mkdir(join("dist", "podcasts"), { recursive: true });
+    await writeFile(join("dist", "podcasts", "index.html"), podHtml, "utf-8");
+  } catch {}
 
   // Write version.json manifest into dist
   const versionManifest = {

@@ -8,6 +8,9 @@
     "start": "bun server.ts",
     "build": "bun build.ts",
     "favicons": "python3 scripts/generate-favicons.py",
+    "test": "bun test",
+    "test:e2e": "bun test tests/e2e.test.ts",
+    "screenshots": "bun run scripts/capture-screenshots.ts",
     "deploy": "bun run scripts/deploy.ts",
     "deploy:dry": "bun run scripts/deploy.ts --dry-run"
   },

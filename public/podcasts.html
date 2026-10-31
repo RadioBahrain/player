@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="referrer" content="no-referrer">
+<title>بودكاست إذاعة البحرين | Radio Bahrain Archive</title>
+<meta name="theme-color" content="#120204">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<style>
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/Tajawal-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/Tajawal-Medium.ttf') format('truetype'); }
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/Tajawal-Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/Tajawal-ExtraBold.ttf') format('truetype'); }
+@font-face { font-family: 'Tajawal'; font-style: normal; font-weight: 900; font-display: swap; src: url('/fonts/Tajawal-Black.ttf') format('truetype'); }
+
+:root {
+  --bg: #120204;
+  --bg2: #1c0509;
+  --text: #fafaf8;
+  --muted: #bda6a8;
+  --card: #20070b;
+  --bd: rgba(255,255,255,.10);
+  --gold: #c8a96a;
+  --gold2: #e8d5b0;
+  --goldSoft: rgba(200,169,106,.20);
+  --red: #ff3b3b;
+  --shadow: 0 30px 100px rgba(0,0,0,.85);
+}
+[data-theme="light"] {
+  --bg: #fdfaf8;
+  --bg2: #f6efe9;
+  --text: #1a080a;
+  --muted: #7d6b6d;
+  --card: #ffffff;
+  --bd: rgba(0,0,0,.08);
+  --gold: #9a6d38;
+  --gold2: #6d4b20;
+  --goldSoft: rgba(154,109,56,.15);
+  --red: #d11f2f;
+  --shadow: 0 20px 60px rgba(0,0,0,.15);
+}
+* { box-sizing: border-box; font-family: 'Tajawal', sans-serif !important; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; overscroll-behavior: none; }
+body { background: var(--bg); color: var(--text); overflow: hidden; transition: .6s background, .6s color; -webkit-font-smoothing: antialiased; }
+
+.grain { position: fixed; inset: 0; pointer-events: none; opacity: .04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); z-index: 1; }
+.blob { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; mix-blend-mode: screen; will-change: transform; transition: .8s opacity; }
+.b1 { width: 80vw; height: 80vw; top: -20%; right: -20%; background: radial-gradient(circle at 30% 30%, rgba(200,169,106,.35), #5a1018 35%, transparent 70%); opacity: .45; }
+.b2 { width: 70vw; height: 70vw; bottom: -20%; left: -15%; background: radial-gradient(circle, #8a1522 0%, #220306 50%, transparent 75%); opacity: .35; }
+[data-theme="light"] .blob { filter: blur(140px); mix-blend-mode: normal; opacity: .18; }
+
+.wrap { position: relative; z-index: 2; height: 100vh; height: 100dvh; display: flex; flex-direction: column; }
+.header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px 10px; gap: 16px; flex-shrink: 0; }
+.headerRight { display: flex; align-items: center; gap: 14px; }
+.brandLogo { width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid var(--gold); box-shadow: 0 0 0 3px var(--goldSoft), 0 8px 24px rgba(0,0,0,.35); background: #000; position: relative; }
+.brandLogo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.brandR .t1 { font-size: 22px; font-weight: 900; line-height: 1.1; letter-spacing: -.02em; }
+.brandR .t2 { font-size: 11px; font-weight: 500; color: var(--muted); margin-top: 4px; letter-spacing: .08em; }
+.headerLeft { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--bd); background: rgba(255,255,255,.05); font-size: 11px; font-weight: 700; color: var(--text); backdrop-filter: blur(12px); text-decoration: none; cursor: pointer; transition: .2s; }
+.pill:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); }
+.pill.live { background: linear-gradient(135deg, rgba(255,59,59,.25), rgba(142,15,29,.35)); border-color: rgba(255,59,59,.4); color: #fff; }
+.pill.live .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px var(--red); animation: dotPulse 1.8s infinite; }
+@keyframes dotPulse { 0%,100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.3); opacity: 1; } }
+
+.stage { position: relative; flex: 1; perspective: 2400px; perspective-origin: 50% 46%; overflow: hidden; touch-action: none; cursor: grab; }
+.stage:active { cursor: grabbing; }
+.track { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
+.slide { position: absolute; top: 50%; left: 50%; width: 320px; height: 320px; margin: -160px 0 0 -160px; transform-style: preserve-3d; will-change: transform,opacity; backface-visibility: hidden; }
+@media(max-width: 768px) { .slide { width: 250px; height: 250px; margin: -125px 0 0 -125px; } }
+.card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+.sleeve { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; position: relative; background: var(--card); border: 1px solid var(--bd); box-shadow: var(--shadow); transform: translateZ(0); transition: .4s border-color, .4s box-shadow; }
+.sleeve img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sleeve.active { border-color: var(--gold); box-shadow: 0 0 0 3px var(--goldSoft), 0 24px 80px rgba(0,0,0,.7), 0 0 40px rgba(200,169,106,.2); }
+.shine { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.shine i { position: absolute; top: 0; bottom: 0; width: 30%; background: linear-gradient(100deg, transparent 10%, rgba(255,255,255,.20) 50%, transparent 90%); transform: translateX(-120%) skewX(-12deg); will-change: transform; }
+.shine i.gold { background: linear-gradient(100deg, transparent 10%, rgba(200,169,106,.35) 50%, transparent 90%); }
+.vinyl { position: absolute; top: 50%; left: 50%; width: 92%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #111 0 11%, #1a1a1a 11.5% 12%, transparent 12.5%), repeating-radial-gradient(circle at 50% 50%, #0e0e0e 0 2px, #1a1a1a 2px 3px, #0e0e0e 3px 4px), radial-gradient(circle, #242424 0 62%, #070707 100%); transform: translate(-50%,-50%) translateZ(-22px); will-change: transform; box-shadow: 0 10px 36px rgba(0,0,0,.75), inset 0 0 0 1px rgba(255,255,255,.08); z-index: -1; }
+.vinyl::after { content: ""; position: absolute; inset: 18%; border-radius: 50%; background: var(--card); border: 1px solid var(--bd); overflow: hidden; }
+.vLabel { position: absolute; inset: 18%; border-radius: 50%; overflow: hidden; z-index: 1; }
+.vLabel img { width: 100%; height: 100%; object-fit: cover; }
+.badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,.75); border: 1px solid rgba(255,255,255,.14); color: #fff; padding: 5px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 800; backdrop-filter: blur(10px); }
+.viewBtn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(.86); background: rgba(0,0,0,.75); border: 1px solid rgba(255,255,255,.2); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 12px; font-weight: 800; backdrop-filter: blur(14px); opacity: 0; transition: .35s; pointer-events: none; white-space: nowrap; }
+.sleeve.active .viewBtn { opacity: 1; transform: translate(-50%,-50%) scale(1); pointer-events: auto; }
+.viewBtn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+
+.bottom { padding: 10px 24px 14px; display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 5; flex-shrink: 0; }
+.progressWrap { height: 2px; background: var(--bd); border-radius: 999px; overflow: hidden; position: relative; }
+.progressBar { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); transform-origin: right center; transform: scaleX(0); will-change: transform; }
+.infoRow { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
+.titleBox { flex: 1; min-height: 80px; }
+.kicker { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.kicker .line { width: 32px; height: 1.5px; background: var(--gold); opacity: .7; }
+.kicker span { font-size: 11px; font-weight: 800; letter-spacing: .18em; color: var(--gold); }
+.countPill { display: inline-flex; padding: 4px 10px; border-radius: 999px; background: var(--goldSoft); border: 1px solid rgba(200,169,106,.25); color: var(--gold); font-size: 11px; font-weight: 900; }
+.titleMain { font-size: clamp(24px, 4vw, 44px); font-weight: 900; line-height: 1.3; overflow: visible; letter-spacing: -.02em; }
+.sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.controls { display: flex; align-items: center; gap: 10px; }
+.navBtn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--bd); background: rgba(255,255,255,.05); color: var(--text); display: grid; place-items: center; cursor: pointer; transition: .25s; backdrop-filter: blur(10px); }
+.navBtn:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); }
+.navBtn.gold { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 6px 20px rgba(200,169,106,.3); }
+.navBtn:disabled { opacity: .3; pointer-events: none; }
+
+.thumbStripWrap { position: relative; isolation: isolate; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,.03), transparent); border: 1px solid rgba(255,255,255,.05); padding: 2px 0; }
+.thumbStrip { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 8px 60px; scroll-behavior: smooth; }
+.thumbStrip::-webkit-scrollbar { display: none; }
+.thumbBtn { width: 50px; height: 50px; border-radius: 12px; overflow: hidden; border: 1px solid var(--bd); flex-shrink: 0; opacity: .55; transition: .3s; cursor: pointer; background: var(--card); }
+.thumbBtn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumbBtn:hover { opacity: 1; transform: translateY(-2px); border-color: rgba(200,169,106,.4); }
+.thumbBtn.active { border-color: var(--gold); opacity: 1; transform: scale(1.08) translateY(-1px); box-shadow: 0 0 0 2px var(--goldSoft); }
+
+/* Episodes Drawer */
+.episodesOverlay { position: fixed; inset: 0; z-index: 80; background: rgba(0,0,0,.72); backdrop-filter: blur(18px); opacity: 0; pointer-events: none; transition: .45s opacity; }
+.episodesOverlay.open { opacity: 1; pointer-events: auto; }
+.episodesPanel { position: fixed; left: 0; right: 0; bottom: 0; z-index: 81; max-height: 78vh; background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); border-top: 1px solid var(--bd); border-radius: 28px 28px 0 0; box-shadow: 0 -20px 80px rgba(0,0,0,.8); transform: translateY(100%); will-change: transform; display: flex; flex-direction: column; overflow: hidden; }
+.episodesHead { padding: 20px 24px 14px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; border-bottom: 1px solid var(--bd); flex-shrink: 0; }
+.episodesHeadR .epTitle { font-size: 20px; font-weight: 900; line-height: 1.3; }
+.episodesHeadR .epSub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.episodesClose { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--bd); background: rgba(255,255,255,.06); color: var(--text); display: grid; place-items: center; cursor: pointer; transition: .25s; flex-shrink: 0; }
+.episodesClose:hover { background: var(--text); color: var(--bg); transform: rotate(90deg); }
+.episodesGrid { overflow-y: auto; padding: 16px 24px 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.epCard { position: relative; display: flex; gap: 10px; padding: 10px; border-radius: 14px; background: rgba(255,255,255,.03); border: 1px solid var(--bd); transition: .25s; cursor: pointer; }
+.epCard:hover { transform: translateY(-2px); border-color: rgba(200,169,106,.35); background: rgba(255,255,255,.06); }
+.epThumb { width: 80px; height: 50px; border-radius: 8px; overflow: hidden; flex-shrink: 0; background: var(--card); position: relative; }
+.epThumb img { width: 100%; height: 100%; object-fit: cover; }
+.epPlay { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transition: .25s; background: rgba(0,0,0,.35); }
+.epCard:hover .epPlay { opacity: 1; }
+.epPlay i { width: 24px; height: 24px; border-radius: 50%; background: var(--gold); color: #000; display: grid; place-items: center; font-style: normal; font-weight: 900; font-size: 11px; }
+.epInfo { flex: 1; min-width: 0; text-align: right; }
+.epInfo .epName { font-size: 12.5px; font-weight: 700; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.epInfo .epMeta { font-size: 10px; color: var(--muted); margin-top: 4px; display: flex; gap: 8px; justify-content: flex-end; }
+.epNum { position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,.65); border: 1px solid rgba(255,255,255,.12); color: #fff; padding: 1px 6px; border-radius: 999px; font-size: 8.5px; font-weight: 800; }
+
+.loading { position: fixed; inset: 0; z-index: 99; background: var(--bg); display: grid; place-items: center; transition: .5s opacity; }
+.loading.hide { opacity: 0; pointer-events: none; }
+.loadBox { text-align: center; }
+.loadTitle { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+.loadBar { width: 180px; height: 2px; background: var(--bd); margin: 14px auto 0; overflow: hidden; border-radius: 999px; position: relative; }
+.loadBar i { position: absolute; inset: 0; background: linear-gradient(90deg, var(--gold), var(--gold2)); transform-origin: right; animation: load 1.2s infinite; }
+@keyframes load { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); transform-origin: left; } }
+@keyframes shineMove { 0% { transform: translateX(-130%) skewX(-12deg); } 100% { transform: translateX(180%) skewX(-12deg); } }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="blob b1"></div><div class="blob b2"></div>
+
+<div id="loading" class="loading">
+  <div class="loadBox">
+    <div class="loadTitle">بودكاست إذاعة البحرين</div>
+    <div style="font-size:11px;color:var(--muted);font-weight:500">جاري تحميل الأرشيف الرقمي...</div>
+    <div class="loadBar"><i></i></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <div class="headerRight">
+      <div class="brandLogo"><img src="./favicon.svg" alt="Radio Bahrain"></div>
+      <div class="brandR">
+        <div class="t1">بودكاست إذاعة البحرين</div>
+        <div class="t2">Radio Bahrain • الأرشيف الصوتي الرقمي</div>
+      </div>
+    </div>
+    <div class="headerLeft">
+      <a href="/" class="pill live" title="العودة إلى البث المباشر"><span class="dot"></span><span>البث المباشر FM</span></a>
+      <div class="pill" id="countPill">-- مجلد</div>
+      <div class="pill" id="themePill" title="تبديل المظهر">🌓 تلقائي</div>
+    </div>
+  </header>
+
+  <div id="stage" class="stage"><div id="track" class="track"></div></div>
+
+  <div class="bottom">
+    <div class="progressWrap"><div id="progress" class="progressBar"></div></div>
+    <div class="infoRow">
+      <div class="titleBox">
+        <div class="kicker"><span class="line"></span><span>يعرض الآن</span><span id="countBadge" class="countPill">-- حلقة</span></div>
+        <div id="titleMain" class="titleMain"></div>
+        <div id="subInfo" class="sub"></div>
+      </div>
+      <div class="controls">
+        <button id="prevBtn" class="navBtn" aria-label="السابق"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6 L15 12 L9 18"/></svg></button>
+        <button id="nextBtn" class="navBtn gold" aria-label="التالي"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6 L9 12 L15 18"/></svg></button>
+      </div>
+    </div>
+    <div id="thumbStripWrap" class="thumbStripWrap"><div id="thumbStrip" class="thumbStrip"></div></div>
+  </div>
+</div>
+
+<div id="episodesOverlay" class="episodesOverlay"></div>
+<div id="episodesPanel" class="episodesPanel">
+  <div class="episodesHead">
+    <div class="episodesHeadR">
+      <div id="epTitle" class="epTitle"></div>
+      <div id="epSub" class="epSub"></div>
+    </div>
+    <button id="epClose" class="episodesClose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6 L18 18 M18 6 L6 18"/></svg></button>
+  </div>
+  <div id="episodesGrid" class="episodesGrid"></div>
+</div>
+
+<script src="/lib/gsap.js"></script>
+<script>
+// Fallback if local gsap is not present (e.g. standalone)
+if (typeof gsap === 'undefined') {
+  document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>');
+}
+</script>
+<script>
+const LIVE_URL = 'https://podcasts.adhari.com/data/playlists.json';
+const FALLBACK = [{"id":"PLBW97qEXrcO8","title":"شباب الميلس","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/bFF1efeUqYE.jpg","count":15},{"id":"PLM2mjqKYg9rY","title":"إف إم ليغ - موسم 17","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/gPUAqvTnJss.jpg","count":2},{"id":"PLFm3_OhqZyNblLKMgs9ddFtZo-VCugHml","title":"إف إم مونديال 2026","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/7bo061Yy_fA.jpg","count":45},{"id":"PLFm3_OhqZyNbIlFDL3t_34Cjm17VNkT8x","title":"برنامج رونغ سايد (الموسم الثالث)","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/5IlS0WFaNUM.jpg","count":15},{"id":"PLFm3_OhqZyNZs2il3aFJci34cq0ssQPZk","title":"اللاتري 2026","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/w7nSUsZGSx4.jpg","count":8},{"id":"PLFm3_OhqZyNZWE7YGGhRYxJ6dtDkeQLwZ","title":"برامج خاصة 2025","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/cPXhIYf0uRk.jpg","count":2},{"id":"PLFm3_OhqZyNYy4Pm9lViNh9JBtEnrTFVw","title":"خارج المستطيل الأخضر ⚽  مع فايز السادة","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/ZyGjdSEMXm8.jpg","count":19},{"id":"PLFm3_OhqZyNZD3aCeCFAEcbqHBb8v-Q0J","title":"إف إم ليغ - الموسم 16","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/7b8N1YCLlbo.jpg","count":21},{"id":"PLFm3_OhqZyNYqLyHWmpN9E_scky25Cx6F","title":"بودكاست - أريد أن أفهم","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/p9x671wZdXY.jpg","count":10},{"id":"PLFm3_OhqZyNZdcIRpO0bLkD_XqJ-Q7Xta","title":"بودكاست  - نجمين","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/z6Q2MOzEZC8.jpg","count":12},{"id":"PLFm3_OhqZyNYKfK4Og-tGM0ggShwciqkG","title":"موقع على الخريطة  🗾 📍","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/QcHIMTuFSVA.jpg","count":1},{"id":"PLFm3_OhqZyNYmaSAXzCvToZi5BFXTAPfC","title":"ما خط القلم 🪶 مع حسن الساعاتي","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/5QfM4oEJzZU.jpg","count":11},{"id":"PLFm3_OhqZyNZNQYeE7nkWxgpkTIRsVcRA","title":"برنامج ذكاء 🧠 وابداع 📲 مع نورة أبو الشوك","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/HSxR_z7aWz0.jpg","count":9},{"id":"PLFm3_OhqZyNb6EkXeJuXwSGGy4c_lZPUh","title":"المايك الثالث 🎤 مع آلاء وناصر","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/TaDC75H0sCY.jpg","count":8},{"id":"PLFm3_OhqZyNY0kkMjr1RXSirkM-c5eWNe","title":"الصائم الإيجابي 👌","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/SZy6bj96plk.jpg","count":6},{"id":"PLFm3_OhqZyNZQdDlfoNL5LjbI-SeWxdeu","title":"برامج خاصة","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/WcPu63f4sfQ.jpg","count":3},{"id":"PLFm3_OhqZyNZnP5ZswRCA8AuLklt2-PEj","title":"لنبدأ معاً - مع نسرين معروف","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/ZAJCzPowB2o.jpg","count":15},{"id":"PLFm3_OhqZyNaPsa8ndqb9q0AvzW40IoI4","title":"جبرة خاطر 💫 مع الكوتش عائشة دانش","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/SEQ9lPGkwH8.jpg","count":13},{"id":"PLFm3_OhqZyNbJL7oYe_S9aKvpnJqJwWJw","title":"البرنامج المباشر DRS","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/tm54BJG7_YE.jpg","count":30},{"id":"PLFm3_OhqZyNYpCW2KxC47HZwOrtMktO9l","title":"تغطية إذاعة البحرين لجائزة البحرين الكبرى للفورملا وان 2025","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/s0UkPAgG7lw.jpg","count":18},{"id":"PLFm3_OhqZyNZSlS3TuRV511HKpHrh1Aie","title":"فرقة الأصلي","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/g-7B_VX5cwI.jpg","count":5},{"id":"PLFm3_OhqZyNZp6KpRkY6TA1LR6RyfzBBf","title":"المسلسل الكوميدي الإذاعي “هب السعد”","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/T1sJyOTsIT4.jpg","count":16},{"id":"PLFm3_OhqZyNaAgFYz3k9FFl1z-Bw5YgW_","title":"مسابقة  اللاتري  📡 - 2025م","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/pKUBuFawgF0.jpg","count":28},{"id":"PLFm3_OhqZyNZT_-Q7To32bGf7rEEpWEan","title":"حكاية نجم 💫","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/RjF5cRfNjt0.jpg","count":7},{"id":"PLFm3_OhqZyNZkw0bVpAK3rXfhWQ3YKnBX","title":"برنامج صوت الشغف ⚽🏀","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/YGo7BzB2LaY.jpg","count":12},{"id":"PLFm3_OhqZyNbiYz2jhVR04GSMKCtZ3mqN","title":"برنامج اف ام ليغ - الموسم 15","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/zMOeQnb_Qv0.jpg","count":40},{"id":"PLFm3_OhqZyNaUQmkPvWc3V5sZujzQL6RL","title":"🎸 جلسة فن الصوت للمطرب عبدالرحمن عوض","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/6Zhx3BdYLVA.jpg","count":9},{"id":"PLFm3_OhqZyNaY6erMT1EP28_HeA30znAg","title":"عبادات منسية","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/wHLimbDROxQ.jpg","count":7},{"id":"PLFm3_OhqZyNY1Pz-9zoNm658REoT1dFSc","title":"دلالات","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/ewqvgXEyp1k.jpg","count":15},{"id":"PLFm3_OhqZyNYov2q_5DfV-aIvFLx4rGu4","title":"لقاءات - برنامج ريفرش","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/2GQETVvMeC0.jpg","count":10},{"id":"PLFm3_OhqZyNZLs-OnLwnkR0NTt-tSvj4e","title":"الصائم الإيجابي","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/y0Fd4A34rh4.jpg","count":20},{"id":"PLFm3_OhqZyNYzwo693xU74ooAEHSz24Nu","title":"مسابقات اللاتري 🌙","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/aYgI5jZLw4Y.jpg","count":24},{"id":"PLFm3_OhqZyNbjJTaW2BZYImZz0lsVazvG","title":"برنامج الدوري","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/eVLmPViJE8w.jpg","count":3},{"id":"PLFm3_OhqZyNYatMtuGlThtyMg9s9tfsPm","title":"🎙 برنامج #اف_ام_ليغ FM League","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/RW8SeOMrIqw.jpg","count":27},{"id":"PLFm3_OhqZyNb9_nSKLs7hlnFcTtpxYhRj","title":"برامج مباشرة 📡 Live Shows","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/Zhq9zZDij8Y.jpg","count":175},{"id":"PLFm3_OhqZyNbJksSW4_850XoKn6CIdqDt","title":"سهرة الصورة الأخرى","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/gXynszE5Qz4.jpg","count":4},{"id":"PLFm3_OhqZyNZ_vfjC6eWK6R_ykJWoKQ0F","title":"أصحاب الفيل","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/jZO0-cihKtk.jpg","count":13},{"id":"PLFm3_OhqZyNY1s5lB4zDWQPNDNGpgeFXe","title":"فواصل الفعاليات والبرامج الخاصة","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/Oznadvmgm88.jpg","count":5},{"id":"PLFm3_OhqZyNYUUa3XOQwaI5rM6gWw6spn","title":"سهرة خير جليس","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/sX2z2TKM9jU.jpg","count":7},{"id":"PLFm3_OhqZyNbC15hxqmuOUr7Kl61sdede","title":"نعم من حولنا","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/A_Hxt0UhipA.jpg","count":11},{"id":"PLFm3_OhqZyNZMYCaPljjygCphBdfynv6U","title":"فنون شعبية","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/m48QTUXwVDw.jpg","count":28},{"id":"PLFm3_OhqZyNbVMHq4LYTa8j-BHbKXIR4A","title":"جلسة عبدالرحمن عوض - إذاعة مملكة البحرين","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/kGMqZzXGR3k.jpg","count":12},{"id":"PLFm3_OhqZyNa7YAIUgDUrGgkP1-FvqB_i","title":"اسطوانة بحرينية","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/Nprvb0Bvyuc.jpg","count":30},{"id":"PLFm3_OhqZyNbvKKtLYxGBwt3VAGe7R8Pn","title":"مُختارات منوعة","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/qlP8CEgTW8s.jpg","count":13},{"id":"PLFm3_OhqZyNasb3clavokmAZbvsZqLFoo","title":"فضاء أقرب","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/OGGZ0t2Pjuw.jpg","count":3},{"id":"PLFm3_OhqZyNakkXe4dJbakNkDQPm4zqfF","title":"أسئلة على الهواء","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/1eXyAtRGENU.jpg","count":8},{"id":"PLFm3_OhqZyNa3PSBCPexYmm60CIOXw7jY","title":"بودكاست إكسير الحياة","thumb":"https://cloud.adhari.com/audio/newsletter-assets/thumbnails/i1NiegXBr3s.jpg","count":15}];
+
+async function loadPlaylists() {
+  try {
+    const res = await fetch(LIVE_URL, { mode: 'cors' });
+    if (!res.ok) throw new Error('fetch fail');
+    const data = await res.json();
+    const mapped = data.items
+      .map(i => ({ id: i.id, title: i.snippet.title, thumb: i.snippet.thumbnails?.medium?.url || i.snippet.thumbnails?.default?.url, count: i.contentDetails?.itemCount || 0 }))
+      .filter(it => !it.title.includes('ليالي المنامة'));
+    if (mapped.length) return mapped;
+    return FALLBACK;
+  } catch (e) {
+    return FALLBACK;
+  }
+}
+
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+function mockEpisodes(playlist) {
+  const n = playlist.count;
+  const eps = [];
+  for (let i = 1; i <= n; i++) {
+    const d = new Date(Date.now() - i * 86400000 * 2.3);
+    const mins = 12 + (i * 7) % 48;
+    const secs = (i * 13) % 60;
+    eps.push({
+      num: i,
+      title: `${playlist.title} — الحلقة ${i}`,
+      thumb: playlist.thumb,
+      duration: `${mins}:${String(secs).padStart(2, '0')}`,
+      date: d.toLocaleDateString('ar-BH', { year: 'numeric', month: 'short', day: 'numeric' }),
+      views: `${(2.3 + i * 0.7).toFixed(1)}k`
+    });
+  }
+  return eps;
+}
+
+(async () => {
+  // Theme Management
+  const m = window.matchMedia('(prefers-color-scheme: light)');
+  const themePill = document.getElementById('themePill');
+  let userOverride = null;
+  function applyTheme() {
+    const isLight = userOverride ? (userOverride === 'light') : m.matches;
+    document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
+    if (themePill) {
+      const mode = isLight ? 'فاتح' : 'داكن';
+      const auto = userOverride ? '' : ' • تلقائي';
+      themePill.textContent = `${isLight ? '☀️' : '🌙'} ${mode}${auto}`;
+    }
+  }
+  applyTheme();
+  m.addEventListener('change', () => { if (userOverride === null) applyTheme(); });
+  if (themePill) {
+    themePill.addEventListener('click', () => {
+      if (userOverride === null) userOverride = m.matches ? 'dark' : 'light';
+      else if (userOverride === 'light') userOverride = 'dark';
+      else userOverride = null;
+      applyTheme();
+      gsap.fromTo(themePill, { scale: .9 }, { scale: 1, duration: .3, ease: 'back.out(2)' });
+    });
+  }
+
+  const items = await loadPlaylists();
+  const total = items.reduce((s, i) => s + i.count, 0);
+  document.getElementById('countPill').textContent = `${items.length} مجلد • ${total} حلقة`;
+
+  const track = document.getElementById('track');
+  const thumbStrip = document.getElementById('thumbStrip');
+  const titleMain = document.getElementById('titleMain');
+  const countBadge = document.getElementById('countBadge');
+  const subInfo = document.getElementById('subInfo');
+  const progress = document.getElementById('progress');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const stage = document.getElementById('stage');
+  const epPanel = document.getElementById('episodesPanel');
+  const epOverlay = document.getElementById('episodesOverlay');
+  const epGrid = document.getElementById('episodesGrid');
+  const epTitle = document.getElementById('epTitle');
+  const epSub = document.getElementById('epSub');
+  const epClose = document.getElementById('epClose');
+
+  let targetIdx = 0;
+  let currentPos = 0;
+  let slides = [];
+  let isEpOpen = false;
+
+  items.forEach((it, idx) => {
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+    slide.dataset.idx = idx;
+    const delay = (idx * 0.73) % 4.5;
+    const dur = 2.2 + (idx % 5) * 0.38;
+    slide.innerHTML = `
+      <div class="card">
+        <div class="vinyl"><div class="vLabel"><img src="${it.thumb}" alt="" referrerpolicy="no-referrer"></div></div>
+        <div class="sleeve">
+          <img src="${it.thumb}" alt="${it.title}" draggable="false" referrerpolicy="no-referrer">
+          <div class="shine">
+            <i style="animation:shineMove ${dur}s ${delay}s infinite linear"></i>
+            <i class="gold" style="animation:shineMove ${dur * 1.4}s ${delay + 0.6}s infinite linear"></i>
+          </div>
+          <div class="badge">${it.count} حلقة</div>
+          <div class="viewBtn">عرض الحلقات • ${it.count}</div>
+        </div>
+      </div>`;
+
+    const viewBtn = slide.querySelector('.viewBtn');
+    viewBtn.addEventListener('click', (e) => { e.stopPropagation(); openEpisodes(it); });
+    slide.addEventListener('click', () => {
+      if (Math.abs(idx - currentPos) < 0.6) { openEpisodes(it); } else { goTo(idx); }
+    });
+    track.appendChild(slide);
+    slides.push(slide);
+
+    const tb = document.createElement('button');
+    tb.className = 'thumbBtn';
+    const img = document.createElement('img');
+    img.src = it.thumb;
+    img.alt = it.title;
+    img.referrerPolicy = 'no-referrer';
+    img.loading = 'lazy';
+    tb.appendChild(img);
+    tb.addEventListener('click', () => goTo(idx));
+    thumbStrip.appendChild(tb);
+  });
+
+  function goTo(idx) { targetIdx = clamp(idx, 0, items.length - 1); }
+  function updateButtons() {
+    prevBtn.disabled = targetIdx <= 0;
+    nextBtn.disabled = targetIdx >= items.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => goTo(targetIdx - 1));
+  nextBtn.addEventListener('click', () => goTo(targetIdx + 1));
+
+  let wheelLock = false;
+  stage.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (wheelLock) return;
+    const dir = e.deltaY > 0 ? 1 : -1;
+    const next = clamp(targetIdx + dir, 0, items.length - 1);
+    if (next === targetIdx) {
+      gsap.fromTo(track, { x: dir * -12 }, { x: 0, duration: .4, ease: 'elastic.out(1,.4)' });
+      return;
+    }
+    goTo(next);
+    wheelLock = true;
+    setTimeout(() => wheelLock = false, 90);
+  }, { passive: false });
+
+  let isDragging = false, hasDragged = false, dragStartX = 0, dragStartIdx = 0;
+  stage.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.viewBtn')) return;
+    isDragging = true;
+    hasDragged = false;
+    dragStartX = e.clientX;
+    dragStartIdx = targetIdx;
+  });
+  stage.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragStartX;
+    if (!hasDragged && Math.abs(dx) > 6) {
+      hasDragged = true;
+      try { stage.setPointerCapture(e.pointerId); } catch {}
+    }
+    if (!hasDragged) return;
+    const idxDelta = -dx / 280;
+    targetIdx = clamp(dragStartIdx + idxDelta, 0, items.length - 1);
+  });
+  stage.addEventListener('pointerup', () => { isDragging = false; if (hasDragged) targetIdx = Math.round(targetIdx); });
+  stage.addEventListener('pointercancel', () => { isDragging = false; if (hasDragged) targetIdx = Math.round(targetIdx); });
+
+  window.addEventListener('keydown', (e) => {
+    if (isEpOpen) return;
+    if (e.key === 'ArrowRight') goTo(targetIdx - 1);
+    if (e.key === 'ArrowLeft') goTo(targetIdx + 1);
+    if (e.key === 'Escape') closeEpisodes();
+  });
+
+  function openEpisodes(playlist) {
+    const eps = mockEpisodes(playlist);
+    epTitle.textContent = playlist.title;
+    epSub.textContent = `${playlist.count} حلقة • انقر للمشاهدة على يوتيوب`;
+    epGrid.innerHTML = '';
+    eps.forEach(ep => {
+      const card = document.createElement('div');
+      card.className = 'epCard';
+      card.innerHTML = `
+        <div class="epThumb"><img src="${ep.thumb}" alt="" referrerpolicy="no-referrer"><div class="epPlay"><i>▶</i></div></div>
+        <div class="epInfo"><div class="epName">${ep.title}</div><div class="epMeta"><span>⏱ ${ep.duration}</span><span>👁 ${ep.views}</span></div></div>
+        <div class="epNum">#${ep.num}</div>`;
+      card.addEventListener('click', () => { window.open('https://www.youtube.com/playlist?list=' + playlist.id, '_blank'); });
+      epGrid.appendChild(card);
+    });
+    isEpOpen = true;
+    gsap.to(epOverlay, { opacity: 1, duration: .35, ease: 'power2.out' });
+    epOverlay.classList.add('open');
+    gsap.to(epPanel, { y: '0%', duration: .55, ease: 'power4.out' });
+    gsap.fromTo(epGrid.querySelectorAll('.epCard'),
+      { y: 50, opacity: 0, scale: .96 },
+      { y: 0, opacity: 1, scale: 1, duration: .6, stagger: .04, ease: 'power3.out', delay: .15 }
+    );
+  }
+
+  function closeEpisodes() {
+    if (!isEpOpen) return;
+    isEpOpen = false;
+    gsap.to(epPanel, { y: '100%', duration: .4, ease: 'power3.in' });
+    gsap.to(epOverlay, { opacity: 0, duration: .3, ease: 'power2.in', onComplete: () => epOverlay.classList.remove('open') });
+  }
+
+  epClose.addEventListener('click', closeEpisodes);
+  epOverlay.addEventListener('click', closeEpisodes);
+
+  let titleTween = null;
+  function render() {
+    currentPos += (targetIdx - currentPos) * 0.11;
+    if (Math.abs(targetIdx - currentPos) < 0.001) currentPos = targetIdx;
+
+    slides.forEach((slide, idx) => {
+      const offset = idx - currentPos;
+      const abs = Math.abs(offset);
+      if (abs > 4.5) { slide.style.visibility = 'hidden'; return; }
+      slide.style.visibility = 'visible';
+
+      const rotateY = offset * -24;
+      const translateZ = -abs * 140 - abs * abs * 8;
+      const translateX = offset * 280;
+      const scale = Math.max(0.58, 1 - abs * 0.16);
+      const opacity = Math.max(0.22, 1 - abs * 0.28);
+      const blur = abs * 1.1;
+
+      gsap.set(slide, {
+        x: translateX,
+        z: translateZ,
+        rotationY: rotateY,
+        scale: scale,
+        opacity: opacity,
+        filter: `blur(${blur}px)`,
+        zIndex: 100 - Math.round(abs * 10)
+      });
+
+      const sleeve = slide.querySelector('.sleeve');
+      const vinyl = slide.querySelector('.vinyl');
+      if (Math.abs(offset) < 0.5) {
+        sleeve.classList.add('active');
+        gsap.to(vinyl, { x: 68, duration: .6, ease: 'power3.out', overwrite: 'auto' });
+        if (!vinyl._spin) {
+          vinyl._spin = gsap.to(vinyl, { rotation: 360, duration: 4, repeat: -1, ease: 'none', transformOrigin: '50% 50%' });
+        } else {
+          vinyl._spin.play();
+        }
+      } else {
+        sleeve.classList.remove('active');
+        gsap.to(vinyl, { x: 0, duration: .5, ease: 'power3.out', overwrite: 'auto' });
+        if (vinyl._spin) vinyl._spin.pause();
+      }
+    });
+
+    const prog = items.length > 1 ? (currentPos / (items.length - 1)) : 0;
+    gsap.set(progress, { scaleX: prog });
+
+    document.querySelectorAll('.thumbBtn').forEach((b, i) => {
+      const isActive = Math.round(currentPos) === i;
+      b.classList.toggle('active', isActive);
+      if (isActive) b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    });
+
+    const rounded = Math.round(currentPos);
+    if (render.lastIdx !== rounded) {
+      render.lastIdx = rounded;
+      const it = items[rounded];
+      if (it) {
+        if (titleTween) titleTween.kill();
+        titleTween = gsap.timeline();
+        titleTween.to(titleMain, { y: -12, opacity: 0, duration: .2, ease: 'power2.in' })
+          .call(() => {
+            titleMain.textContent = it.title;
+            countBadge.textContent = `${it.count} حلقة`;
+            subInfo.textContent = `${rounded + 1} من ${items.length}`;
+          })
+          .fromTo(titleMain, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: 'power3.out' });
+        updateButtons();
+      }
+    }
+  }
+
+  gsap.ticker.add(render);
+  goTo(0);
+  updateButtons();
+
+  document.getElementById('loading').classList.add('hide');
+  setTimeout(() => document.getElementById('loading').style.display = 'none', 600);
+})();
+</script>
+</body>
+</html>
+
