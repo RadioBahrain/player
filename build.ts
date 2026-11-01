@@ -76,20 +76,42 @@ export async function build() {
   html = html.replaceAll("../node_modules/gsap/dist/gsap.js", "./lib/gsap.js");
   html = html.replaceAll("../node_modules/hls.js/dist/hls.js", "./lib/hls.js");
 
-  // Inject or update version meta tag
+  // Inject or update version meta tag and inline version badge in public/index.html and dist/index.html
   const versionMetaTag = `    <meta name="version" content="${version}" />`;
-  if (html.includes('<meta name="version"')) {
-    html = html.replace(/<meta\s+name=["']version["']\s+content=["'][^"']*["']\s*\/?>/i, versionMetaTag.trim());
-  } else {
-    html = html.replace("</head>", `${versionMetaTag}\n  </head>`);
-  }
+  const injectVersionIntoHtml = (content: string) => {
+    let out = content;
+    if (out.includes('<meta name="version"')) {
+      out = out.replace(/<meta\s+name=["']version["']\s+content=["'][^"']*["']\s*\/?>/i, versionMetaTag.trim());
+    } else {
+      out = out.replace("</head>", `${versionMetaTag}\n  </head>`);
+    }
+    out = out.replace(
+      /(<span\s+id=["']appVersionText["'][^>]*>)v?[^<]*(<\/span>)/i,
+      `$1v${version}$2`
+    );
+    return out;
+  };
+
+  try {
+    const pubIndex = await readFile("public/index.html", "utf-8");
+    const updatedPubIndex = injectVersionIntoHtml(pubIndex);
+    if (updatedPubIndex !== pubIndex) {
+      await writeFile("public/index.html", updatedPubIndex, "utf-8");
+    }
+  } catch {}
+
+  html = injectVersionIntoHtml(html);
   await writeFile(indexPath, html, "utf-8");
 
-  // Update podcasts.html and podcasts/index.html paths if present
+  // Update podcasts.html and podcasts/index.html paths and version meta tag if present
   const podcastsPath = join("dist", "podcasts.html");
   try {
-    let podHtml = await readFile(podcastsPath, "utf-8");
-    podHtml = podHtml.replaceAll("../node_modules/gsap/dist/gsap.js", "/lib/gsap.js");
+    let pubPodHtml = await readFile("public/podcasts.html", "utf-8");
+    pubPodHtml = injectVersionIntoHtml(pubPodHtml);
+    await writeFile("public/podcasts.html", pubPodHtml, "utf-8");
+    await writeFile("public/podcasts/index.html", pubPodHtml, "utf-8");
+
+    let podHtml = pubPodHtml.replaceAll("../node_modules/gsap/dist/gsap.js", "/lib/gsap.js");
     await writeFile(podcastsPath, podHtml, "utf-8");
     await mkdir(join("dist", "podcasts"), { recursive: true });
     await writeFile(join("dist", "podcasts", "index.html"), podHtml, "utf-8");

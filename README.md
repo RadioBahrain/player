@@ -65,7 +65,7 @@ A self-contained, Bun-powered live radio broadcast player and interactive 3D dig
 
 ### 1.2 3D Vinyl Podcasts Archive (`/podcasts`) — Dark & Light Themes
 
-Accessible from the top navigation bar's vinyl disc button (`<a href="/podcasts" class="podcast-btn">`) or directly via `/podcasts` and `/podcasts.html`. The highlighted album features an exclusive dual-layer specular shine and a spinning grooved vinyl record that peeks out to reveal its custom center label and spindle hole:
+Accessible from the dedicated **أرشيف البودكاست** action pill (`<a id="btnPodcasts" href="/podcasts" class="podcast-btn">` inside `#stageActions`, right beside **شاهد البث المباشر**) or directly via `/podcasts` and `/podcasts.html`. The highlighted album features an exclusive dual-layer specular shine and a spinning grooved vinyl record that peeks out to reveal its custom center label and spindle hole:
 
 | 3D Cover-Flow Carousel (Dark Theme `#120204`) | 3D Cover-Flow Carousel (Light Theme `#fdfaf8`) |
 | :---: | :---: |

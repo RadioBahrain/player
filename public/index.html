@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="./favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
     <link rel="manifest" href="./site.webmanifest" />
+    <meta name="version" content="1.7.661" />
     <style>
       @font-face {
         font-family: 'Tajawal';
@@ -178,14 +179,6 @@
         background: linear-gradient(135deg, var(--red), var(--red-strong));
         color: white; box-shadow: 0 0 16px rgba(255, 59, 59, 0.5);
       }
-      .podcast-btn {
-        width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%;
-        background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); color: white;
-        font-size: 15px; text-decoration: none; transition: all 0.2s ease;
-      }
-      .podcast-btn:hover {
-        background: rgba(200, 169, 106, 0.3); border-color: #c8a96a; color: #f7e7c4; transform: translateY(-1px);
-      }
       .about-btn {
         width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%;
         background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); color: white; font-size: 12px; font-weight: 800;
@@ -329,34 +322,50 @@
         border-color: rgba(255, 59, 59, 0.6);
         color: #fff;
       }
+      .stage-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+        margin-bottom: 6px;
+        padding: 0 14px;
+        z-index: 20;
+      }
       .yt-live-btn-wrap {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 10px;
-        margin-bottom: 6px;
+        margin: 0;
         z-index: 20;
         transition: opacity 0.3s ease, transform 0.3s ease;
       }
       .yt-live-btn-wrap.hidden {
         display: none !important;
       }
-      .watch-live-btn {
+      .watch-live-btn,
+      .podcast-btn {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
-        padding: 9px 22px;
+        padding: 9px 20px;
         border-radius: 9999px;
-        background: rgba(18, 6, 10, 0.68);
-        border: 1px solid rgba(255, 59, 59, 0.45);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 20px rgba(255, 59, 59, 0.22);
-        color: #ffffff;
         font-size: 13px;
         font-weight: 700;
+        text-decoration: none;
         cursor: pointer;
         backdrop-filter: blur(18px);
         -webkit-backdrop-filter: blur(18px);
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space: nowrap;
+      }
+      .watch-live-btn {
+        background: rgba(18, 6, 10, 0.68);
+        border: 1px solid rgba(255, 59, 59, 0.45);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 20px rgba(255, 59, 59, 0.22);
+        color: #ffffff;
       }
       .watch-live-btn i {
         font-size: 20px;
@@ -372,8 +381,31 @@
       .watch-live-btn:hover i {
         transform: scale(1.15);
       }
-      .watch-live-btn:active {
+      .watch-live-btn:active,
+      .podcast-btn:active {
         transform: translateY(0) scale(0.98);
+      }
+      .podcast-btn {
+        background: rgba(20, 12, 8, 0.72);
+        border: 1px solid rgba(200, 169, 106, 0.48);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 20px rgba(200, 169, 106, 0.18);
+        color: #f7efe2;
+      }
+      .podcast-btn i {
+        font-size: 19px;
+        color: #c8a96a;
+        transition: transform 0.35s ease, color 0.25s ease;
+      }
+      .podcast-btn:hover {
+        background: linear-gradient(135deg, rgba(56, 36, 14, 0.92), rgba(24, 10, 8, 0.92));
+        border-color: rgba(232, 213, 176, 0.85);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6), 0 0 28px rgba(200, 169, 106, 0.35);
+        color: #ffffff;
+        transform: translateY(-2px) scale(1.03);
+      }
+      .podcast-btn:hover i {
+        color: #e8d5b0;
+        transform: rotate(35deg) scale(1.15);
       }
       .yt-video-wrapper {
         position: relative;
@@ -650,7 +682,17 @@
 
       @media (max-width: 560px) {
         .stage { padding-bottom: 1vh; }
-        .yt-live-btn-wrap { margin-top: 28px; margin-bottom: 4px; }
+        .stage-actions { margin-top: 28px; margin-bottom: 4px; gap: 8px; padding: 0 10px; }
+        .watch-live-btn,
+        .podcast-btn {
+          padding: 8px 14px;
+          font-size: 12px;
+          gap: 6px;
+        }
+        .watch-live-btn i,
+        .podcast-btn i {
+          font-size: 17px;
+        }
         .bottom { gap: 10px; padding: 0 14px calc(12px + env(safe-area-inset-bottom, 0px)); }
         .bottom-footer { margin-top: 4px; }
         .bottom-footer .splash-counter-wrap { gap: 10px; }
@@ -684,7 +726,7 @@
         margin-top: 4px;
       }
 
-      .top-nav, .logo-stack, #ytLiveSection, #ytLiveBtnWrap, .status, .station-pill, .controls {
+      .top-nav, .logo-stack, #ytLiveSection, #stageActions, #ytLiveBtnWrap, #btnPodcasts, .status, .station-pill, .controls {
         opacity: 0;
         visibility: hidden;
       }
@@ -724,12 +766,11 @@
           <button class="mode-btn" data-mode="particles" type="button" aria-label="Particles"><i class="ph ph-sparkle"></i></button>
           <button class="mode-btn" data-mode="pulse" type="button" aria-label="Pulse"><i class="ph ph-record"></i></button>
           <button class="mode-btn" data-mode="nebula" type="button" aria-label="Nebula"><i class="ph ph-aperture"></i></button>
-          <a href="/podcasts" class="podcast-btn" title="أرشيف البودكاست • Podcasts" aria-label="أرشيف البودكاست"><i class="ph ph-disc"></i></a>
           <button class="about-btn" id="aboutBtn" type="button" aria-label="About">i</button>
         </div>
         <div class="about-tray" id="aboutTray">
           <div class="line1 ar">صنع بكل حب في البحرين</div>
-          <div class="line2 ar">م/ حسن الدوي 2026</div>
+          <div class="line2 ar">م/ حسن الدوي 2026 • <span id="appVersionText" dir="ltr">v1.7.661</span></div>
         </div>
       </div>
 
@@ -776,11 +817,17 @@
           </div>
         </div>
 
-        <div id="ytLiveBtnWrap" class="yt-live-btn-wrap">
-          <button id="btnWatchLive" class="watch-live-btn ar" type="button" aria-label="شاهد البث المباشر">
-            <i class="ph ph-youtube-logo"></i>
-            <span>شاهد البث المباشر</span>
-          </button>
+        <div id="stageActions" class="stage-actions">
+          <div id="ytLiveBtnWrap" class="yt-live-btn-wrap">
+            <button id="btnWatchLive" class="watch-live-btn ar" type="button" aria-label="شاهد البث المباشر">
+              <i class="ph ph-youtube-logo"></i>
+              <span>شاهد البث المباشر</span>
+            </button>
+          </div>
+          <a id="btnPodcasts" href="/podcasts" class="podcast-btn ar" title="أرشيف البودكاست • Podcasts" aria-label="أرشيف البودكاست">
+            <i class="ph ph-disc"></i>
+            <span>أرشيف البودكاست</span>
+          </a>
         </div>
 
         <div class="status">
@@ -1492,7 +1539,7 @@
           .call(playEntrance, [], 0.95);
       }
 
-      const stageTargets = ['.top-nav', '.logo-stack', '#ytLiveSection', '#ytLiveBtnWrap', '.status', '.station-pill', '.controls'];
+      const stageTargets = ['.top-nav', '.logo-stack', '#ytLiveSection', '#stageActions', '#ytLiveBtnWrap', '#btnPodcasts', '.status', '.station-pill', '.controls'];
       gsap.set(stageTargets, { visibility: 'hidden' });
 
       const entranceTl = gsap.timeline({
@@ -1505,7 +1552,7 @@
       entranceTl
         .fromTo('.top-nav', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 0.3)
         .fromTo('.logo-stack', { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.2 }, '-=0.6')
-        .fromTo(['#ytLiveSection', '#ytLiveBtnWrap'], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.8')
+        .fromTo(['#ytLiveSection', '#stageActions', '#ytLiveBtnWrap', '#btnPodcasts'], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.8')
         .fromTo('.status', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.8')
         .fromTo('.station-pill', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, '-=0.8')
         .fromTo('.controls', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.6');

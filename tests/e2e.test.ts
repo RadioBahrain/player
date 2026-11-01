@@ -129,13 +129,15 @@ test("Desktop Live Player: splash screen, circle alignment, station switching, a
     return {
       dx: Math.abs(focusX - btnCx),
       dy: Math.abs(focusY - btnCy),
-      hasPodcastLink: !!document.querySelector('a.podcast-btn[href="/podcasts"]'),
+      hasPodcastLinkInStage: !!document.querySelector('#stageActions a.podcast-btn[href="/podcasts"]'),
+      hasPodcastLinkInTopNav: !!document.querySelector('.top-nav a[href="/podcasts"]'),
     };
   });
 
   expect(alignment.dx).toBeLessThan(2);
   expect(alignment.dy).toBeLessThan(2);
-  expect(alignment.hasPodcastLink).toBe(true);
+  expect(alignment.hasPodcastLinkInStage).toBe(true);
+  expect(alignment.hasPodcastLinkInTopNav).toBe(false);
 
   await page.screenshot({ path: `${SCREENSHOTS_DIR}/player-hero-desktop.png` });
   await copyFile(`${SCREENSHOTS_DIR}/player-hero-desktop.png`, `${SCREENSHOTS_DIR}/player-desktop.png`);
@@ -271,6 +273,15 @@ test("3D Podcasts Archive (/podcasts): Cover-Flow carousel, vinyl physics, episo
   await new Promise((r) => setTimeout(r, 400));
   await page.click("#nextBtn");
   await new Promise((r) => setTimeout(r, 1400));
+  await page
+    .waitForFunction(
+      () => {
+        const img = document.querySelector(".slide .sleeve.active img") as HTMLImageElement | null;
+        return !!img && img.complete && img.naturalWidth > 100;
+      },
+      { timeout: 10000 }
+    )
+    .catch(() => {});
 
   const afterNavState = await page.evaluate(() => {
     const activeSleeve = document.querySelector(".slide .sleeve.active") as HTMLElement | null;
