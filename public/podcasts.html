@@ -72,21 +72,25 @@ body { background: var(--bg); color: var(--text); overflow: hidden; transition: 
 .stage:active { cursor: grabbing; }
 .track { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
 .slide { position: absolute; top: 50%; left: 50%; width: 320px; height: 320px; margin: -160px 0 0 -160px; transform-style: preserve-3d; will-change: transform,opacity; backface-visibility: hidden; }
-@media(max-width: 768px) { .slide { width: 250px; height: 250px; margin: -125px 0 0 -125px; } }
 .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
 .sleeve { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; position: relative; background: var(--card); border: 1px solid var(--bd); box-shadow: var(--shadow); transform: translateZ(0); transition: .4s border-color, .4s box-shadow; }
 .sleeve img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .sleeve.active { border-color: var(--gold); box-shadow: 0 0 0 3px var(--goldSoft), 0 24px 80px rgba(0,0,0,.7), 0 0 40px rgba(200,169,106,.2); }
-.shine { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.shine i { position: absolute; top: 0; bottom: 0; width: 30%; background: linear-gradient(100deg, transparent 10%, rgba(255,255,255,.20) 50%, transparent 90%); transform: translateX(-120%) skewX(-12deg); will-change: transform; }
-.shine i.gold { background: linear-gradient(100deg, transparent 10%, rgba(200,169,106,.35) 50%, transparent 90%); }
-.vinyl { position: absolute; top: 50%; left: 50%; width: 92%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #111 0 11%, #1a1a1a 11.5% 12%, transparent 12.5%), repeating-radial-gradient(circle at 50% 50%, #0e0e0e 0 2px, #1a1a1a 2px 3px, #0e0e0e 3px 4px), radial-gradient(circle, #242424 0 62%, #070707 100%); transform: translate(-50%,-50%) translateZ(-22px); will-change: transform; box-shadow: 0 10px 36px rgba(0,0,0,.75), inset 0 0 0 1px rgba(255,255,255,.08); z-index: -1; }
-.vinyl::after { content: ""; position: absolute; inset: 18%; border-radius: 50%; background: var(--card); border: 1px solid var(--bd); overflow: hidden; }
-.vLabel { position: absolute; inset: 18%; border-radius: 50%; overflow: hidden; z-index: 1; }
+.shine { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s ease; }
+.sleeve.active .shine { opacity: 1; }
+.shine i { position: absolute; top: 0; bottom: 0; width: 34%; background: linear-gradient(100deg, transparent 10%, rgba(255,255,255,.24) 50%, transparent 90%); transform: translateX(-130%) skewX(-12deg); will-change: transform; animation: none; }
+.shine i.gold { background: linear-gradient(100deg, transparent 10%, rgba(200,169,106,.42) 50%, transparent 90%); }
+.sleeve.active .shine i { animation: shineMove 2.6s infinite linear; }
+.sleeve.active .shine i.gold { animation: shineMove 3.5s 0.55s infinite linear; }
+.vinyl { position: absolute; top: 2.5%; left: 2.5%; width: 95%; height: 95%; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #090909 0 6%, #c8a96a 6.2% 7%, transparent 7.5%), repeating-radial-gradient(circle at 50% 50%, #0d0d0d 0 2px, #1d1d1d 2px 3px, #0b0b0b 3px 4.5px), conic-gradient(from 0deg, rgba(255,255,255,.09), transparent 25%, rgba(200,169,106,.12) 50%, transparent 75%, rgba(255,255,255,.09)), radial-gradient(circle, #262626 0 64%, #060606 100%); background-blend-mode: normal, normal, screen, normal; transform: translateZ(-22px); will-change: transform; box-shadow: 0 14px 44px rgba(0,0,0,.85), inset 0 0 0 1.5px rgba(255,255,255,.12); z-index: -1; }
+.vinyl::after { content: ""; position: absolute; inset: 26%; border-radius: 50%; background: var(--card); border: 2px solid rgba(200,169,106,.45); box-shadow: 0 0 0 4px rgba(0,0,0,.65); overflow: hidden; }
+.vLabel { position: absolute; inset: 26%; border-radius: 50%; overflow: hidden; z-index: 1; }
 .vLabel img { width: 100%; height: 100%; object-fit: cover; }
-.badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,.75); border: 1px solid rgba(255,255,255,.14); color: #fff; padding: 5px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 800; backdrop-filter: blur(10px); }
-.viewBtn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(.86); background: rgba(0,0,0,.75); border: 1px solid rgba(255,255,255,.2); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 12px; font-weight: 800; backdrop-filter: blur(14px); opacity: 0; transition: .35s; pointer-events: none; white-space: nowrap; }
-.sleeve.active .viewBtn { opacity: 1; transform: translate(-50%,-50%) scale(1); pointer-events: auto; }
+.vLabel::after { content: ""; position: absolute; top: 50%; left: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #0c0204; border: 2px solid rgba(200,169,106,.75); box-shadow: inset 0 1px 3px rgba(0,0,0,.9); z-index: 2; }
+.badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,.78); border: 1px solid rgba(255,255,255,.16); color: #fff; padding: 5px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 800; backdrop-filter: blur(10px); transition: opacity .25s ease; }
+.sleeve.active .badge { opacity: 0; pointer-events: none; }
+.viewBtn { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%) translateY(6px) scale(.92); background: rgba(12,2,4,.84); border: 1px solid rgba(200,169,106,.55); color: #fff; padding: 9px 18px; border-radius: 999px; font-size: 12px; font-weight: 800; backdrop-filter: blur(14px); box-shadow: 0 8px 24px rgba(0,0,0,.6); opacity: 0; transition: .35s; pointer-events: none; white-space: nowrap; }
+.sleeve.active .viewBtn { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); pointer-events: auto; }
 .viewBtn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
 
 .bottom { padding: 10px 24px 14px; display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 5; flex-shrink: 0; }
@@ -143,7 +147,39 @@ body { background: var(--bg); color: var(--text); overflow: hidden; transition: 
 .loadBar { width: 180px; height: 2px; background: var(--bd); margin: 14px auto 0; overflow: hidden; border-radius: 999px; position: relative; }
 .loadBar i { position: absolute; inset: 0; background: linear-gradient(90deg, var(--gold), var(--gold2)); transform-origin: right; animation: load 1.2s infinite; }
 @keyframes load { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); transform-origin: left; } }
-@keyframes shineMove { 0% { transform: translateX(-130%) skewX(-12deg); } 100% { transform: translateX(180%) skewX(-12deg); } }
+@keyframes shineMove { 0% { transform: translateX(-130%) skewX(-12deg); } 100% { transform: translateX(360%) skewX(-12deg); } }
+
+@media (max-width: 768px) {
+  .header { flex-direction: column; align-items: stretch; padding: 12px 16px 6px; gap: 10px; }
+  .headerRight { gap: 10px; }
+  .brandLogo { width: 40px; height: 40px; }
+  .brandR .t1 { font-size: 18px; line-height: 1.15; }
+  .brandR .t2 { font-size: 10px; margin-top: 2px; letter-spacing: .04em; }
+  .headerLeft { justify-content: flex-start; gap: 6px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .headerLeft::-webkit-scrollbar { display: none; }
+  .pill { padding: 5px 10px; font-size: 10.5px; white-space: nowrap; flex-shrink: 0; }
+  .slide { width: 224px; height: 224px; margin: -112px 0 0 -112px; }
+  .sleeve { border-radius: 16px; }
+  .viewBtn { bottom: 10px; padding: 7px 14px; font-size: 11px; }
+  .badge { bottom: 8px; right: 8px; padding: 4px 8px; font-size: 9.5px; }
+  .bottom { padding: 6px 14px calc(12px + env(safe-area-inset-bottom, 0px)); gap: 8px; }
+  .infoRow { align-items: center; gap: 12px; }
+  .titleBox { min-height: 48px; }
+  .kicker { margin-bottom: 4px; gap: 6px; }
+  .kicker .line { width: 20px; }
+  .kicker span { font-size: 10px; letter-spacing: .1em; }
+  .countPill { padding: 2px 8px; font-size: 10px; }
+  .titleMain { font-size: clamp(19px, 5.4vw, 25px); line-height: 1.22; }
+  .sub { font-size: 11px; margin-top: 2px; }
+  .controls { gap: 8px; }
+  .navBtn { width: 38px; height: 38px; }
+  .thumbStrip { padding: 6px 10px; gap: 7px; }
+  .thumbBtn { width: 46px; height: 46px; border-radius: 10px; opacity: .76; }
+  .episodesPanel { max-height: 85dvh; border-radius: 22px 22px 0 0; }
+  .episodesHead { padding: 16px 16px 12px; }
+  .episodesHeadR .epTitle { font-size: 17px; }
+  .episodesGrid { padding: 12px 16px 24px; grid-template-columns: 1fr; gap: 8px; }
+}
 </style>
 </head>
 <body>
@@ -307,16 +343,14 @@ function mockEpisodes(playlist) {
     const slide = document.createElement('div');
     slide.className = 'slide';
     slide.dataset.idx = idx;
-    const delay = (idx * 0.73) % 4.5;
-    const dur = 2.2 + (idx % 5) * 0.38;
     slide.innerHTML = `
       <div class="card">
         <div class="vinyl"><div class="vLabel"><img src="${it.thumb}" alt="" referrerpolicy="no-referrer"></div></div>
         <div class="sleeve">
           <img src="${it.thumb}" alt="${it.title}" draggable="false" referrerpolicy="no-referrer">
           <div class="shine">
-            <i style="animation:shineMove ${dur}s ${delay}s infinite linear"></i>
-            <i class="gold" style="animation:shineMove ${dur * 1.4}s ${delay + 0.6}s infinite linear"></i>
+            <i></i>
+            <i class="gold"></i>
           </div>
           <div class="badge">${it.count} حلقة</div>
           <div class="viewBtn">عرض الحلقات • ${it.count}</div>
@@ -436,18 +470,25 @@ function mockEpisodes(playlist) {
     currentPos += (targetIdx - currentPos) * 0.11;
     if (Math.abs(targetIdx - currentPos) < 0.001) currentPos = targetIdx;
 
+    const isMobile = window.innerWidth <= 768;
+    const baseSpacing = isMobile ? 165 : 290;
+    const vinylPeekPct = isMobile ? 44 : 46;
+    const rightClearance = isMobile ? 38 : 56;
+
     slides.forEach((slide, idx) => {
       const offset = idx - currentPos;
       const abs = Math.abs(offset);
       if (abs > 4.5) { slide.style.visibility = 'hidden'; return; }
       slide.style.visibility = 'visible';
 
-      const rotateY = offset * -24;
-      const translateZ = -abs * 140 - abs * abs * 8;
-      const translateX = offset * 280;
-      const scale = Math.max(0.58, 1 - abs * 0.16);
-      const opacity = Math.max(0.22, 1 - abs * 0.28);
-      const blur = abs * 1.1;
+      const activeCenterShift = isMobile ? -36 * Math.max(0, 1 - abs * 1.8) : 0;
+      const vinylClearanceShift = offset > 0 ? Math.min(offset, 1) * rightClearance : 0;
+      const rotateY = offset * (isMobile ? -20 : -24);
+      const translateZ = -abs * (isMobile ? 110 : 140) - abs * abs * 8;
+      const translateX = offset * baseSpacing + activeCenterShift + vinylClearanceShift;
+      const scale = Math.max(0.58, 1 - abs * (isMobile ? 0.14 : 0.16));
+      const opacity = Math.max(0.28, 1 - abs * (isMobile ? 0.22 : 0.28));
+      const blur = abs * (isMobile ? 0.7 : 1.1);
 
       gsap.set(slide, {
         x: translateX,
@@ -463,7 +504,7 @@ function mockEpisodes(playlist) {
       const vinyl = slide.querySelector('.vinyl');
       if (Math.abs(offset) < 0.5) {
         sleeve.classList.add('active');
-        gsap.to(vinyl, { x: 68, duration: .6, ease: 'power3.out', overwrite: 'auto' });
+        gsap.to(vinyl, { xPercent: vinylPeekPct, x: 0, y: 0, duration: .6, ease: 'power3.out', overwrite: 'auto' });
         if (!vinyl._spin) {
           vinyl._spin = gsap.to(vinyl, { rotation: 360, duration: 4, repeat: -1, ease: 'none', transformOrigin: '50% 50%' });
         } else {
@@ -471,7 +512,7 @@ function mockEpisodes(playlist) {
         }
       } else {
         sleeve.classList.remove('active');
-        gsap.to(vinyl, { x: 0, duration: .5, ease: 'power3.out', overwrite: 'auto' });
+        gsap.to(vinyl, { xPercent: 0, x: 0, y: 0, duration: .5, ease: 'power3.out', overwrite: 'auto' });
         if (vinyl._spin) vinyl._spin.pause();
       }
     });

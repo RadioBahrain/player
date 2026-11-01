@@ -82,7 +82,7 @@ async function main() {
     await page.screenshot({ path: 'screenshots/station-bahrain-93-3.png' });
 
     // 4. Shaabia 95.0 FM
-    console.log('📸 4/5 Capturing Shaabia 95.0 FM...');
+    console.log('📸 4/6 Capturing Shaabia 95.0 FM...');
     await page.evaluate(() => {
       const btn = document.querySelector('.station-pill[data-channel="shaabia"]') as HTMLElement;
       if (btn) btn.click();
@@ -90,6 +90,16 @@ async function main() {
     await new Promise((r) => setTimeout(r, 3800));
     await activateVisuals();
     await page.screenshot({ path: 'screenshots/station-shaabia-95-0.png' });
+
+    // 4b. Holy Quran 106.1 FM
+    console.log('📸 4b/6 Capturing Holy Quran 106.1 FM...');
+    await page.evaluate(() => {
+      const btn = document.querySelector('.station-pill[data-channel="quran"]') as HTMLElement;
+      if (btn) btn.click();
+    });
+    await new Promise((r) => setTimeout(r, 3800));
+    await activateVisuals();
+    await page.screenshot({ path: 'screenshots/station-quran-106-1.png' });
 
     await page.close();
 
@@ -143,6 +153,21 @@ async function main() {
     await new Promise((r) => setTimeout(r, 1400));
     await podcastPage.screenshot({ path: 'screenshots/podcasts-coverflow-desktop.png' });
 
+    await podcastPage.evaluate(() => {
+      document.documentElement.setAttribute('data-theme', 'light');
+      const tp = document.getElementById('themePill');
+      if (tp) tp.textContent = '☀️ فاتح';
+    });
+    await new Promise((r) => setTimeout(r, 700));
+    await podcastPage.screenshot({ path: 'screenshots/podcasts-coverflow-light.png' });
+
+    await podcastPage.evaluate(() => {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      const tp = document.getElementById('themePill');
+      if (tp) tp.textContent = '🌙 داكن • تلقائي';
+    });
+    await new Promise((r) => setTimeout(r, 700));
+
     await podcastPage.click('.slide .sleeve.active .viewBtn');
     await podcastPage.waitForSelector('#episodesOverlay.open', { timeout: 5000 });
     await new Promise((r) => setTimeout(r, 1000));
@@ -151,8 +176,16 @@ async function main() {
     await podcastPage.click('#epClose');
     await new Promise((r) => setTimeout(r, 700));
     await podcastPage.setViewport({ width: 393, height: 852, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+    await podcastPage.waitForSelector('.slide .sleeve.active', { timeout: 10000 });
     await new Promise((r) => setTimeout(r, 800));
+    await podcastPage.click('#nextBtn');
+    await new Promise((r) => setTimeout(r, 1200));
     await podcastPage.screenshot({ path: 'screenshots/podcasts-coverflow-mobile.png' });
+
+    await podcastPage.click('.slide .sleeve.active .viewBtn');
+    await podcastPage.waitForSelector('#episodesOverlay.open', { timeout: 5000 });
+    await new Promise((r) => setTimeout(r, 1000));
+    await podcastPage.screenshot({ path: 'screenshots/podcasts-episodes-drawer-mobile.png' });
     await podcastPage.close();
 
     try {

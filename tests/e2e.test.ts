@@ -1,6 +1,6 @@
 import { test, expect, beforeAll, afterAll } from "bun:test";
 import puppeteer, { type Browser } from "puppeteer-core";
-import { mkdir } from "node:fs/promises";
+import { mkdir, copyFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 
 const CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -81,6 +81,7 @@ test("Desktop Live Player: splash screen, circle alignment, station switching, a
 
   // Capture splash screen
   await page.screenshot({ path: `${SCREENSHOTS_DIR}/splash-screen.png` });
+  await copyFile(`${SCREENSHOTS_DIR}/splash-screen.png`, `${SCREENSHOTS_DIR}/splash-screen-desktop.png`);
   expect(existsSync(`${SCREENSHOTS_DIR}/splash-screen.png`)).toBe(true);
 
   // Enter player
@@ -137,21 +138,30 @@ test("Desktop Live Player: splash screen, circle alignment, station switching, a
   expect(alignment.hasPodcastLink).toBe(true);
 
   await page.screenshot({ path: `${SCREENSHOTS_DIR}/player-hero-desktop.png` });
+  await copyFile(`${SCREENSHOTS_DIR}/player-hero-desktop.png`, `${SCREENSHOTS_DIR}/player-desktop.png`);
 
   // Switch to Bahrain FM 93.3
   await page.click('.station-pill[data-channel="bahrain"]');
   await new Promise((r) => setTimeout(r, 3600));
   await activateVisuals();
   await page.screenshot({ path: `${SCREENSHOTS_DIR}/station-bahrain-93-3.png` });
+  await copyFile(`${SCREENSHOTS_DIR}/station-bahrain-93-3.png`, `${SCREENSHOTS_DIR}/station-bahrain-fm.png`);
 
   // Switch to Shaabia 95.0 FM
   await page.click('.station-pill[data-channel="shaabia"]');
   await new Promise((r) => setTimeout(r, 3600));
   await activateVisuals();
   await page.screenshot({ path: `${SCREENSHOTS_DIR}/station-shaabia-95-0.png` });
+  await copyFile(`${SCREENSHOTS_DIR}/station-shaabia-95-0.png`, `${SCREENSHOTS_DIR}/station-shaabia-fm.png`);
+
+  // Switch to Holy Quran 106.1 FM
+  await page.click('.station-pill[data-channel="quran"]');
+  await new Promise((r) => setTimeout(r, 3600));
+  await activateVisuals();
+  await page.screenshot({ path: `${SCREENSHOTS_DIR}/station-quran-106-1.png` });
 
   await page.close();
-}, 45000);
+}, 60000);
 
 test("Mobile Live Player: circle alignment verification and mobile hero screenshot", async () => {
   const page = await browser!.newPage();
@@ -223,6 +233,7 @@ test("Mobile Live Player: circle alignment verification and mobile hero screensh
 
   await new Promise((r) => setTimeout(r, 400));
   await page.screenshot({ path: `${SCREENSHOTS_DIR}/player-hero-mobile.png` });
+  await copyFile(`${SCREENSHOTS_DIR}/player-hero-mobile.png`, `${SCREENSHOTS_DIR}/player-mobile.png`);
   await page.close();
 }, 40000);
 
@@ -262,18 +273,49 @@ test("3D Podcasts Archive (/podcasts): Cover-Flow carousel, vinyl physics, episo
   await new Promise((r) => setTimeout(r, 1400));
 
   const afterNavState = await page.evaluate(() => {
-    const activeImg = document.querySelector(".slide .sleeve.active img") as HTMLImageElement | null;
+    const activeSleeve = document.querySelector(".slide .sleeve.active") as HTMLElement | null;
+    const activeImg = activeSleeve?.querySelector("img") as HTMLImageElement | null;
+    const activeShine = activeSleeve?.querySelector(".shine") as HTMLElement | null;
+    const inactiveShine = document.querySelector(".slide .sleeve:not(.active) .shine") as HTMLElement | null;
+    const activeCard = activeSleeve?.closest(".card");
+    const activeVinyl = activeCard?.querySelector(".vinyl") as HTMLElement | null;
+    const sleeveRect = activeSleeve?.getBoundingClientRect();
+    const vinylRect = activeVinyl?.getBoundingClientRect();
     return {
       title: document.getElementById("titleMain")?.textContent?.trim() || "",
       imgLoaded: !!activeImg && activeImg.complete && activeImg.naturalWidth > 100,
+      activeShineOpacity: activeShine ? getComputedStyle(activeShine).opacity : "0",
+      inactiveShineOpacity: inactiveShine ? getComputedStyle(inactiveShine).opacity : "1",
+      vinylPeekPx: sleeveRect && vinylRect ? vinylRect.right - sleeveRect.right : 0,
     };
   });
   expect(afterNavState.title).not.toBe(initialState.title);
   expect(afterNavState.imgLoaded).toBe(true);
+  expect(afterNavState.activeShineOpacity).toBe("1");
+  expect(afterNavState.inactiveShineOpacity).toBe("0");
+  expect(afterNavState.vinylPeekPx).toBeGreaterThan(100);
 
-  // Capture Desktop 3D Cover-Flow screenshot
+  // Capture Desktop 3D Cover-Flow screenshot (Dark Mode)
   await page.screenshot({ path: `${SCREENSHOTS_DIR}/podcasts-coverflow-desktop.png` });
   expect(existsSync(`${SCREENSHOTS_DIR}/podcasts-coverflow-desktop.png`)).toBe(true);
+
+  // Switch to Light Mode and capture Desktop Light Mode Cover-Flow screenshot
+  await page.evaluate(() => {
+    document.documentElement.setAttribute("data-theme", "light");
+    const tp = document.getElementById("themePill");
+    if (tp) tp.textContent = "☀️ فاتح";
+  });
+  await new Promise((r) => setTimeout(r, 700));
+  await page.screenshot({ path: `${SCREENSHOTS_DIR}/podcasts-coverflow-light.png` });
+  expect(existsSync(`${SCREENSHOTS_DIR}/podcasts-coverflow-light.png`)).toBe(true);
+
+  // Restore Dark Mode
+  await page.evaluate(() => {
+    document.documentElement.setAttribute("data-theme", "dark");
+    const tp = document.getElementById("themePill");
+    if (tp) tp.textContent = "🌙 داكن • تلقائي";
+  });
+  await new Promise((r) => setTimeout(r, 700));
 
   // Open Episodes Drawer on active slide
   await page.click(".slide .sleeve.active .viewBtn");
@@ -308,9 +350,35 @@ test("3D Podcasts Archive (/podcasts): Cover-Flow carousel, vinyl physics, episo
     isMobile: true,
     hasTouch: true,
   });
+  await page.waitForSelector(".slide .sleeve.active", { timeout: 10000 });
   await new Promise((r) => setTimeout(r, 800));
+  await page.click("#nextBtn");
+  await new Promise((r) => setTimeout(r, 1200));
+
+  const mobilePodcastState = await page.evaluate(() => {
+    const activeSleeve = document.querySelector(".slide .sleeve.active") as HTMLElement | null;
+    const activeVinyl = activeSleeve?.closest(".card")?.querySelector(".vinyl") as HTMLElement | null;
+    const sRect = activeSleeve?.getBoundingClientRect();
+    const vRect = activeVinyl?.getBoundingClientRect();
+    return {
+      sleeveLeft: sRect?.left ?? 0,
+      vinylRight: vRect?.right ?? 999,
+      vinylPeekPx: sRect && vRect ? vRect.right - sRect.right : 0,
+    };
+  });
+  expect(mobilePodcastState.sleeveLeft).toBeGreaterThan(20);
+  expect(mobilePodcastState.vinylRight).toBeLessThan(385);
+  expect(mobilePodcastState.vinylPeekPx).toBeGreaterThan(70);
+
   await page.screenshot({ path: `${SCREENSHOTS_DIR}/podcasts-coverflow-mobile.png` });
   expect(existsSync(`${SCREENSHOTS_DIR}/podcasts-coverflow-mobile.png`)).toBe(true);
 
+  // Open Episodes Drawer on Mobile and capture screenshot
+  await page.click(".slide .sleeve.active .viewBtn");
+  await page.waitForSelector("#episodesOverlay.open", { timeout: 5000 });
+  await new Promise((r) => setTimeout(r, 1000));
+  await page.screenshot({ path: `${SCREENSHOTS_DIR}/podcasts-episodes-drawer-mobile.png` });
+  expect(existsSync(`${SCREENSHOTS_DIR}/podcasts-episodes-drawer-mobile.png`)).toBe(true);
+
   await page.close();
-}, 45000);
+}, 60000);

@@ -1,45 +1,47 @@
 # Radio Bahrain Player — Technical & Architectural Overview
 
-This document explains the runtime architecture, visual alignment math, route structure, and automated verification setup for the **Radio Bahrain Player** repository.
+This document details the runtime architecture, mathematical coordinate solver, 3D Cover-Flow physics engine, static/dynamic server compatibility, and automated E2E visual verification suite for the **Radio Bahrain Player** repository.
 
-![Radio Bahrain Player Hero]( ../screenshots/player-hero-desktop.png )
+![Radio Bahrain Player Hero](../screenshots/player-hero-desktop.png)
 
 ---
 
 ## 1. Runtime & Bundling Architecture
 
-The project is built and served exclusively with **Bun**:
+The project is engineered to run identically under both **Bun's dynamic HTTP server** and **any standalone static file server**:
+
 - **Local Development & Production Server ([`server.ts`](../server.ts))**:
   - Serves `public/index.html` at `/`.
-  - Serves `public/podcasts.html` at `/podcasts` and `/podcasts/` (extensionless route normalization).
-  - Provides `/api/youtube-live` to check whether `@Radio-Bahrain` (`UCylIWXb8bRI0KcDeJG6H8rw`) has an active YouTube live stream and returns its video metadata.
-  - Maps `/node_modules/*` requests so local browser imports of `gsap` and `hls.js` work without external CDN calls.
-- **Static Build Pipeline ([`build.ts`](../build.ts))**:
-  - Copies `public/` into `dist/`.
-  - Copies `gsap.js` and `hls.js` into `dist/vendor/` and rewrites script paths in both `dist/index.html` and `dist/podcasts.html`.
-  - Generates `dist/podcasts/index.html` alongside `dist/podcasts.html` so static hosts resolve `/podcasts` cleanly without server-side rewrites.
-  - Injects the release version from `package.json` into `dist/index.html` and emits `dist/version.json`.
+  - Serves `public/podcasts.html` (and `public/podcasts/index.html`) at `/podcasts`, `/podcasts/`, and `/podcasts.html`.
+  - Exposes `/api/listeners-now` (queries Radio Bahrain's Icecast/Shoutcast endpoints with a 15-second cache) and `/api/youtube-live` (checks `@Radio-Bahrain` live broadcast status with a 60-second cache).
+- **Direct Static Serving from `public/` (`php -S`, `python -m http.server`, `serve`)**:
+  - `public/lib/gsap.js` and `public/lib/hls.js` are stored directly in `public/lib/`, and `public/podcasts/index.html` provides directory-index resolution for `/podcasts`.
+  - Running `php -S localhost:8011 -t ./` inside `public/` serves both `/` and `/podcasts` with zero missing dependencies or rewrite rules required.
+- **Static Distribution Bundler ([`build.ts`](../build.ts))**:
+  - Cleans `dist/` and copies `public/` (filtering out `.DS_Store`, `Thumbs.db`, `._*`).
+  - Syncs `node_modules/gsap/dist/gsap.js` and `node_modules/hls.js/dist/hls.js` into both `public/lib/` and `dist/lib/`.
+  - Syncs `public/podcasts/index.html` and `dist/podcasts/index.html`.
+  - Embeds `<meta name="version" content="..." />` into `dist/index.html` and emits `dist/version.json`.
 
 ---
 
 ## 2. Pixel-Locked Background Artwork Alignment (`public/index.html`)
 
-Each station background image in `public/assets/` (`1600×900`) contains a central circular red microphone emblem whose intrinsic coordinates are measured at:
-- Horizontal center: `discCx = 0.501` (`801.6px` of `1600px`)
-- Vertical center: `discCy = 0.417` (`375.3px` of `900px`)
-- Intrinsic diameter: `discDiameter = 0.252` of image width (`403.2px` of `1600px`)
+Every station background in `public/assets/` (`1136×2080`) contains a central circular red microphone emblem whose intrinsic geometry (`BG_ART`) is:
+- Aspect ratio: `aspect = 1136 / 2080`
+- Horizontal center: `cx = 0.501` (`569.1px` of `1136px`)
+- Vertical center: `cy = 0.417` (`867.4px` of `2080px`)
+- Intrinsic diameter: `d = 0.195` of image height (`405.6px` of `2080px`)
 
-### Why Standard CSS `background-size: cover` Drifts on Mobile
-On a narrow portrait viewport (e.g., `393×852`), CSS `background-size: cover` scales the image to match the viewport height (`852px`), making the rendered image `1514.67px` wide and the background emblem disc `381.7px` in diameter, whereas the foreground `#btnPower` (`RADIO`) button is clamped at `clamp(210px, 58vw, 290px)` (`227.94px`). Furthermore, pinning `50.1% 41.7%` via percentage `background-position` only works when using percentage offset math relative to `(viewportSize - imageSize)`, causing vertical and radial drift on mobile screens.
-
-### Exact Coordinate Solver
-`syncBackgroundFocusToAnchor()` in [`public/index.html`](../public/index.html) computes explicit pixel values for `--bg-size` and `--bg-pos`:
-1. Measures the live bounding box of `#btnPower` (or `#splashLogo` while the splash screen is visible).
-2. Calculates the minimum scale factor so the background image covers the viewport (`scaleCover`) **and** matches the foreground button diameter (`scaleMatchBtn = anchorDiameter / (1600 * 0.252)`).
-3. Sets `--bg-size: <bgW>px <bgH>px` and positions the top-left corner at:
-   - `left = centerX - 0.501 * bgW`
-   - `top = centerY - 0.417 * bgH`
-4. Updates continuously during the GSAP entrance timeline (`entranceTl`) and on `ResizeObserver` / `visualViewport` events.
+### Coordinate Solver (`syncBackgroundFocusToPlaybackButton()`)
+1. Measures the live `getBoundingClientRect()` of `#btnPower` (or `#splashLogo` while the splash screen is active) and divides out any temporary GSAP entrance scale transform to obtain the untransformed diameter `btnDiameter`.
+2. Computes the exact rendered image dimensions so the baked-in artwork disc matches the button diameter:
+   - `imgH = btnDiameter / BG_ART.d`
+   - `imgW = imgH * BG_ART.aspect`
+3. Computes the exact pixel offset so the artwork disc center `(0.501 * imgW, 0.417 * imgH)` lands directly on the button center `(ax, ay)`:
+   - `posX = ax - BG_ART.cx * imgW`
+   - `posY = ay - BG_ART.cy * imgH`
+4. Writes `--bg-size: <imgW>px <imgH>px` and `--bg-pos: <posX>px <posY>px` to `document.documentElement`, updating on GSAP `entranceTl` ticks, window resize, and mobile `visualViewport` events.
 
 | Desktop Alignment (`1440×900`) | Mobile Alignment (`393×852`) |
 | :---: | :---: |
@@ -49,13 +51,27 @@ On a narrow portrait viewport (e.g., `393×852`), CSS `background-size: cover` s
 
 ## 3. 3D Vinyl Podcasts Archive (`public/podcasts.html`)
 
-Accessible at `/podcasts` (via the top navigation bar's podcast icon button on the live player), [`public/podcasts.html`](../public/podcasts.html) provides an interactive 3D Cover-Flow browser for Radio Bahrain's digital podcast and YouTube playlist archive:
-- **60fps Spring Physics**: A GSAP ticker interpolates `currentPos += (targetIdx - currentPos) * 0.12` and applies continuous 3D transforms (`translate3d`, `rotateY`, `scale`) to each `.slide`.
-- **Realistic Grooved Vinyl Disc**: When `Math.abs(offset) < 0.45`, the `.sleeve` gains `.active` and the `.vinyl` disc translates `-58%` horizontally while spinning continuously (`@keyframes spin`).
-- **Hotlink-Safe Thumbnail Loading**: Uses `<meta name="referrer" content="no-referrer">` and `referrerpolicy="no-referrer"` so thumbnails hosted on `cloud.adhari.com` render without triggering Cloudflare Referer hotlink protection when served from `localhost` or production domains.
-- **Episodes Drawer**: Clicking the active album opens a slide-up glassmorphism drawer (`#episodesPanel`) displaying all episodes in the selected playlist.
+Accessible at `/podcasts` and `/podcasts.html`, [`public/podcasts.html`](../public/podcasts.html) renders a 60fps 3D Cover-Flow carousel for Radio Bahrain's 47 playlists (810 episodes):
 
-![3D Podcasts Cover-Flow](../screenshots/podcasts-coverflow-desktop.png)
+- **60fps Spring Interpolation**:
+  - `currentPos += (targetIdx - currentPos) * 0.11` smoothly interpolates toward the selected index and applies 3D perspective transforms (`translate3d`, `rotationY`, `scale`, `blur`) to each `.slide`.
+- **Active-Only Specular Shine**:
+  - `.shine` is hidden and paused (`opacity: 0; animation: none`) on all inactive sleeves and enabled exclusively on `.sleeve.active`, focusing visual attention on the highlighted album while eliminating background GPU overdraw.
+- **Extended Vinyl Peek & Center Label**:
+  - `.vinyl` (`top: 2.5%; left: 2.5%; width: 95%; height: 95%`) slides out to `xPercent: 46` on desktop (`~132px` beyond the sleeve edge) and `xPercent: 44` on mobile (`~87px` beyond the sleeve edge) while spinning continuously (`360deg` every `4s`), revealing the custom center label (`.vLabel`), gold ring, metallic groove sheen, and spindle hole.
+  - Neighboring right-hand slides shift by `rightClearance` (`56px` desktop / `38px` mobile) so the peeking vinyl is never crowded.
+- **Mobile Layout Optimization (`@media (max-width: 768px)`)**:
+  - Uses a two-row header (single-line title + horizontal pill bar), shifts the active card by `-36px` so the combined `[Sleeve + Peeking Vinyl]` sits centered in the mobile viewport, and increases bottom thumbnail strip density and contrast.
+- **Hotlink-Safe Thumbnail Loading**:
+  - Uses `<meta name="referrer" content="no-referrer">` and `referrerpolicy="no-referrer"` so thumbnails hosted on `cloud.adhari.com` load with HTTP `200` from any origin.
+
+| 3D Cover-Flow (Dark Mode) | 3D Cover-Flow (Light Mode) |
+| :---: | :---: |
+| ![Podcasts Dark](../screenshots/podcasts-coverflow-desktop.png) | ![Podcasts Light](../screenshots/podcasts-coverflow-light.png) |
+
+| Desktop Episodes Drawer | Mobile Cover-Flow & Episodes Drawer |
+| :---: | :---: |
+| ![Episodes Drawer Desktop](../screenshots/podcasts-episodes-drawer.png) | ![Episodes Drawer Mobile](../screenshots/podcasts-episodes-drawer-mobile.png) |
 
 ---
 
@@ -73,8 +89,8 @@ Accessible at `/podcasts` (via the top navigation bar's podcast icon button on t
 
 ## 5. End-to-End Visual Verification (`tests/e2e.test.ts`)
 
-[`tests/e2e.test.ts`](../tests/e2e.test.ts) runs automated browser checks using `bun:test` and `puppeteer-core`:
-1. **Favicon & Manifest Verification**: Confirms HTTP `200` and expected `Content-Type` headers for all icon and manifest endpoints.
-2. **Desktop Live Player Verification (`1440×900`)**: Verifies splash screen dismissal, asserts background disc center alignment (`dx < 2px`, `dy < 2px`), tests channel switching (`Shabab 98.4`, `Bahrain 93.3`, `Shaabia 95.0`), and captures desktop screenshots.
-3. **Mobile Live Player Verification (`393×852`)**: Verifies that the intrinsic artwork disc center (`bgLeft + 0.501 * bgW`, `bgTop + 0.417 * bgH`) aligns within `< 2px` of `#btnPower` on mobile and captures mobile screenshots.
-4. **3D Podcasts Archive Verification (`/podcasts`)**: Verifies playlist loading, Cover-Flow carousel navigation, image natural width (`naturalWidth > 100`), episodes drawer opening/closing, and captures desktop and mobile `/podcasts` screenshots.
+[`tests/e2e.test.ts`](../tests/e2e.test.ts) runs **49 automated assertions** using `bun:test` and `puppeteer-core`:
+1. **Asset, Library & Route Delivery**: Confirms HTTP `200` and expected `Content-Type` headers for all favicons, `site.webmanifest`, `/lib/gsap.js`, `/lib/hls.js`, `/podcasts`, and `/podcasts.html`.
+2. **Desktop Live Player Verification (`1440×900`)**: Verifies splash dismissal, asserts `< 2px` background disc alignment, switches across all 4 stations (`Shabab 98.4`, `Bahrain 93.3`, `Shaabia 95.0`, `Holy Quran 106.1`), and captures desktop screenshots.
+3. **Mobile Live Player Verification (`393×852`)**: Verifies `< 2px` artwork disc alignment on mobile viewports and captures mobile splash and player screenshots.
+4. **3D Podcasts Archive Verification (`/podcasts`)**: Verifies playlist hydration, Cover-Flow navigation, active-only `.shine` opacity, desktop & mobile vinyl peek geometry, Dark & Light themes, and Desktop & Mobile episodes drawers.
