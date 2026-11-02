@@ -19,6 +19,7 @@
     "hls.js": "^1.7.4"
   },
   "devDependencies": {
+    "@types/node": "^26.6.6",
     "puppeteer-core": "^25.16.0"
   }
 }
