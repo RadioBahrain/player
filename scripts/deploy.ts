@@ -413,15 +413,28 @@ async function pushDeploy(
     }
   }
 
-  const finRes = await fetch(updateData.upload.finalizeUrl, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({ versionId: updateData.upload.versionId }),
-  });
+  let finRes: Response | null = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      finRes = await fetch(updateData.upload.finalizeUrl, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ versionId: updateData.upload.versionId }),
+      });
+      if (finRes.ok) break;
+      const finErr = await finRes.text();
+      if (attempt === 3) {
+        throw new Error(`Failed to finalize (${finRes.status}): ${finErr}`);
+      }
+    } catch (err: any) {
+      if (attempt === 3) throw err;
+      console.warn(`[deploy] Finalize attempt ${attempt} failed: ${err.message}. Retrying...`);
+      await new Promise((r) => setTimeout(r, 1500 * attempt));
+    }
+  }
 
-  if (!finRes.ok) {
-    const finErr = await finRes.text();
-    throw new Error(`Failed to finalize (${finRes.status}): ${finErr}`);
+  if (!finRes || !finRes.ok) {
+    throw new Error(`Failed to finalize upload.`);
   }
 
   // Ensure routing and permissions
