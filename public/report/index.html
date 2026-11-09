@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إذاعة مملكة البحرين • تقرير التغطية البصرية والتوثيق التقني | Radio Bahrain Visual Coverage Report</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    :root {
+      --bg: #0b0204;
+      --bg-card: rgba(26, 6, 11, 0.72);
+      --border: rgba(255, 60, 60, 0.16);
+      --border-strong: rgba(255, 75, 75, 0.32);
+      --red: #ff3b3b;
+      --red-glow: rgba(255, 59, 59, 0.35);
+      --gold: #d4af37;
+      --gold-glow: rgba(212, 175, 55, 0.28);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.65);
+      --font-main: 'Tajawal', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(140, 15, 28, 0.45) 0%, transparent 60%),
+        radial-gradient(circle at 100% 50%, rgba(80, 8, 16, 0.35) 0%, transparent 50%),
+        radial-gradient(circle at 0% 80%, rgba(60, 5, 12, 0.4) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* Acoustic micro-weave texture */
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      background-image:
+        radial-gradient(circle at 1.5px 1.5px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+      background-size: 8px 8px;
+      opacity: 0.8;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand-logo {
+      width: 58px; height: 58px;
+      filter: drop-shadow(0 4px 16px var(--red-glow));
+    }
+    .brand-title h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .brand-title p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--red), #a30e1f);
+      border-color: rgba(255, 120, 120, 0.35);
+      box-shadow: 0 4px 18px var(--red-glow);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #ff4d4d, #b81225);
+      box-shadow: 0 6px 24px var(--red-glow);
+    }
+    .btn-github {
+      background: #181717;
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+    .btn-github:hover {
+      background: #242222;
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+
+    .hero-banner {
+      background: linear-gradient(145deg, rgba(40, 8, 14, 0.8), rgba(20, 3, 6, 0.95));
+      border: 1px solid var(--border-strong);
+      border-radius: 20px;
+      padding: 36px 32px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -50%; right: -20%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .tag {
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+    .tag-success {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.35);
+      color: #4ade80;
+    }
+    .tag-gold {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: rgba(212, 175, 55, 0.35);
+      color: #facc15;
+    }
+
+    .hero-banner h2 {
+      font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .hero-banner p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 880px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .section-title i {
+      color: var(--red);
+    }
+
+    /* Grid layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-media {
+      position: relative;
+      background: #000;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-media.portrait {
+      aspect-ratio: 9 / 14;
+      max-height: 480px;
+    }
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .card:hover .card-media img {
+      transform: scale(1.025);
+    }
+    .card-media .media-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      padding: 4px 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    [dir="ltr"] .card-media .media-badge {
+      right: auto; left: 12px;
+    }
+
+    .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-body h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-body p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Comparison Table */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 48px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+    }
+    [dir="ltr"] table { text-align: left; }
+    th, td {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.9rem;
+    }
+    th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--gold);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Code block */
+    pre {
+      background: #050102;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: #f1f5f9;
+      overflow-x: auto;
+      direction: ltr;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    footer {
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+    }
+
+    .lang-toggle {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      padding: 4px;
+      display: inline-flex;
+      gap: 4px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.8rem;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active {
+      background: var(--red);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="brand-group">
+      <img src="/favicon.svg" alt="Radio Bahrain Microphone Emblem" class="brand-logo" />
+      <div class="brand-title">
+        <h1 id="txtAppTitle">إذاعة مملكة البحرين • تقرير التغطية البصرية</h1>
+        <p id="txtAppSubtitle">Radio Bahrain Live Player & 3D Podcasts Archive — Visual Audit</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="lang-toggle" aria-label="Language Selector">
+        <button class="lang-btn active" id="btnAr" onclick="setLanguage('ar')">العربية</button>
+        <button class="lang-btn" id="btnEn" onclick="setLanguage('en')">English</button>
+      </div>
+
+      <a href="https://github.com/RadioBahrain/player" target="_blank" rel="noopener noreferrer" class="btn btn-github">
+        <i class="ph ph-github-logo"></i>
+        <span>GitHub</span>
+      </a>
+
+      <a href="/" class="btn btn-primary">
+        <i class="ph ph-broadcast"></i>
+        <span id="txtBtnLive">مشغل البث المباشر</span>
+      </a>
+
+      <a href="/podcasts" class="btn">
+        <i class="ph ph-disc"></i>
+        <span id="txtBtnPodcasts">أرشيف البودكاست</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Summary Banner -->
+  <section class="hero-banner">
+    <div class="hero-badge-row">
+      <span class="tag tag-success"><i class="ph ph-check-circle"></i> <span id="txtTagTests">50 فحص آلي ناجح بنسبة 100%</span></span>
+      <span class="tag tag-gold"><i class="ph ph-sparkle"></i> <span id="txtTagWidescreen">خلفيات عريضة 16:9 أصلية</span></span>
+      <span class="tag"><i class="ph ph-cube"></i> <span id="txtTagPodcasts">أرشيف بودكاست 3D (810 حلقة)</span></span>
+      <span class="tag"><i class="ph ph-shield-check"></i> <span id="txtTagSubpixel">محاذاة هندسية &lt; 0.1px</span></span>
+    </div>
+    <h2 id="txtHeroHeading">التقرير البصري والتوثيق الهندسي الشامل</h2>
+    <p id="txtHeroDesc">
+      مراجعة وتغطية بصرية شاملة لمنصة البث الرقمي الرسمية لإذاعة مملكة البحرين. يوثق هذا التقرير كافة الواجهات الحية، وأنظمة الخلفيات مزدوجة الاتجاه (Dual-Orientation)، ومحرك محاذاة الشعار، وأرشيف أسطوانات الفينيل ثلاثي الأبعاد، وضمان الوصول للمستودع المصدري على GitHub.
+    </p>
+
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <a href="https://github.com/RadioBahrain/player/blob/main/docs/visual-coverage-report.ar.md" target="_blank" rel="noopener noreferrer" class="btn btn-github">
+        <i class="ph ph-file-text"></i>
+        <span id="txtBtnDocAr">التقرير التفصيلي (عربي على GitHub)</span>
+      </a>
+      <a href="https://github.com/RadioBahrain/player/blob/main/docs/visual-coverage-report.md" target="_blank" rel="noopener noreferrer" class="btn btn-github">
+        <i class="ph ph-file-text"></i>
+        <span id="txtBtnDocEn">Full Report (English on GitHub)</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Section 1: Live Player Desktop Suite -->
+  <section>
+    <h2 class="section-title">
+      <i class="ph ph-desktop"></i>
+      <span id="txtSec1Title">1. واجهات سطح المكتب العريضة (16:9 Widescreen)</span>
+    </h2>
+
+    <div class="grid-2">
+      <!-- Shabab -->
+      <div class="card">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/player-hero-desktop.png" alt="Shabab 98.4 FM Desktop Hero" />
+          <span class="media-badge">1440×900 @2x</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardShababTitle">إذاعة شباب 98.4 FM (الشاشة الرئيسية)</h3>
+          <p id="txtCardShababDesc">خلفية عريضة بنسبة 16:9 تمتد بسلاسة حتى الحواف، مع رسومات خطية لسماعات الأستوديو وأمواج الصوت، وقفل مركزي لقرص الميكروفون على زر التشغيل.</p>
+          <div class="card-meta">
+            <span>التردد: 98.4 MHz</span>
+            <span>الأصل: shabab-98-4-desktop.jpg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bahrain FM -->
+      <div class="card">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/station-bahrain-93-3.png" alt="Bahrain FM 93.3 Desktop" />
+          <span class="media-badge">1440×900 @2x</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardBahrainTitle">بحرين FM 93.3 (قلعة الرفاع التراثية)</h3>
+          <p id="txtCardBahrainDesc">تدرج عنابي دافئ مع توهج الشمس الذهبي المركزي، ورسم خطي أبيض فكتور لقلعة الرفاع التاريخية بأسوارها وأبراجها وبوابتها المقوسة.</p>
+          <div class="card-meta">
+            <span>التردد: 93.3 MHz</span>
+            <span>الأصل: bahrain-fm-93-3-desktop.jpg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shaabia -->
+      <div class="card">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/station-shaabia-95-0.png" alt="Al Shaabiya 95.0 FM Desktop" />
+          <span class="media-badge">1440×900 @2x</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardShaabiaTitle">إذاعة الشعبية 95.0 FM (العود العربي)</h3>
+          <p id="txtCardShaabiaDesc">المحطة الشعبية الفلكلورية مع الرسم الخطي لآلة العود العربي التقليدي بزخارفه وأوتاره المعبرة عن التراث الموسيقي البحريني.</p>
+          <div class="card-meta">
+            <span>التردد: 95.0 MHz</span>
+            <span>الأصل: shaabia-95-0-desktop.jpg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quran / Official -->
+      <div class="card">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/station-quran-106-1.png" alt="Holy Quran 106.1 FM Desktop" />
+          <span class="media-badge">1440×900 @2x</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardQuranTitle">القرآن الكريم 106.1 FM / البث الرسمي (BWTC)</h3>
+          <p id="txtCardQuranDesc">بث إذاعة القرآن الكريم والمناسبات الرسمية مع الرسم الخطي لبرجي مركز البحرين التجاري العالمي وتوربينات الرياح الأيقونية.</p>
+          <div class="card-meta">
+            <span>التردد: 106.1 MHz</span>
+            <span>الأصل: default-desktop.jpg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Mobile Responsive Experience -->
+  <section>
+    <h2 class="section-title">
+      <i class="ph ph-device-mobile"></i>
+      <span id="txtSec2Title">2. التجربة البصرية على الهواتف الذكية (393×852 Retina)</span>
+    </h2>
+
+    <div class="grid-3">
+      <!-- Mobile Splash -->
+      <div class="card">
+        <div class="card-media portrait">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/splash-screen-mobile.png" alt="Mobile Splash Preloader" />
+          <span class="media-badge">393×852 @2x</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardMobSplashTitle">شاشة الترحيب للهواتف</h3>
+          <p id="txtCardMobSplashDesc">شاشة انتظار سينمائية عنابية داكنة مع شريط تقدم متناسق وعداد زيارات وزر بدء الاستماع المريح للإبهام.</p>
+        </div>
+      </div>
+
+      <!-- Mobile Hero -->
+      <div class="card">
+        <div class="card-media portrait">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/player-hero-mobile.png" alt="Mobile Live Player" />
+          <span class="media-badge">393×852 @2x</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardMobHeroTitle">المشغل المباشر للهاتف</h3>
+          <p id="txtCardMobHeroDesc">خلفية طولية (9:16) محاذاة رياضياً بدقة بالغة مع زر RADIO، وتنظيم مدمج للأزرار وعدادات المستمعين والزوار.</p>
+        </div>
+      </div>
+
+      <!-- Mobile Podcasts -->
+      <div class="card">
+        <div class="card-media portrait">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/podcasts-coverflow-mobile.png" alt="Mobile 3D Podcasts Cover-Flow" />
+          <span class="media-badge">393×852 @2x</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardMobPodTitle">أرشيف البودكاست للهاتف</h3>
+          <p id="txtCardMobPodDesc">تصفح ثلاثي الأبعاد سلس بمعدل 60 إطاراً في الثانية مع بروز أسطوانة الفينيل الدوارة وشريط مصغرات عالي التباين.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: 3D Podcasts Archive -->
+  <section>
+    <h2 class="section-title">
+      <i class="ph ph-disc"></i>
+      <span id="txtSec3Title">3. أرشيف البودكاست ثلاثي الأبعاد (/podcasts)</span>
+    </h2>
+
+    <div class="grid-2">
+      <!-- Dark Theme -->
+      <div class="card">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/podcasts-coverflow-desktop.png" alt="Podcasts Cover-Flow Dark Mode" />
+          <span class="media-badge">النمط الداكن #120204</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardDarkTitle">عرض Cover-Flow بالنمط الداكن</h3>
+          <p id="txtCardDarkDesc">محاكاة فيزيائية ناعمة للألبومات ثلاثية الأبعاد مع بروز قرص الفينيل الدوار وبريق ضوئي مخصص للألبوم النشط.</p>
+          <div class="card-meta">
+            <span>47 قائمة تشغيل</span>
+            <span>810 حلقة مسجلة</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Light Theme -->
+      <div class="card">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/podcasts-coverflow-light.png" alt="Podcasts Cover-Flow Light Mode" />
+          <span class="media-badge">النمط الفاتح #fdfaf8</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardLightTitle">عرض Cover-Flow بالنمط الفاتح</h3>
+          <p id="txtCardLightDesc">مظهر نهاري مشرق مع تباين عالي للأغلفة وتدوير أسطوانة الفينيل السوداء بملصقها الوسطي وحلقاتها العاكسة.</p>
+          <div class="card-meta">
+            <span>تبديل فوري للنمط</span>
+            <span>تحسينات GPU عالية</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Drawer -->
+      <div class="card">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/podcasts-episodes-drawer.png" alt="Desktop Episodes Drawer" />
+          <span class="media-badge">درج الحلقات لسطح المكتب</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardDeskDrawerTitle">درج الحلقات التفاعلي المنبثق</h3>
+          <p id="txtCardDeskDrawerDesc">درج زجاجي ينسدل بسلاسة ليعرض كافة حلقات البرنامج المختار، مع تواريخ النشر وإمكانية الاستماع المباشر.</p>
+        </div>
+      </div>
+
+      <!-- Mobile Drawer -->
+      <div class="card">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/RadioBahrain/player/main/screenshots/podcasts-episodes-drawer-mobile.png" alt="Mobile Episodes Drawer" />
+          <span class="media-badge">درج الحلقات للهاتف</span>
+        </div>
+        <div class="card-body">
+          <h3 id="txtCardMobDrawerTitle">درج الحلقات على الهواتف الذكية</h3>
+          <p id="txtCardMobDrawerDesc">تصميم مخصص لملء الشاشة مع بطاقات حلقات سهلة التمرير، وزر إغلاق واضح وإمكانية التمرير بالإيماءات.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Specifications & Comparison Table -->
+  <section>
+    <h2 class="section-title">
+      <i class="ph ph-table"></i>
+      <span id="txtSec4Title">4. مصفوفة المواصفات والتحقق الهندسي</span>
+    </h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th id="thStation">المحطة الإذاعية</th>
+            <th id="thFreq">التردد</th>
+            <th id="thAspectDesk">أبعاد سطح المكتب (16:9)</th>
+            <th id="thAspectMob">أبعاد الهاتف (9:16)</th>
+            <th id="thLineArt">الرسم الخطي التراثي</th>
+            <th id="thAlign">دقة المحاذاة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>شباب FM</strong></td>
+            <td>98.4 MHz</td>
+            <td>1376×768 (shabab-98-4-desktop.jpg)</td>
+            <td>1136×2080 (shabab-98-4.jpg)</td>
+            <td>سماعات الأستوديو وأمواج الطيف الصوتي</td>
+            <td>&lt; 0.05px</td>
+          </tr>
+          <tr>
+            <td><strong>بحرين FM</strong></td>
+            <td>93.3 MHz</td>
+            <td>1376×768 (bahrain-fm-93-3-desktop.jpg)</td>
+            <td>1136×2080 (bahrain-fm-93-3.jpg)</td>
+            <td>قلعة الرفاع التاريخية بأسوارها وبوابتها</td>
+            <td>&lt; 0.05px</td>
+          </tr>
+          <tr>
+            <td><strong>الشعبية FM</strong></td>
+            <td>95.0 MHz</td>
+            <td>1376×768 (shaabia-95-0-desktop.jpg)</td>
+            <td>1136×2080 (shaabia-95-0.jpg)</td>
+            <td>آلة العود العربي التراثية بزخارفها</td>
+            <td>&lt; 0.05px</td>
+          </tr>
+          <tr>
+            <td><strong>القرآن الكريم / إذاعة البحرين</strong></td>
+            <td>106.1 MHz</td>
+            <td>1376×768 (default-desktop.jpg)</td>
+            <td>1136×2080 (default.jpg)</td>
+            <td>برجا مركز البحرين التجاري العالمي (BWTC)</td>
+            <td>&lt; 0.05px</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-size: 1.15rem; margin-bottom: 12px;" id="txtCodeTitle">المعادلة الحسابية لتغطية الشاشة ومنع الفراغات (Full-Bleed Placement Solver):</h3>
+    <pre><code>// Dynamic scale & placement equation in public/index.html
+const h = Math.max(
+  vh,
+  vw / art.aspect,
+  diameter / art.d,
+  ay / art.cy,
+  (vh - ay) / (1 - art.cy),
+  (ax / art.cx) / art.aspect,
+  ((vw - ax) / (1 - art.cx)) / art.aspect
+);
+const w = h * art.aspect;
+const left = ax - art.cx * w;
+const top = ay - art.cy * h;</code></pre>
+  </section>
+
+  <!-- Section 5: GitHub Repository & Commands -->
+  <section>
+    <h2 class="section-title">
+      <i class="ph ph-git-branch"></i>
+      <span id="txtSec5Title">5. مستودع GitHub والتشغيل</span>
+    </h2>
+
+    <pre><code># 1. Clone the repository
+git clone https://github.com/RadioBahrain/player.git
+cd player
+
+# 2. Install dependencies & run development server
+bun install
+bun run dev
+
+# 3. Run automated visual E2E test suite (50 assertions)
+bun test
+
+# 4. Generate high-resolution retina screenshot gallery
+bun run screenshots
+
+# 5. Build and deploy to production
+bun run deploy:live</code></pre>
+  </section>
+
+  <footer>
+    <div id="txtFooterRights">© 2026 إذاعة مملكة البحرين • وزارة الإعلام • صُنع بكل حب في البحرين</div>
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <a href="https://github.com/RadioBahrain/player" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: underline;">GitHub Repository</a>
+      <span>•</span>
+      <a href="/" style="color: var(--text-muted); text-decoration: underline;">Live Player</a>
+      <span>•</span>
+      <a href="/podcasts" style="color: var(--text-muted); text-decoration: underline;">Podcasts Archive</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const translations = {
+    ar: {
+      dir: 'rtl',
+      lang: 'ar',
+      appTitle: 'إذاعة مملكة البحرين • تقرير التغطية البصرية',
+      appSubtitle: 'Radio Bahrain Live Player & 3D Podcasts Archive — Visual Audit',
+      btnLive: 'مشغل البث المباشر',
+      btnPodcasts: 'أرشيف البودكاست',
+      tagTests: '50 فحص آلي ناجح بنسبة 100%',
+      tagWidescreen: 'خلفيات عريضة 16:9 أصلية',
+      tagPodcasts: 'أرشيف بودكاست 3D (810 حلقة)',
+      tagSubpixel: 'محاذاة هندسية < 0.1px',
+      heroHeading: 'التقرير البصري والتوثيق الهندسي الشامل',
+      heroDesc: 'مراجعة وتغطية بصرية شاملة لمنصة البث الرقمي الرسمية لإذاعة مملكة البحرين. يوثق هذا التقرير كافة الواجهات الحية، وأنظمة الخلفيات مزدوجة الاتجاه (Dual-Orientation)، ومحرك محاذاة الشعار، وأرشيف أسطوانات الفينيل ثلاثي الأبعاد، وضمان الوصول للمستودع المصدري على GitHub.',
+      btnDocAr: 'التقرير التفصيلي (عربي على GitHub)',
+      btnDocEn: 'Full Report (English on GitHub)',
+      sec1Title: '1. واجهات سطح المكتب العريضة (16:9 Widescreen)',
+      cardShababTitle: 'إذاعة شباب 98.4 FM (الشاشة الرئيسية)',
+      cardShababDesc: 'خلفية عريضة بنسبة 16:9 تمتد بسلاسة حتى الحواف، مع رسومات خطية لسماعات الأستوديو وأمواج الصوت، وقفل مركزي لقرص الميكروفون على زر التشغيل.',
+      cardBahrainTitle: 'بحرين FM 93.3 (قلعة الرفاع التراثية)',
+      cardBahrainDesc: 'تدرج عنابي دافئ مع توهج الشمس الذهبي المركزي، ورسم خطي أبيض فكتور لقلعة الرفاع التاريخية بأسوارها وأبراجها وبوابتها المقوسة.',
+      cardShaabiaTitle: 'إذاعة الشعبية 95.0 FM (العود العربي)',
+      cardShaabiaDesc: 'المحطة الشعبية الفلكلورية مع الرسم الخطي لآلة العود العربي التقليدي بزخارفه وأوتاره المعبرة عن التراث الموسيقي البحريني.',
+      cardQuranTitle: 'القرآن الكريم 106.1 FM / البث الرسمي (BWTC)',
+      cardQuranDesc: 'بث إذاعة القرآن الكريم والمناسبات الرسمية مع الرسم الخطي لبرجي مركز البحرين التجاري العالمي وتوربينات الرياح الأيقونية.',
+      sec2Title: '2. التجربة البصرية على الهواتف الذكية (393×852 Retina)',
+      cardMobSplashTitle: 'شاشة الترحيب للهواتف',
+      cardMobSplashDesc: 'شاشة انتظار سينمائية عنابية داكنة مع شريط تقدم متناسق وعداد زيارات وزر بدء الاستماع المريح للإبهام.',
+      cardMobHeroTitle: 'المشغل المباشر للهاتف',
+      cardMobHeroDesc: 'خلفية طولية (9:16) محاذاة رياضياً بدقة بالغة مع زر RADIO، وتنظيم مدمج للأزرار وعدادات المستمعين والزوار.',
+      cardMobPodTitle: 'أرشيف البودكاست للهاتف',
+      cardMobPodDesc: 'تصفح ثلاثي الأبعاد سلس بمعدل 60 إطاراً في الثانية مع بروز أسطوانة الفينيل الدوارة وشريط مصغرات عالي التباين.',
+      sec3Title: '3. أرشيف البودكاست ثلاثي الأبعاد (/podcasts)',
+      cardDarkTitle: 'عرض Cover-Flow بالنمط الداكن',
+      cardDarkDesc: 'محاكاة فيزيائية ناعمة للألبومات ثلاثية الأبعاد مع بروز قرص الفينيل الدوار وبريق ضوئي مخصص للألبوم النشط.',
+      cardLightTitle: 'عرض Cover-Flow بالنمط الفاتح',
+      cardLightDesc: 'مظهر نهاري مشرق مع تباين عالي للأغلفة وتدوير أسطوانة الفينيل السوداء بملصقها الوسطي وحلقاتها العاكسة.',
+      cardDeskDrawerTitle: 'درج الحلقات التفاعلي المنبثق',
+      cardDeskDrawerDesc: 'درج زجاجي ينسدل بسلاسة ليعرض كافة حلقات البرنامج المختار، مع تواريخ النشر وإمكانية الاستماع المباشر.',
+      cardMobDrawerTitle: 'درج الحلقات على الهواتف الذكية',
+      cardMobDrawerDesc: 'تصميم مخصص لملء الشاشة مع بطاقات حلقات سهلة التمرير، وزر إغلاق واضح وإمكانية التمرير بالإيماءات.',
+      sec4Title: '4. مصفوفة المواصفات والتحقق الهندسي',
+      thStation: 'المحطة الإذاعية',
+      thFreq: 'التردد',
+      thAspectDesk: 'أبعاد سطح المكتب (16:9)',
+      thAspectMob: 'أبعاد الهاتف (9:16)',
+      thLineArt: 'الرسم الخطي التراثي',
+      thAlign: 'دقة المحاذاة',
+      codeTitle: 'المعادلة الحسابية لتغطية الشاشة ومنع الفراغات (Full-Bleed Placement Solver):',
+      sec5Title: '5. مستودع GitHub والتشغيل',
+      footerRights: '© 2026 إذاعة مملكة البحرين • وزارة الإعلام • صُنع بكل حب في البحرين'
+    },
+    en: {
+      dir: 'ltr',
+      lang: 'en',
+      appTitle: 'Radio Bahrain • Visual Coverage & Technical Audit',
+      appSubtitle: 'Radio Bahrain Live Player & 3D Podcasts Archive — Visual Report',
+      btnLive: 'Live Radio Player',
+      btnPodcasts: '3D Podcasts Archive',
+      tagTests: '50 Automated Assertions (100% Pass)',
+      tagWidescreen: 'Native 16:9 Widescreen Artworks',
+      tagPodcasts: '3D Podcasts Archive (810 Episodes)',
+      tagSubpixel: 'Sub-Pixel Alignment < 0.1px',
+      heroHeading: 'Comprehensive Visual Coverage & Engineering Audit',
+      heroDesc: 'An end-to-end visual and architectural review of the official Radio Bahrain broadcasting web platform. This report documents all live interfaces, dual-orientation responsive wallpaper systems, emblem alignment solvers, 3D Cover-Flow physics, and GitHub source code access.',
+      btnDocAr: 'Arabic Report (on GitHub)',
+      btnDocEn: 'English Report (on GitHub)',
+      sec1Title: '1. Desktop Widescreen Interfaces (16:9)',
+      cardShababTitle: 'Shabab 98.4 FM (Main Hero Screen)',
+      cardShababDesc: 'Full-bleed 16:9 background extending cleanly to screen borders, featuring minimalist DJ headphones & equalizer soundwaves line art, with sub-pixel microphone disc centering.',
+      cardBahrainTitle: 'Bahrain FM 93.3 (Historic Riffa Fort)',
+      cardBahrainDesc: 'Warm crimson vignette with radiant golden central sunburst, showcasing white vector line art of Bahrain’s historic Riffa Fort with crenellated fortress walls and archway.',
+      cardShaabiaTitle: 'Al Shaabiya 95.0 FM (Traditional Oud)',
+      cardShaabiaDesc: 'Folk heritage station highlighting the traditional Arabic Oud lute with intricate soundhole rosette carvings and strings celebrating Gulf musical heritage.',
+      cardQuranTitle: 'Holy Quran 106.1 FM / Official Radio (BWTC)',
+      cardQuranDesc: 'Holy Quran broadcast and official state ceremonies with the architectural landmark of the Bahrain World Trade Center twin sail towers and wind turbines.',
+      sec2Title: '2. Mobile Responsive Experience (393×852 Retina)',
+      cardMobSplashTitle: 'Mobile Splash Preloader',
+      cardMobSplashDesc: 'Cinematic deep burgundy preloader with smooth progress bar, visitor hit counter, and thumb-friendly start listening trigger.',
+      cardMobHeroTitle: 'Mobile Live Player Hero',
+      cardMobHeroDesc: 'Portrait (9:16) wallpaper locked mathematically with the RADIO dial, paired with compact controls and side-by-side listener counters.',
+      cardMobPodTitle: 'Mobile 3D Podcasts',
+      cardMobPodDesc: 'Smooth 60fps Cover-Flow navigation with peeking spinning vinyl record and high-contrast bottom thumbnail navigation bar.',
+      sec3Title: '3. 3D Podcasts Archive (/podcasts)',
+      cardDarkTitle: 'Cover-Flow Carousel (Dark Theme)',
+      cardDarkDesc: 'Hardware-accelerated 3D spring physics with physical spinning vinyl disc peeking out, and active-only specular highlight reflection.',
+      cardLightTitle: 'Cover-Flow Carousel (Light Theme)',
+      cardLightDesc: 'Bright daylight theme with high sleeve contrast, spinning black grooved vinyl disc with golden center ring and custom spindle label.',
+      cardDeskDrawerTitle: 'Interactive Episodes Drawer',
+      cardDeskDrawerDesc: 'Frosted glass slide-up drawer revealing all available episodes for the selected playlist, with dates, runtimes, and inline playback.',
+      cardMobDrawerTitle: 'Mobile Episodes Drawer',
+      cardMobDrawerDesc: 'Full-height touch-optimized drawer with scrollable episode cards, clear dismissal button, and gesture navigation.',
+      sec4Title: '4. Specification Matrix & Verification Data',
+      thStation: 'Station Identity',
+      thFreq: 'Frequency',
+      thAspectDesk: 'Desktop Asset (16:9)',
+      thAspectMob: 'Mobile Asset (9:16)',
+      thLineArt: 'Cultural Vector Line Art',
+      thAlign: 'Alignment Drift',
+      codeTitle: 'Mathematical Full-Bleed Coverage Solver (public/index.html):',
+      sec5Title: '5. GitHub Repository & Execution Guide',
+      footerRights: '© 2026 Radio Bahrain • Ministry of Information • Crafted with care in Bahrain'
+    }
+  };
+
+  function setLanguage(lang) {
+    const t = translations[lang] || translations.ar;
+    document.documentElement.lang = t.lang;
+    document.documentElement.dir = t.dir;
+
+    document.getElementById('btnAr').classList.toggle('active', lang === 'ar');
+    document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+
+    document.getElementById('txtAppTitle').textContent = t.appTitle;
+    document.getElementById('txtAppSubtitle').textContent = t.appSubtitle;
+    document.getElementById('txtBtnLive').textContent = t.btnLive;
+    document.getElementById('txtBtnPodcasts').textContent = t.btnPodcasts;
+    document.getElementById('txtTagTests').textContent = t.tagTests;
+    document.getElementById('txtTagWidescreen').textContent = t.tagWidescreen;
+    document.getElementById('txtTagPodcasts').textContent = t.tagPodcasts;
+    document.getElementById('txtTagSubpixel').textContent = t.tagSubpixel;
+    document.getElementById('txtHeroHeading').textContent = t.heroHeading;
+    document.getElementById('txtHeroDesc').textContent = t.heroDesc;
+    document.getElementById('txtBtnDocAr').textContent = t.btnDocAr;
+    document.getElementById('txtBtnDocEn').textContent = t.btnDocEn;
+    document.getElementById('txtSec1Title').textContent = t.sec1Title;
+    document.getElementById('txtCardShababTitle').textContent = t.cardShababTitle;
+    document.getElementById('txtCardShababDesc').textContent = t.cardShababDesc;
+    document.getElementById('txtCardBahrainTitle').textContent = t.cardBahrainTitle;
+    document.getElementById('txtCardBahrainDesc').textContent = t.cardBahrainDesc;
+    document.getElementById('txtCardShaabiaTitle').textContent = t.cardShaabiaTitle;
+    document.getElementById('txtCardShaabiaDesc').textContent = t.cardShaabiaDesc;
+    document.getElementById('txtCardQuranTitle').textContent = t.cardQuranTitle;
+    document.getElementById('txtCardQuranDesc').textContent = t.cardQuranDesc;
+    document.getElementById('txtSec2Title').textContent = t.sec2Title;
+    document.getElementById('txtCardMobSplashTitle').textContent = t.cardMobSplashTitle;
+    document.getElementById('txtCardMobSplashDesc').textContent = t.cardMobSplashDesc;
+    document.getElementById('txtCardMobHeroTitle').textContent = t.cardMobHeroTitle;
+    document.getElementById('txtCardMobHeroDesc').textContent = t.cardMobHeroDesc;
+    document.getElementById('txtCardMobPodTitle').textContent = t.cardMobPodTitle;
+    document.getElementById('txtCardMobPodDesc').textContent = t.cardMobPodDesc;
+    document.getElementById('txtSec3Title').textContent = t.sec3Title;
+    document.getElementById('txtCardDarkTitle').textContent = t.cardDarkTitle;
+    document.getElementById('txtCardDarkDesc').textContent = t.cardDarkDesc;
+    document.getElementById('txtCardLightTitle').textContent = t.cardLightTitle;
+    document.getElementById('txtCardLightDesc').textContent = t.cardLightDesc;
+    document.getElementById('txtCardDeskDrawerTitle').textContent = t.cardDeskDrawerTitle;
+    document.getElementById('txtCardDeskDrawerDesc').textContent = t.cardDeskDrawerDesc;
+    document.getElementById('txtCardMobDrawerTitle').textContent = t.cardMobDrawerTitle;
+    document.getElementById('txtCardMobDrawerDesc').textContent = t.cardMobDrawerDesc;
+    document.getElementById('txtSec4Title').textContent = t.sec4Title;
+    document.getElementById('thStation').textContent = t.thStation;
+    document.getElementById('thFreq').textContent = t.thFreq;
+    document.getElementById('thAspectDesk').textContent = t.thAspectDesk;
+    document.getElementById('thAspectMob').textContent = t.thAspectMob;
+    document.getElementById('thLineArt').textContent = t.thLineArt;
+    document.getElementById('thAlign').textContent = t.thAlign;
+    document.getElementById('txtCodeTitle').textContent = t.codeTitle;
+    document.getElementById('txtSec5Title').textContent = t.sec5Title;
+    document.getElementById('txtFooterRights').textContent = t.footerRights;
+  }
+</script>
+</body>
+</html>

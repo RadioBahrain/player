@@ -66,9 +66,18 @@ export async function build() {
   await mkdir("public/podcasts", { recursive: true });
   await copyFile("public/podcasts.html", "public/podcasts/index.html");
 
+  await mkdir("public/report", { recursive: true });
+  await copyFile("public/report.html", "public/report/index.html");
+
   await mkdir("dist/lib", { recursive: true });
   await copyFile("node_modules/gsap/dist/gsap.js", "dist/lib/gsap.js");
   await copyFile("node_modules/hls.js/dist/hls.js", "dist/lib/hls.js");
+
+  await mkdir("dist/podcasts", { recursive: true });
+  await copyFile("public/podcasts.html", "dist/podcasts/index.html");
+
+  await mkdir("dist/report", { recursive: true });
+  await copyFile("public/report.html", "dist/report/index.html");
 
   console.log(`📝 Updating index.html paths and embedding version v${version}...`);
   const indexPath = join("dist", "index.html");

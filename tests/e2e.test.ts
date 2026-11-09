@@ -62,6 +62,8 @@ test("Favicons & Web Manifest are served with HTTP 200 and valid content-types",
     { path: "/lib/hls.js", type: "javascript" },
     { path: "/podcasts", type: "text/html" },
     { path: "/podcasts.html", type: "text/html" },
+    { path: "/report", type: "text/html" },
+    { path: "/report.html", type: "text/html" },
   ];
 
   for (const asset of assets) {
