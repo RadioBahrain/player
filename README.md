@@ -5,7 +5,7 @@
 # Radio Bahrain Player & 3D Podcasts Archive
 ### إذاعة مملكة البحرين • البث الإذاعي المباشر والأرشيف الصوتي الرقمي ثلاثي الأبعاد
 
-**[النسخة العربية (Arabic README)](./README.ar.md)** • **[Technical & Architectural Overview](./docs/player-overview.md)** • **[Live Production Demo](https://boreal-anchor-mg6e.here.now/)**
+**[النسخة العربية (Arabic README)](./README.ar.md)** • **[Technical & Architectural Overview](./docs/player-overview.md)** • **[Live Production Demo](https://live.radiobh.here.now/)**
 
 ![Runtime](https://img.shields.io/badge/runtime-Bun-f472b6?logo=bun&logoColor=white)
 ![GSAP](https://img.shields.io/badge/animation-GSAP_3.12-88ce02)
@@ -224,7 +224,7 @@ php -S localhost:8011 -t ./
 | `bun run screenshots` | `bun run scripts/capture-screenshots.ts` | Standalone high-DPI (`2x` Retina) screenshot generator for all desktop and mobile views. |
 | `bun run favicons` | `python3 scripts/generate-favicons.py` | Regenerates all SVG, ICO, PNG, and Apple Touch icons in `public/`. |
 | `bun run deploy:dry` | `bun run scripts/deploy.ts --dry-run` | Validates version bump, `dist/` build, metadata stripping, and `755`/`644` permissions without uploading. |
-| `bun run deploy` | `bun run scripts/deploy.ts` | Increments patch version, builds and sanitizes `dist/`, normalizes permissions, and deploys to HereNow. |
+| `bun run deploy` / `bun run deploy:live` | `bun run scripts/deploy.ts` | Increments patch version, builds and sanitizes `dist/`, normalizes permissions, and deploys directly to `https://live.radiobh.here.now/`. |
 
 ---
 

@@ -5,7 +5,7 @@
 # مشغل إذاعة البحرين والأرشيف الصوتي الرقمي ثلاثي الأبعاد
 ### Radio Bahrain Live Player & 3D Podcasts Archive
 
-**[English README](./README.md)** • **[نظرة تقنية ومعمارية شاملة (Technical Overview)](./docs/player-overview.md)** • **[النسخة الحية (Live Demo)](https://boreal-anchor-mg6e.here.now/)**
+**[English README](./README.md)** • **[نظرة تقنية ومعمارية شاملة (Technical Overview)](./docs/player-overview.md)** • **[النسخة الحية (Live Demo)](https://live.radiobh.here.now/)**
 
 ![Runtime](https://img.shields.io/badge/runtime-Bun-f472b6?logo=bun&logoColor=white)
 ![GSAP](https://img.shields.io/badge/animation-GSAP_3.12-88ce02)
@@ -128,8 +128,10 @@ bun run build
 # التحقق من جاهزية النشر دون رفع الملفات
 bun run deploy:dry
 
-# النشر الكامل مع تحديث رقم الإصدار تلقائياً
+# النشر الكامل إلى الرابط الرسمي (https://live.radiobh.here.now/)
 bun run deploy
+# أو الأمر المرادف
+bun run deploy:live
 ```
 
 ---

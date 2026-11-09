@@ -1,6 +1,6 @@
 {
   "name": "radio-bahrain-player",
-  "version": "1.7.661",
+  "version": "1.7.663",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,6 +12,7 @@
     "test:e2e": "bun test tests/e2e.test.ts",
     "screenshots": "bun run scripts/capture-screenshots.ts",
     "deploy": "bun run scripts/deploy.ts",
+    "deploy:live": "bun run scripts/deploy.ts",
     "deploy:dry": "bun run scripts/deploy.ts --dry-run"
   },
   "dependencies": {

@@ -1,9 +1,12 @@
+#!/usr/bin/env bun
 import { access, chmod, readdir, readFile, stat, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { extname, join, relative } from "node:path";
 import { stripUnnecessaryFiles } from "../build";
 
 const DIST_DIR = "dist";
-const DEFAULT_DEPLOY_TARGET = "boreal-anchor-mg6e";
+const DEFAULT_DEPLOY_TARGET = "hollow-beacon-8wrp";
+const DEFAULT_DEPLOY_ACCOUNT = "radiobh";
+const DEFAULT_DEPLOY_LABEL = "live";
 
 function hasFlag(flag: string): boolean {
   return Bun.argv.includes(flag);
@@ -217,14 +220,214 @@ async function fixDistPermissions() {
   }
 }
 
-async function pushDeploy(target: string, dryRun: boolean) {
+async function collectFilesRecursive(
+  dir: string,
+  baseDir = dir
+): Promise<Array<{ path: string; fullPath: string; size: number; contentType: string }>> {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const files: Array<{ path: string; fullPath: string; size: number; contentType: string }> = [];
+
+  for (const entry of entries) {
+    const fullPath = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      if (entry.name !== "node_modules" && entry.name !== ".git") {
+        const subFiles = await collectFilesRecursive(fullPath, baseDir);
+        files.push(...subFiles);
+      }
+    } else if (entry.isFile()) {
+      if (entry.name === ".DS_Store" || entry.name === "Thumbs.db") continue;
+      const relPath = relative(baseDir, fullPath);
+      const st = await stat(fullPath);
+      const ext = extname(fullPath).toLowerCase();
+      let ct = "application/octet-stream";
+      if (ext === ".html") ct = "text/html; charset=utf-8";
+      else if (ext === ".js") ct = "text/javascript; charset=utf-8";
+      else if (ext === ".json") ct = "application/json";
+      else if (ext === ".svg") ct = "image/svg+xml";
+      else if (ext === ".png") ct = "image/png";
+      else if (ext === ".jpg" || ext === ".jpeg") ct = "image/jpeg";
+      else if (ext === ".ico") ct = "image/x-icon";
+      else if (ext === ".ttf") ct = "font/ttf";
+      else if (ext === ".webmanifest") ct = "application/manifest+json";
+
+      files.push({ path: relPath, fullPath, size: st.size, contentType: ct });
+    }
+  }
+  return files;
+}
+
+async function ensureSiteLabelAndAccess(
+  target: string,
+  label: string,
+  account: string,
+  apiKey: string
+) {
+  // 1. Ensure public access (anyone_with_link)
+  try {
+    const accRes = await fetch(`https://here.now/api/v1/publish/${target}/access`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+        "X-HereNow-Account": account,
+      },
+      body: JSON.stringify({ mode: "anyone_with_link" }),
+    });
+    if (accRes.ok) {
+      console.log(`[deploy] ✓ Access verified as public (anyone_with_link)`);
+    }
+  } catch (err) {
+    console.warn(`[deploy] ⚠️  Warning setting access policy:`, err);
+  }
+
+  // 2. Ensure site label
+  try {
+    const accListRes = await fetch("https://here.now/api/v1/accounts", {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+    if (!accListRes.ok) return;
+    const { accounts } = (await accListRes.json()) as any;
+    const matched = accounts.find((a: any) => a.subdomain === account || a.accountId === account);
+    if (!matched) return;
+
+    const labelUrl = `https://here.now/api/v1/accounts/${matched.accountId}/site-labels`;
+    const labelListRes = await fetch(labelUrl, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "X-HereNow-Account": account,
+      },
+    });
+    if (labelListRes.ok) {
+      const { siteLabels } = (await labelListRes.json()) as any;
+      const existing = (siteLabels || []).find((l: any) => l.slug === target && l.status === "active");
+      if (existing) {
+        if (existing.label !== label) {
+          await fetch(`${labelUrl}/${existing.label}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${apiKey}`,
+              "X-HereNow-Account": account,
+            },
+            body: JSON.stringify({ label }),
+          });
+          console.log(`[deploy] ✓ Site label updated to: ${label}.${account}.here.now`);
+        }
+      } else {
+        await fetch(labelUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+            "X-HereNow-Account": account,
+          },
+          body: JSON.stringify({ label, slug: target }),
+        });
+        console.log(`[deploy] ✓ Site label assigned: ${label}.${account}.here.now`);
+      }
+    }
+  } catch (err) {
+    console.warn(`[deploy] ⚠️  Warning verifying site label:`, err);
+  }
+}
+
+async function pushDeploy(
+  target: string,
+  dryRun: boolean,
+  account = DEFAULT_DEPLOY_ACCOUNT,
+  label = DEFAULT_DEPLOY_LABEL
+) {
   if (dryRun) {
-    console.log(`[deploy] Dry run enabled. Skipping upload to ${target}.`);
+    console.log(`[deploy] Dry run enabled. Skipping upload to ${target} (account: ${account}, label: ${label}).`);
     return;
   }
 
-  console.log(`[deploy] Uploading ${DIST_DIR} to ${target}...`);
-  await Bun.$`bunx herenowcli update ${target} ${DIST_DIR}`;
+  console.log(`[deploy] Uploading ${DIST_DIR} to ${target} (account: ${account})...`);
+  const cfgRaw = await readFile(join(process.env.HOME || "", ".herenow", "config.json"), "utf-8");
+  const { apiKey } = JSON.parse(cfgRaw);
+
+  const files = await collectFilesRecursive(DIST_DIR);
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`,
+    "X-HereNow-Client": "antigravity/deploy",
+  };
+  if (account) {
+    headers["X-HereNow-Account"] = account;
+  }
+
+  const updateRes = await fetch(`https://here.now/api/v1/publish/${target}`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({
+      files: files.map((f) => ({
+        path: f.path,
+        size: f.size,
+        contentType: f.contentType,
+      })),
+    }),
+  });
+
+  if (!updateRes.ok) {
+    const err = await updateRes.text();
+    throw new Error(`Failed to update publish (${updateRes.status}): ${err}`);
+  }
+
+  const updateData = (await updateRes.json()) as any;
+  const uploads = updateData.upload?.uploads || [];
+  console.log(`[deploy] Uploading ${uploads.length} changed files...`);
+
+  for (const up of uploads) {
+    const file = files.find((f) => f.path === up.path);
+    if (!file) throw new Error(`File not found for path: ${up.path}`);
+    const buffer = await readFile(file.fullPath);
+
+    let success = false;
+    let lastErr = "";
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const putHeaders: Record<string, string> = {
+          "Content-Type": file.contentType,
+          ...(up.headers || {}),
+        };
+        const upRes = await fetch(up.url, {
+          method: "PUT",
+          headers: putHeaders,
+          body: buffer,
+        });
+        if (upRes.ok) {
+          success = true;
+          break;
+        }
+        const errBody = await upRes.text();
+        lastErr = `HTTP ${upRes.status}: ${errBody}`;
+      } catch (err: any) {
+        lastErr = err?.message || String(err);
+      }
+      console.warn(`[deploy] Attempt ${attempt} failed for ${file.path}: ${lastErr}. Retrying...`);
+      await new Promise((r) => setTimeout(r, 1200 * attempt));
+    }
+
+    if (!success) {
+      throw new Error(`Failed to upload ${file.path}: ${lastErr}`);
+    }
+  }
+
+  const finRes = await fetch(updateData.upload.finalizeUrl, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ versionId: updateData.upload.versionId }),
+  });
+
+  if (!finRes.ok) {
+    const finErr = await finRes.text();
+    throw new Error(`Failed to finalize (${finRes.status}): ${finErr}`);
+  }
+
+  // Ensure routing and permissions
+  await ensureSiteLabelAndAccess(target, label, account, apiKey);
+
+  console.log(`[deploy] ✓ Live at: https://${label}.${account}.here.now/ (target: ${target})`);
 }
 
 async function main() {
@@ -232,6 +435,12 @@ async function main() {
   const skipBump = hasFlag("--no-bump") || hasFlag("--skip-bump");
   const targetArg = Bun.argv.find((arg) => arg.startsWith("--target="));
   const target = targetArg ? targetArg.slice("--target=".length) : DEFAULT_DEPLOY_TARGET;
+
+  const accountArg = Bun.argv.find((arg) => arg.startsWith("--account="));
+  const account = accountArg ? accountArg.slice("--account=".length) : DEFAULT_DEPLOY_ACCOUNT;
+
+  const labelArg = Bun.argv.find((arg) => arg.startsWith("--label="));
+  const label = labelArg ? labelArg.slice("--label=".length) : DEFAULT_DEPLOY_LABEL;
 
   const versionArg = Bun.argv.find((arg) => arg.startsWith("--version="));
   const targetVersion = versionArg ? versionArg.slice("--version=".length) : undefined;
@@ -260,9 +469,9 @@ async function main() {
   await fixDistPermissions();
 
   // 6. Push deploy
-  await pushDeploy(target, dryRun);
+  await pushDeploy(target, dryRun, account, label);
 
-  console.log(`[deploy] Done. Deployed v${nextVersion} to ${target}.`);
+  console.log(`[deploy] Done. Deployed v${nextVersion} to https://${label}.${account}.here.now/`);
 }
 
 main().catch((error) => {
