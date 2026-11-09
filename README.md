@@ -5,13 +5,13 @@
 # Radio Bahrain Player & 3D Podcasts Archive
 ### إذاعة مملكة البحرين • البث الإذاعي المباشر والأرشيف الصوتي الرقمي ثلاثي الأبعاد
 
-**[النسخة العربية (Arabic README)](./README.ar.md)** • **[Technical & Architectural Overview](./docs/player-overview.md)** • **[Live Production Demo](https://live.radiobh.here.now/)**
+**[النسخة العربية (Arabic README)](./README.ar.md)** • **[Visual Coverage Report](./docs/visual-coverage-report.md)** • **[تقرير التغطية البصرية](./docs/visual-coverage-report.ar.md)** • **[Technical Overview](./docs/player-overview.md)** • **[Live Production Demo](https://live.radiobh.here.now/)**
 
 ![Runtime](https://img.shields.io/badge/runtime-Bun-f472b6?logo=bun&logoColor=white)
 ![GSAP](https://img.shields.io/badge/animation-GSAP_3.12-88ce02)
 ![HLS.js](https://img.shields.io/badge/streaming-HLS.js-ff6600)
 ![Web Audio API](https://img.shields.io/badge/audio-Web_Audio_API-38bdf8)
-![E2E Visual Suite](https://img.shields.io/badge/E2E_Visual_Suite-49_assertions_passing-22c55e)
+![E2E Visual Suite](https://img.shields.io/badge/E2E_Visual_Suite-50_assertions_passing-22c55e)
 ![License](https://img.shields.io/badge/license-MIT-c8a96a)
 
 A self-contained, Bun-powered live radio broadcast player and interactive 3D digital podcasts archive for **Radio Bahrain (إذاعة مملكة البحرين)**. Engineered with a cinematic preloader splash, a 5-mode Web Audio API frequency visualizer, mathematically pixel-locked station artwork transitions, automatic YouTube Live broadcast coordination, and a 60fps **3D Vinyl Cover-Flow Archive (`/podcasts`)**.

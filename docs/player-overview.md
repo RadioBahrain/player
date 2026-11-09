@@ -25,23 +25,22 @@ The project is engineered to run identically under both **Bun's dynamic HTTP ser
 
 ---
 
-## 2. Pixel-Locked Background Artwork Alignment (`public/index.html`)
+## 2. Dual-Orientation Responsive Background Alignment (`public/index.html`)
 
-Every station background in `public/assets/` (`1136×2080`) contains a central circular red microphone emblem whose intrinsic geometry (`BG_ART`) is:
-- Aspect ratio: `aspect = 1136 / 2080`
-- Horizontal center: `cx = 0.501` (`569.1px` of `1136px`)
-- Vertical center: `cy = 0.417` (`867.4px` of `2080px`)
-- Intrinsic diameter: `d = 0.195` of image height (`405.6px` of `2080px`)
+Every station background is provided in two dedicated orientations:
+- **Mobile Portrait (`1136×2080`, 9:16)**: Built for smartphones with `BG_ART_PORTRAIT = { aspect: 1136/2080, cx: 0.501, cy: 0.417, d: 0.195 }`.
+- **Desktop Widescreen (`1376×768`, 16:9)**: Built for laptops and desktop monitors with `BG_ART_DESKTOP` parameters tuned per station (averaging `aspect: 1376/768, cx: ~0.500, cy: ~0.400, d: ~0.290`), completely eliminating black side voids.
 
-### Coordinate Solver (`syncBackgroundFocusToPlaybackButton()`)
-1. Measures the live `getBoundingClientRect()` of `#btnPower` (or `#splashLogo` while the splash screen is active) and divides out any temporary GSAP entrance scale transform to obtain the untransformed diameter `btnDiameter`.
-2. Computes the exact rendered image dimensions so the baked-in artwork disc matches the button diameter:
-   - `imgH = btnDiameter / BG_ART.d`
-   - `imgW = imgH * BG_ART.aspect`
-3. Computes the exact pixel offset so the artwork disc center `(0.501 * imgW, 0.417 * imgH)` lands directly on the button center `(ax, ay)`:
-   - `posX = ax - BG_ART.cx * imgW`
-   - `posY = ay - BG_ART.cy * imgH`
-4. Writes `--bg-size: <imgW>px <imgH>px` and `--bg-pos: <posX>px <posY>px` to `document.documentElement`, updating on GSAP `entranceTl` ticks, window resize, and mobile `visualViewport` events.
+### Full-Bleed Mathematical Placement Solver (`syncBackgroundFocusToPlaybackButton()`)
+1. Detects orientation via `window.innerWidth > window.innerHeight` and selects the corresponding background asset (`data-bg-desktop` vs `data-bg`) and `BG_ART` geometry.
+2. Measures the live `getBoundingClientRect()` of `#btnPower` (or `#splashLogo` while the splash screen is active) and untransforms the diameter `diameter`.
+3. Computes the required image height `h` across all vertical AND horizontal constraints:
+   $$\text{h} = \max\left( vh,\; \frac{vw}{\text{aspect}},\; \frac{\text{diameter}}{d},\; \frac{ay}{cy},\; \frac{vh - ay}{1 - cy},\; \frac{ax / cx}{\text{aspect}},\; \frac{(vw - ax) / (1 - cx)}{\text{aspect}} \right)$$
+4. Calculates pixel dimensions and offsets so the disc center locks directly onto the button center `(ax, ay)`:
+   - `w = h * aspect`
+   - `left = ax - cx * w`
+   - `top = ay - cy * h`
+5. Writes `--bg-size: <w>px <h>px` and `--bg-pos: <left>px <top>px` to `document.documentElement`, automatically re-synchronizing on window resize, device rotation, and GSAP entrance timeline ticks.
 
 | Desktop Alignment (`1440×900`) | Mobile Alignment (`393×852`) |
 | :---: | :---: |
@@ -89,7 +88,7 @@ Accessible at `/podcasts` and `/podcasts.html`, [`public/podcasts.html`](../publ
 
 ## 5. End-to-End Visual Verification (`tests/e2e.test.ts`)
 
-[`tests/e2e.test.ts`](../tests/e2e.test.ts) runs **49 automated assertions** using `bun:test` and `puppeteer-core`:
+[`tests/e2e.test.ts`](../tests/e2e.test.ts) runs **50 automated assertions** using `bun:test` and `puppeteer-core`:
 1. **Asset, Library & Route Delivery**: Confirms HTTP `200` and expected `Content-Type` headers for all favicons, `site.webmanifest`, `/lib/gsap.js`, `/lib/hls.js`, `/podcasts`, and `/podcasts.html`.
 2. **Desktop Live Player Verification (`1440×900`)**: Verifies splash dismissal, asserts `< 2px` background disc alignment, switches across all 4 stations (`Shabab 98.4`, `Bahrain 93.3`, `Shaabia 95.0`, `Holy Quran 106.1`), and captures desktop screenshots.
 3. **Mobile Live Player Verification (`393×852`)**: Verifies `< 2px` artwork disc alignment on mobile viewports and captures mobile splash and player screenshots.

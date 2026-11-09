@@ -5,13 +5,13 @@
 # مشغل إذاعة البحرين والأرشيف الصوتي الرقمي ثلاثي الأبعاد
 ### Radio Bahrain Live Player & 3D Podcasts Archive
 
-**[English README](./README.md)** • **[نظرة تقنية ومعمارية شاملة (Technical Overview)](./docs/player-overview.md)** • **[النسخة الحية (Live Demo)](https://live.radiobh.here.now/)**
+**[English README](./README.md)** • **[تقرير التغطية البصرية الشاملة](./docs/visual-coverage-report.ar.md)** • **[Visual Coverage Report](./docs/visual-coverage-report.md)** • **[نظرة تقنية ومعمارية (Technical Overview)](./docs/player-overview.md)** • **[النسخة الحية (Live Demo)](https://live.radiobh.here.now/)**
 
 ![Runtime](https://img.shields.io/badge/runtime-Bun-f472b6?logo=bun&logoColor=white)
 ![GSAP](https://img.shields.io/badge/animation-GSAP_3.12-88ce02)
 ![HLS.js](https://img.shields.io/badge/streaming-HLS.js-ff6600)
 ![Web Audio API](https://img.shields.io/badge/audio-Web_Audio_API-38bdf8)
-![E2E Visual Suite](https://img.shields.io/badge/E2E_Visual_Suite-49_assertions_passing-22c55e)
+![E2E Visual Suite](https://img.shields.io/badge/E2E_Visual_Suite-50_assertions_passing-22c55e)
 ![License](https://img.shields.io/badge/license-MIT-c8a96a)
 
 مشغل بث إذاعي مباشر وأرشيف بودكاست رقمي ثلاثي الأبعاد لـ **إذاعة مملكة البحرين (Radio Bahrain)**، يعمل محلياً بالكامل عبر بيئة **Bun** أو أي خادم ملفات ثابتة، ويتميز بشاشة ترحيب سينمائية، و5 أنماط لمؤثرات الطيف الصوتي عبر Web Audio API، ومحاذاة هندسية دقيقة لشعار الميكروفون، واكتشاف تلقائي للبث المرئي المباشر على يوتيوب، وأرشيف أسطوانات فينيل ثلاثي الأبعاد (`/podcasts`).
